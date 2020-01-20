@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Вход/регистрация</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-light navbar-expand-lg">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMenu">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html">Главная</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="profile.html">Личный кабинет</a>
+          </li>
+        </ul>
+      </div>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item disabled">
+          <a class="nav-link" href="auth.html">Вход</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container">
+      <div class="col-6 offset-3">
+        <nav class="nav-pills nav-justified">
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-register-tab" data-toggle="tab" href="#nav-register" role="tab" aria-controls="nav-register">Регистрация</a>
+            <a class="nav-item nav-link" id="nav-login-tab" data-toggle="tab" href="#nav-login" role="tab" aria-controls="nav-login">Вход</a>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-register" role="tabpanel" aria-labelledby="nav-register-tab">
+            <div class="form-group">
+              <input type="email" class="form-control" id="inputEmail2" placeholder="Адрес электронной почты" required>
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" id="inputPassword2" placeholder="Пароль" required>
+              <div class="help-block">Минимум 6 символов</div>
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" id="passwordConfirm" placeholder="Подтверждение пароля" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" id="inputFIO" placeholder="ФИО" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" id="inputOrg" placeholder="Организация" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" id="inputPos" placeholder="Должность" required>
+            </div>
+            <div class="form-row text-center">
+              <div class="col-12">
+                  <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#successful_register_modal">Регистрация</button>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="nav-login" role="tabpanel" aria-labelledby="nav-login-tab">
+            <div class="form-group">
+              <input type="email" class="form-control" id="inputEmail1" placeholder="Адрес электронной почты">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" id="inputPassword1" placeholder="Пароль">
+            </div>
+            <div class="form-row text-center">
+              <div class="col-12">
+                  <button type="submit" class="btn btn-primary">Вход</button>
+                  <div class="alert alert-danger" role="alert" style="display:none;">
+                    Неверное имя пользователя или пароль
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="successful_register_modal" tabindex="-1" role="dialog" aria-labelledby="successful_register_modal_label" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="successful_register_modal_label">Благодарим за регистрацию</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Пожалуйста, подтвердите свою учетную запись, перейдя по ссылке, которую мы отправили на указанный вами адрес. После подтверждения учетной записи вам будет доступен вход на сайт и все его разделы.
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <script type="text/javascript" src="js/modal.js"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
