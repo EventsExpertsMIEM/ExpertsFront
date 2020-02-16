@@ -1,8 +1,8 @@
-import {combineReducers} from "redux";
-import fetchReducer from "./fetchReducer";
-import {reducer as formReducer} from "redux-form";
+import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
+import fetchReducer from './fetchReducer';
 
 export default combineReducers({
-    data: fetchReducer,
-    form: formReducer,
+  data: fetchReducer,
+  form: formReducer,
 });
