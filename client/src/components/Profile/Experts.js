@@ -19,7 +19,7 @@ const Experts = (props) => {
   const { pristine, submitting, invalid } = props;
   const dispatch = useDispatch();
   const postData = useSelector((store) => store.form.questionCreation
-      && store.form.questionCreation.values);
+        && store.form.questionCreation.values);
   const onClick = (e) => {
     e.preventDefault();
     dispatch(postEvent(postData));
@@ -29,7 +29,7 @@ const Experts = (props) => {
   return (
     <div id="questions-tab">
       <form>
-        <p>Новый вопрос экспертам</p>
+        <h4>Новый вопрос экспертам</h4>
         {INPUT_FIELDS.map((input) => (
           <div className="form-group" key={input.placeholder}>
             {React.createElement(input.type, {
@@ -46,9 +46,13 @@ const Experts = (props) => {
           <input type="file" className="form-control-file" id="questionInputFiles" multiple />
         </div>
         <div className="form-group">
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="form-autocomplete">Теги</label>
-          <input type="search" id="form-autocomplete" className="form-control mdb-autocomplete" />
+          <input
+            type="search"
+            className="form-control mdb-autocomplete"
+            id="eventTags"
+            placeholder="Научные области (теги)"
+            required
+          />
         </div>
         <div className="form-group text-center">
           <input

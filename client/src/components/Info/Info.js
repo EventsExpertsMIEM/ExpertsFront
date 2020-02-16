@@ -45,8 +45,8 @@ const Info = () => (
     <form>
       <div className="form-group">
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label htmlFor="commentTextarea">Текст комментария</label>
-        <textarea className="form-control" id="commentTextarea" rows="3" />
+        <label htmlFor="commentTextarea"><h4>Текст комментария</h4></label>
+        <textarea className="form-control" id="commentTextarea" rows="3" required />
       </div>
       <div className="row">
         <div className="col-lg-8 col-md-8 col-sm-8">

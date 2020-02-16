@@ -3,12 +3,20 @@ import React from 'react';
 const PersonalInfo = () => (
   <form id="personal-info">
     <div
-      className="tab-pane show active"
+      className="tab-pane fade show active text-center"
       id="personal-info-tab"
       role="tabpanel"
       aria-labelledby="nav-personal-tab"
     >
-      <p>iivanov@mail.ru</p>
+      <img
+        alt="User Pic"
+        src=""
+        id="profile-image1"
+        className="img-fluid rounded"
+        style={{ width: '15rem' }}
+      />
+      <h4>Иванов Иван Иванович</h4>
+      <p>+7 999 123-45-67</p>
       <div className="form-group">
         <input
           type="text"

@@ -10,21 +10,6 @@ const Profile = () => {
   const { path, url } = useRouteMatch();
   return (
     <div className="container">
-      <div className="row d-flex flex-wrap align-items-center">
-        <div className="col-lg-4">
-          <img
-            alt="User Pic"
-            src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"
-            id="profile-image1"
-            className="img-fluid rounded"
-          />
-        </div>
-        <div className="col-lg-8">
-          <h4>Иванов Иван Иванович</h4>
-          <p className="font-weight-bold">МИЭМ НИУ ВШЭ</p>
-          <p className="font-italic">Старший научный сотрудник</p>
-        </div>
-      </div>
       <div className="row">
         <div className="col-lg-4">
           <nav className="nav flex-column">
@@ -59,6 +44,7 @@ const Profile = () => {
         </div>
         <div className="col-lg-8">
           <div className="tab-content" id="nav-tabContent">
+
             <Switch>
               <Route
                 path={`${path}`}
