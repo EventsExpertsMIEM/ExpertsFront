@@ -5,6 +5,7 @@ import {
 import PersonalInfo from './PerosnalInfo';
 import SecurityTab from './SecurityTab';
 import Events from './Experts';
+import requireAuth from "../requireAuth";
 
 const Profile = () => {
   const { path, url } = useRouteMatch();
@@ -62,4 +63,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default requireAuth(Profile);
