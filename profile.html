@@ -7,6 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="bootstrap.css">
 
     <title>Личный кабинет</title>
   </head>
@@ -38,11 +39,12 @@
             <a class="nav-link active" id="nav-personal-tab" data-toggle="tab" href="#personal-info-tab" role="tab" aria-controls="personal-info-tab">Персональная информация</a>
             <a class="nav-link" id="nav-security-tab" data-toggle="tab" href="#security-tab" role="tab" aria-controls="security-tab">Настройки безопасности</a>
             <a class="nav-link" id="nav-questions-tab" data-toggle="tab" href="#questions-tab" role="tab" aria-controls="questions-tab">Создать вопрос</a>
+            <a class="nav-link" id="nav-my-questions-tab" data-toggle="tab" href="#my-questions-tab" role="tab" aria-controls="my-questions-tab">Мои вопросы <span class="badge badge-light">2</span></a>
           </nav>
         </div>
         <div class="col-lg-8">
           <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active text-center" id="personal-info-tab" role="tabpanel" aria-labelledby="nav-personal-tab">
+            <div class="tab-pane fade show active text-center mt-3" id="personal-info-tab" role="tabpanel" aria-labelledby="nav-personal-tab">
               <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" id="profile-image1" class="img-fluid rounded" style="width: 15rem;">
               <h4>Иванов Иван Иванович</h4>
               <p>+7 999 123-45-67</p>
@@ -55,12 +57,12 @@
               </div>
               <div class="form-group text-center">
                   <button type="submit" class="btn btn-seconadary">Сохранить</button>
-                  <div class="alert alert-success" role="alert" >
+                  <div class="alert alert-success mt-2" role="alert" >
                         Данные о месте работы и должности сохранены
                   </div>  
               </div>              
             </div>
-            <div class="tab-pane fade" id="security-tab" role="tabpanel" aria-labelledby="nav-security-tab">
+            <div class="tab-pane fade mt-3" id="security-tab" role="tabpanel" aria-labelledby="nav-security-tab">
               <form>
                 <p>Смена пароля</p>
                 <div class="form-group">                  
@@ -74,14 +76,13 @@
                 </div>
                 <div class="form-group text-center">
                   <button type="submit" class="btn btn-seconadary">Сохранить</button>
-                  <div class="alert alert-success" role="alert" >
+                  <div class="alert alert-success mt-2" role="alert" >
                         Новый пароль сохранен
                   </div>  
                 </div>
               </form>
             </div>
-            <!-- сделать раздел "мои вопросы" и управление в нем, сделать алерты-->
-            <div class="tab-pane fade" id="questions-tab" role="tabpanel" aria-labelledby="nav-questions-tab">
+            <div class="tab-pane fade mt-3" id="questions-tab" role="tabpanel" aria-labelledby="nav-questions-tab">
               <form>
                 <h4>Новый вопрос экспертам</h4>
                 <div class="form-group">                  
@@ -102,6 +103,31 @@
                   <button type="submit" class="btn btn-secondary">Отправить</button>  
                 </div>
               </form>
+            </div>
+            <div class="tab-pane fade mt-3" id="my-questions-tab" role="tabpanel" aria-labelledby="nav-my-questions-tab">
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Тема вопроса</th>
+                    <th scope="col">Статус</th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td><a href="">Вопрос 1</a></td>
+                  <td>Открыт</td>
+                <tr>
+                  <td><a href="">Вопрос 2</a></td>
+                  <td>Новые ответы <span class="badge badge-light">1</span></td>
+                </tr>
+                <tr>
+                  <td><a href="">Вопрос 3</a></td>
+                  <td>Открыт</td>
+                </tr>
+                <tr>
+                  <td><a href="">Вопрос 4</a></td>
+                  <td>Зыкрыт</td>
+                </tr>
+              </table>
             </div>
           </div>
         </div>
