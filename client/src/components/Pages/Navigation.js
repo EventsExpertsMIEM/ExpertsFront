@@ -1,37 +1,27 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logout } from '../../actions';
 
-const Navigation = () => (
-  <nav className="navbar navbar-light bg-light navbar-expand-lg">
-    <button
-      className="navbar-toggler"
-      type="button"
-      data-target="#navbarMenu"
-      aria-controls="navbarMenu"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span className="navbar-toggler-icon" />
-    </button>
-    <div className="collapse navbar-collapse" id="navbarMenu">
-      <ul className="navbar-nav mr-auto">
-        <li className="nav-item active">
-          <Link to="/" className="nav-link">Главная</Link>
-        </li>
-        <li className="nav-item active disabled">
-          <Link to="/profile" className="nav-link">Личный кабинет</Link>
-        </li>
-      </ul>
-    </div>
-    <ul className="navbar-nav ml-auto">
-      <li className="nav-item">
-        <Link to="/auth/sigin" className="nav-link">Вход</Link>
-      </li>
-      <li className="nav-item">
-        <Link to="/auth/signup" className="nav-link">Регистрация</Link>
-      </li>
-    </ul>
-  </nav>
-);
+const Navigation = () => {
+  const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
+  const dispatch = useDispatch();
+  const onClick = () => dispatch(logout());
+
+  return (
+    <nav className="navbar navbar-light bg-light navbar-expand-lg">
+      <div className="navbar-nav mr-auto">
+        <Link to="/" className="nav-link">Главная</Link>
+        {isLoggedIn && <Link to="/profile" className="nav-link">Личный кабинет</Link>}
+      </div>
+      <div className="navbar-nav ml-auto">
+        {isLoggedIn === true
+          ? <Link to="/" className="nav-link" onClick={onClick}>Выход</Link>
+          : <Link to="/auth/login" className="nav-link">Вход</Link>}
+        <Link to="/auth/register" className="nav-link">Регистрация</Link>
+      </div>
+    </nav>
+  );
+};
 
 export default Navigation;

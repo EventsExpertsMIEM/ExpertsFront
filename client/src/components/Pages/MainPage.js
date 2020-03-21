@@ -1,46 +1,67 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchEvents } from '../../actions';
+import { getUserLoginStatus, getAllQuestions } from '../../actions';
 
 const MainPage = () => {
   // eslint-disable-next-line no-unused-vars
-  const data = useSelector((state) => state.data);
+  const questions = useSelector((store) => store.questions);
   const dispatch = useDispatch();
-  const onClick = () => dispatch(fetchEvents());
+  const onClick = () => dispatch(getAllQuestions());
 
   useEffect(() => {
-    dispatch(fetchEvents());
+    dispatch(getUserLoginStatus());
+    dispatch(getAllQuestions());
+    console.log(questions);
   }, [dispatch]);
+
 
   return (
     <div className="container">
-      {Array.from({ length: 3 }).map(() => (
-        <div className="card mb-3" key={Math.random()}>
-          <div className="card-body">
-            <h5 className="card-title">Снятся ли андроидам электроовцы?</h5>
-            <p className="card-text">
-              Дорогие коллеги, нужна консультация по малоисследованному, но в данный
-              момент
-              актуальному в моей дефтельности вопросу.
-            </p>
-            <Link to="/info" className="card-link btn btn-outline-primary">Подробности</Link>
-          </div>
-          <div className="card-footer">
-            <div className="row">
+      {Object.values(questions).map((question) => {
+        console.log(question);
+        const {
+          closed,
+          only_experts_answer: onlyExpertsAnswer,
+          only_chosen_tags: onlyChosenTags,
+          id,
+          u_id: userId,
+          email,
+          title,
+          body,
+          creation_date: creationDate,
+          score,
+          view_count: viewCount,
+          comment_count: commentCount,
+          tags,
+        } = question;
 
-              <div className="col-lg-10 col-md-10 col-sm-10 text-center">
-                <Link to="/" href="/" className="badge badge-primary">Робототехника</Link>
-                <Link to="/" href="/" className="badge badge-primary">Программирование МК</Link>
-                <Link to="/" href="/" className="badge badge-primary">Искуственный интеллект</Link>
-              </div>
-              <div className="col-lg-2 col-md-2 col-sm-2 text-muted text-center">
-                1 день назад
+        return (
+          <div className="card mb-3 mt-3" key={id}>
+            <div className="card-body">
+              <h5 className="card-title">{title}</h5>
+              <p className="card-text">
+                {body}
+              </p>
+              <Link to="/info" className="card-link btn btn-outline-primary">Подробности</Link>
+            </div>
+            <div className="card-footer">
+              <div className="row">
+
+                <div className="col-lg-10 col-md-10 col-sm-10 text-center">
+                  <Link to="/" href="/" className="badge badge-primary">Робототехника</Link>
+                  <Link to="/" href="/" className="badge badge-primary">Программирование МК</Link>
+                  <Link to="/" href="/" className="badge badge-primary">Искуственный интеллект</Link>
+                </div>
+                <div className="col-lg-2 col-md-2 col-sm-2 text-muted text-center">
+                  {creationDate}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
       <button
         type="button"
         className="btn btn-dark"

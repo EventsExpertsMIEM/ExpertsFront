@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Info = () => (
   <div className="container">
-    <div className="card mb-3">
+    <div className="card mb-3 mt-3">
       <div className="card-header">
         username
       </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { reduxForm, reset } from 'redux-form';
-import { postEvent } from '../../actions';
+import { addQuestion } from '../../../actions';
 
 const required = (value) => (value ? undefined : 'Обязательное поле');
 
@@ -22,13 +22,13 @@ const Experts = (props) => {
         && store.form.questionCreation.values);
   const onClick = (e) => {
     e.preventDefault();
-    dispatch(postEvent(postData));
+    dispatch(addQuestion(postData));
     dispatch(reset('questionCreation'));
     alert(`Отправлены данные: ${JSON.stringify(postData)}`);
   };
   return (
-    <div id="questions-tab">
-      <form>
+    <form id="questions-tab">
+      <div className="tab-pane show active mt-3" id="security" aria-labelledby="nav-security">
         <h4>Новый вопрос экспертам</h4>
         {INPUT_FIELDS.map((input) => (
           <div className="form-group" key={input.placeholder}>
@@ -63,8 +63,8 @@ const Experts = (props) => {
             disabled={pristine || submitting || invalid}
           />
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
 

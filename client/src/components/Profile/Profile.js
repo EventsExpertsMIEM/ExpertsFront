@@ -1,60 +1,91 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Link, Redirect, Route, Switch, useRouteMatch,
 } from 'react-router-dom';
-import PersonalInfo from './PerosnalInfo';
-import SecurityTab from './SecurityTab';
-import Events from './Experts';
-import requireAuth from "../requireAuth";
+import { useDispatch, useSelector } from 'react-redux';
+import ProfileTabs from './ProfileTabs';
+import QuestionsTabs from './QuestionsTabs';
+import { getUserInfo } from '../../actions';
+import requireAuth from '../requireAuth';
+
+const getTabs = () => [
+  {
+    tabUrl: 'personal-info',
+    info: 'Персональная информация',
+    component: ProfileTabs.PersonalInfo,
+  },
+  {
+    tabUrl: 'security',
+    info: 'Настройки безопасности',
+    component: ProfileTabs.SecurityTab,
+  },
+  {
+    tabUrl: 'create-question',
+    info: 'Создать вопрос',
+    component: QuestionsTabs.Experts,
+  },
+  {
+    tabUrl: 'personal-questions',
+    info: 'Мои вопросы',
+    badge: 3,
+    component: QuestionsTabs.MyQuestions,
+  },
+  {
+    tabUrl: 'personal-subscriptions',
+    info: 'Мои подписки',
+    badge: 2,
+    component: QuestionsTabs.Subscriptions,
+  }];
 
 const Profile = () => {
   const { path, url } = useRouteMatch();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+
+  const props = {
+    user,
+  };
+
+  useEffect(() => {
+    dispatch(getUserInfo(user.id));
+  }, [dispatch]);
+
+  const tabs = getTabs();
+
   return (
     <div className="container">
       <div className="row">
         <div className="col-lg-4">
           <nav className="nav flex-column">
-            <Link
-              className="nav-link active"
-              id="nav-personal-tab"
-              to={`${url}/personal-info-tab`}
-              role="tab"
-              aria-controls="personal-info-tab"
-            >
-              Персональная информация
-            </Link>
-            <Link
-              className="nav-link"
-              id="nav-security-tab"
-              to={`${url}/security-tab`}
-              role="tab"
-              aria-controls="security-tab"
-            >
-              Настройки безопасности
-            </Link>
-            <Link
-              className="nav-link"
-              id="nav-security-tab"
-              to={`${url}/create-question`}
-              role="tab"
-              aria-controls="security-tab"
-            >
-              Создать вопрос
-            </Link>
+            {tabs.map(({ tabUrl, info, badge }) => (
+              <Link
+                key={tabUrl}
+                className="nav-link active"
+                role="tab"
+                to={`${url}/${tabUrl}`}
+              >
+                {info}
+                {badge && <span className="badge badge-light">{badge}</span>}
+              </Link>
+            ))}
           </nav>
         </div>
         <div className="col-lg-8">
           <div className="tab-content" id="nav-tabContent">
-
             <Switch>
               <Route
-                path={`${path}`}
+                path={path}
                 exact
-                render={() => <Redirect to={`${path}/personal-info-tab`} />}
+                render={() => <Redirect to={`${path}/${tabs[0].tabUrl}`} />}
               />
-              <Route path={`${path}/personal-info-tab`} component={PersonalInfo} />
-              <Route path={`${path}/security-tab`} component={SecurityTab} />
-              <Route path={`${path}/create-question`} component={Events} />
+              {tabs.map(({ tabUrl, component }) => (
+                <Route
+                  key={tabUrl}
+                  exact
+                  path={`${path}/${tabUrl}`}
+                  component={typeof component === 'function' ? () => component(props) : component}
+                />
+              ))}
             </Switch>
           </div>
         </div>
