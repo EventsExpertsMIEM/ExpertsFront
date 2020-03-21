@@ -11,7 +11,9 @@ export const ACTION = {
   BAN_USER: 'BAN_USER',
   CHANGE_ROLE: 'CHANGE_ROLE',
   GET_USER_INFO: 'GET_USER_INFO',
+  GET_ALL_USERS: 'GET_ALL_USERS',
   CHANGE_USER_INFO: 'CHANGE_USER_INFO',
+  GET_USER_LOGIN_STATUS: 'GET_USER_LOGIN_STATUS',
   GET_USER_QUESTIONS: 'GET_USER_QUESTIONS',
   GET_USER_ARTICLES: 'GET_USER_ARTICLES',
   GET_USER_COMMENTS: 'GET_USER_COMMENTS',
@@ -28,114 +30,119 @@ export const ACTION = {
 };
 
 const METHODS = {
-  GET: 'GET',
-  POST: 'POST',
-  PUT: 'PUT',
-  DELETE: 'DELETE',
+  GET: 'get',
+  POST: 'post',
+  PUT: 'put',
+  DELETE: 'delete',
 };
 
 export const ACTION_MAP = {
   [ACTION.LOGIN]: {
-    path: 'login',
+    path: '/login',
     method: METHODS.POST,
   },
   [ACTION.LOGOUT]: {
-    path: 'logout',
+    path: '/logout',
     method: METHODS.GET,
   },
   [ACTION.REGISTER]: {
-    path: 'register',
+    path: '/register',
     method: METHODS.POST,
   },
   [ACTION.CONFIRM]: {
-    path: 'confirm',
+    path: '/confirm',
     method: METHODS.POST,
   },
   [ACTION.DELETE]: {
-    path: 'delete',
+    path: '/delete',
     method: METHODS.POST,
   },
   [ACTION.CLOSE_ALL_SESSIONS]: {
-    path: 'close_all_sessions',
+    path: '/close_all_sessions',
     method: METHODS.POST,
   },
   [ACTION.RESET_PASSWORD]: {
-    path: 'reset_password',
+    path: '/reset_password',
     method: METHODS.POST,
   },
   [ACTION.CHANGE_PASSWORD]: {
-    path: 'change_password',
+    path: '/change_password',
     method: METHODS.POST,
   },
   [ACTION.BAN_USER]: {
-    path: 'user/{id}/ban',
+    path: '/user/{id}/ban',
     method: METHODS.GET,
   },
   [ACTION.CHANGE_ROLE]: {
-    path: 'user/{id}/role/{role}',
+    path: '/user/{id}/role/{role}',
     method: METHODS.GET,
   },
-
+  [ACTION.GET_USER_LOGIN_STATUS]: {
+    path: '/login_status',
+    method: METHODS.GET,
+  },
   [ACTION.GET_USER_INFO]: {
-    path: 'user/{id}',
+    path: '/user',
+    method: METHODS.GET,
+  },
+  [ACTION.GET_ALL_USERS]: {
+    path: '/user/all',
     method: METHODS.GET,
   },
   [ACTION.CHANGE_USER_INFO]: {
-    path: 'user/{id}',
+    path: '/user/{id}',
     method: METHODS.PUT,
   },
   [ACTION.GET_USER_QUESTIONS]: {
-    path: 'user/{id}/questions',
+    path: '/user/{id}/questions',
     method: METHODS.GET,
   },
   [ACTION.GET_USER_ARTICLES]: {
-    path: 'user/{id}/articles',
+    path: '/user/{id}/articles',
     method: METHODS.GET,
   },
   [ACTION.GET_USER_COMMENTS]: {
-    path: 'user/{id}/comments',
+    path: '/user/{id}/comments',
     method: METHODS.GET,
   },
-
-
   [ACTION.GET_ALL_QUESTIONS]: {
-    path: 'questions',
+    path: '/question/all',
     method: METHODS.GET,
   },
   [ACTION.ADD_QUESTION]: {
-    path: 'question',
+    path: '/question',
     method: METHODS.POST,
   },
   [ACTION.GET_QUESTION]: {
-    path: 'question/{id}',
+    path: '/question/{id}',
     method: METHODS.GET,
   },
   [ACTION.UPDATE_QUESTION]: {
-    path: 'question/{id}',
+    path: '/question/{id}',
     method: METHODS.PUT,
   },
   [ACTION.DELETE_QUESTION]: {
-    path: 'question/{id}',
+    path: '/question/{id}',
     method: METHODS.DELETE,
   },
   [ACTION.GET_QUESTION_ANSWERS]: {
-    path: 'question/{id}/comments',
+    path: '/question/{id}/comments',
     method: METHODS.GET,
   },
   [ACTION.ADD_QUESTION_ANSWER]: {
-    path: 'question/{id}/comment',
+    path: '/question/{id}/comment',
     method: METHODS.POST,
   },
   [ACTION.INCREASE_VIEWS]: {
-    path: 'question/{id}/increase_views',
+    path: '/question/{id}/increase_views',
     method: METHODS.GET,
   },
   [ACTION.TOGGLE_UPVOTE]: {
-    path: 'question/{id}/toggle_upvote',
+    path: '/question/{id}/toggle_upvote',
     method: METHODS.GET,
   },
   [ACTION.TOGGLE_DOWNVOTE]: {
-    path: 'question/{id}/toggle_downvote',
+    path: '/question/{id}/toggle_downvote',
     method: METHODS.GET,
   },
 };

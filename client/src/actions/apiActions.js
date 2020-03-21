@@ -2,10 +2,10 @@
 import axios from 'axios';
 import { ACTION, ACTION_MAP } from './types';
 
-export const login0 = () => async (dispatch) => {
+export const login = (data) => async (dispatch) => {
   const { path, method } = ACTION_MAP.LOGIN;
   try {
-    const res = await axios[method](path);
+    const res = await axios[method](path, data);
     dispatch({
       type: ACTION.LOGIN,
       payload: res,
@@ -15,7 +15,7 @@ export const login0 = () => async (dispatch) => {
   }
 };
 
-export const logout0 = () => async (dispatch) => {
+export const logout = () => async (dispatch) => {
   const { path, method } = ACTION_MAP.LOGOUT;
   try {
     const res = await axios[method](path);
@@ -28,10 +28,10 @@ export const logout0 = () => async (dispatch) => {
   }
 };
 
-export const register0 = () => async (dispatch) => {
+export const register = (data) => async (dispatch) => {
   const { path, method } = ACTION_MAP.REGISTER;
   try {
-    const res = await axios[method](path);
+    const res = await axios[method](path, data);
     dispatch({
       type: ACTION.REGISTER,
       payload: res,
@@ -132,12 +132,42 @@ export const changeRole = () => async (dispatch) => {
   }
 };
 
-export const getUserInfo = () => async (dispatch) => {
+export const getUserLoginStatus = () => async (dispatch) => {
+  const { path, method } = ACTION_MAP.GET_USER_LOGIN_STATUS;
+  try {
+    const res = (await axios[method](path)).data;
+    console.log(res);
+    dispatch({
+      type: ACTION.GET_USER_LOGIN_STATUS,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const getUserInfo = (id) => async (dispatch) => {
   const { path, method } = ACTION_MAP.GET_USER_INFO;
   try {
-    const res = await axios[method](path);
+    const res = await axios[method](`${path}/${id}`);
+    console.log(res);
     dispatch({
       type: ACTION.GET_USER_INFO,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const getAllUsers = () => async (dispatch) => {
+  const { path, method } = ACTION_MAP.GET_ALL_USERS;
+  try {
+    console.log(path, method);
+    const res = await axios[method](path);
+    console.log(res);
+    dispatch({
+      type: ACTION.GET_ALL_USERS,
       payload: res,
     });
   } catch (err) {
@@ -200,7 +230,7 @@ export const getUserComments = () => async (dispatch) => {
 export const getAllQuestions = () => async (dispatch) => {
   const { path, method } = ACTION_MAP.GET_ALL_QUESTIONS;
   try {
-    const res = await axios[method](path);
+    const res = (await axios[method](path)).data;
     dispatch({
       type: ACTION.GET_ALL_QUESTIONS,
       payload: res,
@@ -327,14 +357,6 @@ export const toggleDownvote = () => async (dispatch) => {
   }
 };
 
-export const getQuestions = () => async (dispatch) => {
-  const res = (await axios.get('questions')).data;
-  dispatch({
-    type: ACTION.GET_ALL_QUESTIONS,
-    payload: res,
-  });
-};
-
 export const addQuestion = (event) => async (dispatch) => {
   event.mail = 'root_mail';
   event.date_time = event.date_time && event.date_time.replace(/T|:/g, '-');
@@ -351,65 +373,6 @@ export const addQuestion = (event) => async (dispatch) => {
   dispatch({
     type: ACTION.ADD_QUESTION,
   });
-};
-
-export const register = (registerData) => async (dispatch) => {
-  console.log(registerData);
-  // eslint-disable-next-line no-param-reassign
-  delete registerData.repeatPassword;
-  try {
-    const res = await axios.post('register', registerData);
-    console.log(res);
-    if (res.status === 200) {
-      alert(`User ${registerData.name} ${registerData.surname} registered successfully`);
-
-      dispatch({
-        type: ACTION.REGISTER,
-        payload: registerData,
-      });
-    }
-  } catch (error) {
-    console.dir(error);
-    alert(JSON.stringify(error, null, 4));
-  }
-};
-
-export const login = (loginData = { email: 'root_mail', password: '123' }) => async (dispatch) => {
-  console.log(loginData);
-  try {
-    const res = await axios.post('login', loginData);
-    // const res = await fetch('login', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json;charset=utf-8',
-    //   },
-    //   body: JSON.stringify({ email: 'root_mail', password: '123' }),
-    // });
-
-    console.log(res);
-    if (res.status === 200) {
-      alert(`User ${loginData.email} logged in successfully`);
-
-      dispatch({
-        type: ACTION.LOGIN,
-        payload: loginData,
-      });
-    }
-  } catch (error) {
-    console.log(error);
-    // alert(JSON.stringify(error, null, 4));
-  }
-};
-
-export const logout = () => async (dispatch) => {
-  try {
-    await axios.get('logout');
-    dispatch({
-      type: ACTION.LOGOUT,
-    });
-  } catch (error) {
-    console.dir(error);
-  }
 };
 
 export const question = (data = { text: 'куки' }) => async (dispatch) => {

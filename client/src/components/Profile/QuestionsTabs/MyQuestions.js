@@ -54,8 +54,6 @@ const Table = (props) => {
     data,
   });
 
-  console.log(headerGroups);
-
   return (
     <div className="tab-pane fade mt-3 active show">
       <table {...getTableProps()} className="table">

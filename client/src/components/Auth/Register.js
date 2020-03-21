@@ -7,7 +7,7 @@ import { register } from '../../actions';
 const required = (value) => (value ? undefined : 'Обязательное поле');
 
 // eslint-disable-next-line no-unused-vars
-const email = (value) => (value && (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) || value !== 'root_mail')
+const validateEmail = (value) => (value && (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) || value !== 'root_mail')
   ? 'Неверный формат email адреса' : undefined);
 
 // eslint-disable-next-line no-unused-vars
@@ -15,19 +15,23 @@ const uppercase = (data) => data && data[0].toUpperCase() + data.slice(1);
 
 const INPUTS_FIELDS = [
   {
-    name: 'email', type: 'email', placeholder: 'Адрес электронной почты', validate: [required],
+    name: 'email', type: 'email', placeholder: 'Адрес электронной почты', validate: required,
+  },
+  {
+    name: 'name', placeholder: 'Имя', validate: required,
+  },
+  {
+    name: 'surname', placeholder: 'Фамилия', validate: required,
+  },
+  {
+    name: 'position', placeholder: 'Должность', validate: required,
   },
   {
     name: 'password', type: 'password', placeholder: 'Пароль', validate: required,
   },
-  { name: 'repeatPassword', type: 'password', placeholder: 'Подтверждение пароля' },
   {
-    name: 'name',
-    placeholder: 'ФИО',
-    validate: required,
+    name: 'repeatPassword', type: 'password', placeholder: 'Подтверждение пароля', validate: required,
   },
-  { name: 'organization', type: 'text', placeholder: 'Организация' },
-  { name: 'position', type: 'text', placeholder: 'Должность' },
 ];
 
 const inputField = ({
@@ -40,7 +44,7 @@ const inputField = ({
   </div>
 );
 
-const SignUp = (props) => {
+const Register = (props) => {
   // eslint-disable-next-line react/prop-types
   const { pristine, submitting, invalid } = props;
   const dispatch = useDispatch();
@@ -49,9 +53,18 @@ const SignUp = (props) => {
 
   const onClick = (e) => {
     e.preventDefault();
-    dispatch(register(registerDate));
+
+    const {
+      email, name, surname, position, password,
+    } = registerDate;
+
+    const userData = {
+      email, name, surname, position, password,
+    };
+
+    dispatch(register(userData));
     dispatch(reset('register'));
-    alert(`Отправлены данные: ${JSON.stringify(registerDate, null, 4)}`);
+    alert(`Отправлены данные: ${JSON.stringify(userData, null, 4)}`);
   };
 
   return (
@@ -85,4 +98,4 @@ const SignUp = (props) => {
 export default reduxForm({
   form: 'register',
   initialValues: {},
-})(SignUp);
+})(Register);

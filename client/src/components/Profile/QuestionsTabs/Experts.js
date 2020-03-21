@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { reduxForm, reset } from 'redux-form';
-import { addQuestion } from '../../actions';
+import { addQuestion } from '../../../actions';
 
 const required = (value) => (value ? undefined : 'Обязательное поле');
 

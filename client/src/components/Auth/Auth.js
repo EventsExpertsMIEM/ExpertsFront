@@ -3,8 +3,8 @@ import {
   Link, Redirect, Route, Switch, useRouteMatch,
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import SignUp from './SignUp';
-import SignIn from './SignIn';
+import SignUp from './Register';
+import SignIn from './Login';
 
 const Auth = () => {
   const { path, url } = useRouteMatch();
@@ -17,25 +17,26 @@ const Auth = () => {
           <div className="nav nav-tabs" id="nav-tab" role="tablist">
             <Link
               className="nav-item nav-link"
-              to={`${url}/signup`}
+              to={`${url}/register`}
               role="tab"
+              aria-controls="register"
             >
               Регистрация
             </Link>
             <Link
               className="nav-item nav-link"
-              to={`${url}/sigin`}
+              to={`${url}/login`}
               role="tab"
-              aria-controls="sigin"
+              aria-controls="login"
             >
               Вход
             </Link>
           </div>
         </nav>
         <Switch>
-          <Route path={`${path}`} exact render={() => <Redirect to={`${path}/signup`} />} />
-          <Route path={`${path}/sigin`} component={SignIn} />
-          <Route path={`${path}/signup`} exact>
+          <Route path={`${path}`} exact render={() => <Redirect to={`${path}/register`} />} />
+          <Route path={`${path}/login`} component={SignIn} />
+          <Route path={`${path}/register`} exact>
             {signIn ? <Redirect to="/" /> : <SignUp />}
           </Route>
         </Switch>
