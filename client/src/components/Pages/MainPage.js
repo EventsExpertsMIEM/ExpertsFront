@@ -1,22 +1,23 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchEvents } from '../../actions';
+import { login, getQuestions, question } from '../../actions';
 
 const MainPage = () => {
   // eslint-disable-next-line no-unused-vars
   const data = useSelector((state) => state.data);
   const dispatch = useDispatch();
-  const onClick = () => dispatch(fetchEvents());
+  const onClick = () => dispatch(getQuestions());
 
   useEffect(() => {
-    dispatch(fetchEvents());
+    dispatch(login());
+    setTimeout(() => dispatch(question()), 1000);
   }, [dispatch]);
 
   return (
     <div className="container">
       {Array.from({ length: 3 }).map(() => (
-        <div className="card mb-3" key={Math.random()}>
+        <div className="card mb-3 mt-3" key={Math.random()}>
           <div className="card-body">
             <h5 className="card-title">Снятся ли андроидам электроовцы?</h5>
             <p className="card-text">

@@ -5,7 +5,9 @@ import {
 import PersonalInfo from './PerosnalInfo';
 import SecurityTab from './SecurityTab';
 import Events from './Experts';
-import requireAuth from "../requireAuth";
+import requireAuth from '../requireAuth';
+import MyQuestions from './MyQuestions';
+import Subscriptions from './Subscriptions';
 
 const Profile = () => {
   const { path, url } = useRouteMatch();
@@ -41,6 +43,26 @@ const Profile = () => {
             >
               Создать вопрос
             </Link>
+            <Link
+              className="nav-link"
+              id="my-questions-tab"
+              to={`${url}/my-questions-tab`}
+              role="tab"
+              aria-controls="security-tab"
+            >
+              Мои вопросы
+              <span className="badge badge-light">2</span>
+            </Link>
+            <Link
+              className="nav-link"
+              id="my-questions-tab"
+              to={`${url}/subscriptions`}
+              role="tab"
+              aria-controls="security-tab"
+            >
+              Мои подписки
+              <span className="badge badge-light">3</span>
+            </Link>
           </nav>
         </div>
         <div className="col-lg-8">
@@ -55,6 +77,8 @@ const Profile = () => {
               <Route path={`${path}/personal-info-tab`} component={PersonalInfo} />
               <Route path={`${path}/security-tab`} component={SecurityTab} />
               <Route path={`${path}/create-question`} component={Events} />
+              <Route path={`${path}/my-questions-tab`} component={MyQuestions} />
+              <Route path={`${path}/subscriptions`} component={Subscriptions} />
             </Switch>
           </div>
         </div>

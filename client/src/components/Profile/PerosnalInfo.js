@@ -3,20 +3,21 @@ import React from 'react';
 const PersonalInfo = () => (
   <form id="personal-info">
     <div
-      className="tab-pane fade show active text-center"
+      className="tab-pane fade show active text-center mt-3"
       id="personal-info-tab"
       role="tabpanel"
       aria-labelledby="nav-personal-tab"
     >
       <img
         alt="User Pic"
-        src=""
+        src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"
         id="profile-image1"
         className="img-fluid rounded"
         style={{ width: '15rem' }}
       />
       <h4>Иванов Иван Иванович</h4>
       <p>+7 999 123-45-67</p>
+      <p>iivanov@mail.ru</p>
       <div className="form-group">
         <input
           type="text"
@@ -39,7 +40,7 @@ const PersonalInfo = () => (
       </div>
       <div className="form-group text-center">
         <button type="submit" className="btn btn-seconadary">Сохранить</button>
-        <div className="alert alert-success" role="alert">
+        <div className="alert alert-success mt-2" role="alert">
           Данные о месте работы и должности сохранены
         </div>
       </div>

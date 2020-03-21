@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import p from 'immer';
-import { ActionTypes } from '../actions/types';
+import { ACTION } from '../actions/types';
 
 const INITIAL_STATE = {
   email: 'test@test.test',
@@ -10,14 +10,14 @@ const INITIAL_STATE = {
 // eslint-disable-next-line consistent-return
 export default p((state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case ActionTypes.REGISTER_USER:
+    case ACTION.REGISTER:
       state = action.payload;
       state.signIn = true;
       return state;
-    case ActionTypes.SIGNOUT:
+    case ACTION.LOGOUT:
       state = INITIAL_STATE;
       return state;
-    case ActionTypes.LOGIN_USER:
+    case ACTION.LOGIN:
       console.log('LOGIN_USER');
       break;
     default:
