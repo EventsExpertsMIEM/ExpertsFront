@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign, no-case-declarations */
 import p from 'immer';
 import { ACTION } from '../actions/types';
 
@@ -14,7 +15,7 @@ const INITIAL_STATE = [
     body: 'тело вопроса',
     creation_date: 1584641046.339018,
     score: 0,
-    view_count: 1,
+    view_count: 1, 
     comment_count: 20,
     tags: [],
   },
@@ -23,7 +24,6 @@ const INITIAL_STATE = [
 export default p((state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ACTION.GET_ALL_QUESTIONS:
-      // eslint-disable-next-line no-param-reassign
       state = action.payload;
       return state;
     default:
