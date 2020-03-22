@@ -28,8 +28,20 @@ export const logout = () => async (dispatch) => {
   }
 };
 
+/**
+ * @param {object} data
+ * @param {string} data.email
+ * @param {string} data.name
+ * @param {string} data.surname
+ * @param {string} data.position
+ * @param {string} data.password,
+ * @param {string} data.repeatPassword,
+ * @returns {function}
+ */
 export const register = (data) => async (dispatch) => {
   const { path, method } = ACTION_MAP.REGISTER;
+  delete data.repeatPassword;
+
   try {
     const res = await axios[method](path, data);
     dispatch({
@@ -136,7 +148,6 @@ export const getUserLoginStatus = () => async (dispatch) => {
   const { path, method } = ACTION_MAP.GET_USER_LOGIN_STATUS;
   try {
     const res = (await axios[method](path)).data;
-    console.log(res);
     dispatch({
       type: ACTION.GET_USER_LOGIN_STATUS,
       payload: res,
@@ -150,7 +161,6 @@ export const getUserInfo = (id) => async (dispatch) => {
   const { path, method } = ACTION_MAP.GET_USER_INFO;
   try {
     const res = await axios[method](`${path}/${id}`);
-    console.log(res);
     dispatch({
       type: ACTION.GET_USER_INFO,
       payload: res.data,
@@ -163,9 +173,7 @@ export const getUserInfo = (id) => async (dispatch) => {
 export const getAllUsers = () => async (dispatch) => {
   const { path, method } = ACTION_MAP.GET_ALL_USERS;
   try {
-    console.log(path, method);
     const res = await axios[method](path);
-    console.log(res);
     dispatch({
       type: ACTION.GET_ALL_USERS,
       payload: res,
@@ -240,10 +248,22 @@ export const getAllQuestions = () => async (dispatch) => {
   }
 };
 
-export const addQuestion0 = () => async (dispatch) => {
+/**
+ * @param {object} data
+ * @params {string} data.title
+ * @params {string} data.body
+ * @params {boolean} data.only_experts_answer
+ * @params {boolean} data.closed
+ * @params {boolean} data.only_chosen_tags
+ * @params {Array.<number>} data.tags
+ * @returns {function}
+ */
+export const addQuestion = (data) => async (dispatch) => {
   const { path, method } = ACTION_MAP.ADD_QUESTION;
+  data.tags = data.tags || [];
+
   try {
-    const res = await axios[method](path);
+    const res = await axios[method](path, data);
     dispatch({
       type: ACTION.ADD_QUESTION,
       payload: res,
@@ -354,36 +374,5 @@ export const toggleDownvote = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-  }
-};
-
-export const addQuestion = (event) => async (dispatch) => {
-  event.mail = 'root_mail';
-  event.date_time = event.date_time && event.date_time.replace(/T|:/g, '-');
-  event.presenters = '';
-  console.log(event);
-
-  try {
-    const res = await axios.post('create_event', event);
-    console.log(res);
-  } catch (error) {
-    console.error((error.message));
-    // alert(JSON.stringify(error.message));
-  }
-  dispatch({
-    type: ACTION.ADD_QUESTION,
-  });
-};
-
-export const question = (data = { text: 'куки' }) => async (dispatch) => {
-  console.log(data);
-  try {
-    const res = await axios.get('question/1/comments');
-    console.log('res', res);
-    dispatch({
-      type: ACTION.ADD_QUESTION,
-    });
-  } catch (error) {
-    console.dir(error);
   }
 };

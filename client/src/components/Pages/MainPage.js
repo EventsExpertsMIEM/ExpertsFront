@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserLoginStatus, getAllQuestions } from '../../actions';
+import { formatDetailedDateTime } from '../helpers/helpers';
 
 const MainPage = () => {
   // eslint-disable-next-line no-unused-vars
@@ -13,14 +14,12 @@ const MainPage = () => {
   useEffect(() => {
     dispatch(getUserLoginStatus());
     dispatch(getAllQuestions());
-    console.log(questions);
   }, [dispatch]);
 
 
   return (
     <div className="container">
       {Object.values(questions).map((question) => {
-        console.log(question);
         const {
           closed,
           only_experts_answer: onlyExpertsAnswer,
@@ -55,7 +54,7 @@ const MainPage = () => {
                   <Link to="/" href="/" className="badge badge-primary">Искуственный интеллект</Link>
                 </div>
                 <div className="col-lg-2 col-md-2 col-sm-2 text-muted text-center">
-                  {creationDate}
+                  {formatDetailedDateTime(creationDate)}
                 </div>
               </div>
             </div>

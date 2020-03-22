@@ -22,7 +22,7 @@ const getTabs = () => [
   {
     tabUrl: 'create-question',
     info: 'Создать вопрос',
-    component: QuestionsTabs.Experts,
+    component: QuestionsTabs.CreateQuestion,
   },
   {
     tabUrl: 'personal-questions',
