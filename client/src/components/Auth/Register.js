@@ -3,28 +3,23 @@ import React from 'react';
 import { Field, reduxForm, reset } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../actions';
-
-const required = (value) => (value ? undefined : 'Обязательное поле');
-
-// eslint-disable-next-line no-unused-vars
-const validateEmail = (value) => (value && (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) || value !== 'root_mail')
-  ? 'Неверный формат email адреса' : undefined);
-
-// eslint-disable-next-line no-unused-vars
-const uppercase = (data) => data && data[0].toUpperCase() + data.slice(1);
+import {
+  renderInputField, required, uppercase, validateEmail,
+} from '../helpers/helpers';
+import { FIELD_NAMES } from '../helpers/consts';
 
 const INPUTS_FIELDS = [
   {
-    name: 'email', type: 'email', placeholder: 'Адрес электронной почты', validate: required,
+    name: 'email', type: 'email', placeholder: 'Адрес электронной почты', validate: [required, validateEmail],
   },
   {
-    name: 'name', placeholder: 'Имя', validate: required,
+    name: 'name', placeholder: 'Имя', validate: required, normalize: uppercase,
   },
   {
-    name: 'surname', placeholder: 'Фамилия', validate: required,
+    name: 'surname', placeholder: 'Фамилия', validate: required, normalize: uppercase,
   },
   {
-    name: 'position', placeholder: 'Должность', validate: required,
+    name: 'position', placeholder: 'Должность', validate: required, normalize: uppercase,
   },
   {
     name: 'password', type: 'password', placeholder: 'Пароль', validate: required,
@@ -34,37 +29,17 @@ const INPUTS_FIELDS = [
   },
 ];
 
-const inputField = ({
-  // eslint-disable-next-line react/prop-types
-  input, meta: { touched, error }, name, ...props
-}) => (
-  <div className="form-group">
-    <input {...input} autoComplete={name} className="form-control" form="register" {...props} />
-    {error && touched && <p className="text-danger">{error}</p>}
-  </div>
-);
-
 const Register = (props) => {
   // eslint-disable-next-line react/prop-types
   const { pristine, submitting, invalid } = props;
   const dispatch = useDispatch();
-  const registerDate = useSelector((store) => store.form.register && store.form.register.values);
-  const passwordsMatch = registerDate.password === registerDate.repeatPassword;
+  const registerData = useSelector((store) => store.form.register && store.form.register.values);
+  const passwordsMatch = registerData.password === registerData.repeatPassword;
 
   const onClick = (e) => {
     e.preventDefault();
-
-    const {
-      email, name, surname, position, password,
-    } = registerDate;
-
-    const userData = {
-      email, name, surname, position, password,
-    };
-
-    dispatch(register(userData));
-    dispatch(reset('register'));
-    alert(`Отправлены данные: ${JSON.stringify(userData, null, 4)}`);
+    dispatch(register(registerData));
+    dispatch(reset(FIELD_NAMES.REGISTER));
   };
 
   return (
@@ -74,7 +49,7 @@ const Register = (props) => {
           <Field
             key={input.name}
             name={input.name}
-            component={inputField}
+            component={renderInputField}
             {...input}
           />
         ))}
@@ -96,6 +71,6 @@ const Register = (props) => {
 };
 
 export default reduxForm({
-  form: 'register',
+  form: FIELD_NAMES.REGISTER,
   initialValues: {},
 })(Register);

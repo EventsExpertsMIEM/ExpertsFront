@@ -24,6 +24,7 @@ module.exports = {
     rules: {
         "no-console": "off",
         "no-alert": "off",
+        "camelcase": "off",
         "react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}],
     }
 };

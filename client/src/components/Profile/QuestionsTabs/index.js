@@ -1,9 +1,9 @@
 import MyQuestions from './MyQuestions';
 import Subscriptions from './Subscriptions';
-import Experts from './Experts';
+import CreateQuestion from './CreateQuestion';
 
 export default {
   MyQuestions,
   Subscriptions,
-  Experts,
+  CreateQuestion,
 };

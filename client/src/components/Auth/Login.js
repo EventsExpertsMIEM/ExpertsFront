@@ -5,27 +5,19 @@ import { useDispatch, useSelector } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import { Redirect, Route, useRouteMatch } from 'react-router-dom';
 import { login } from '../../actions';
-
-const required = (value) => (value ? undefined : 'Обязательное поле');
+import {
+  renderInputField, required, validateEmail,
+} from '../helpers/helpers';
+import { FIELD_NAMES } from '../helpers/consts';
 
 const INPUTS_FIELDS = [
   {
-    name: 'email', type: 'email', placeholder: 'Адрес электронной почты', validate: [required],
+    name: 'email', type: 'email', placeholder: 'Адрес электронной почты', validate: [required, validateEmail],
   },
   {
     name: 'password', type: 'password', placeholder: 'Пароль', validate: required,
   },
 ];
-
-const inputField = ({
-  // eslint-disable-next-line react/prop-types
-  input, meta: { touched, error }, name, ...props
-}) => (
-  <div className="form-group">
-    <input {...input} autoComplete={name} className="form-control" form="register" {...props} />
-    {error && touched && <p className="text-danger">{error}</p>}
-  </div>
-);
 
 const Login = (props) => {
   // eslint-disable-next-line react/prop-types
@@ -39,8 +31,7 @@ const Login = (props) => {
   const onClick = (e) => {
     e.preventDefault();
     dispatch(login(loginData));
-    dispatch(reset('register'));
-    alert(`Отправлены данные: ${JSON.stringify(loginData, null, 4)}`);
+    dispatch(reset(FIELD_NAMES.LOGIN));
   };
 
   return (
@@ -60,7 +51,7 @@ const Login = (props) => {
                 <Field
                   key={input.name}
                   name={input.name}
-                  component={inputField}
+                  component={renderInputField}
                   {...input}
                 />
               ))}
@@ -82,6 +73,6 @@ const Login = (props) => {
 };
 
 export default reduxForm({
-  form: 'login',
+  form: FIELD_NAMES.LOGIN,
   initialValues: {},
 })(Login);
