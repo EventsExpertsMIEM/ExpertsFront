@@ -12,7 +12,7 @@ const App = () => (
     <Navigation />
     <Switch>
       <Route path="/" exact component={MainPage} />
-      <Route path="/info" component={Info} />
+      <Route path="/info/:id" component={Info} />
       <Route path="/profile" component={Profile} />
       <Route path="/auth" component={Auth} />
       <Route path="*" component={NotFoundPage} />
