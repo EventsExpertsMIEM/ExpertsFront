@@ -24,6 +24,15 @@
           <li class="nav-item active disabled">
             <a class="nav-link" href="profile.html">Личный кабинет</a>
           </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="articles.html">Статьи</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="new_question.html">Создать вопрос</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="new_article.html">Создать статью</a>
+          </li>
         </ul>
       </div>
       <ul class="navbar-nav ml-auto">
@@ -38,7 +47,6 @@
           <nav class="nav flex-column"> 
             <a class="nav-link active" id="nav-personal-tab" data-toggle="tab" href="#personal-info-tab" role="tab" aria-controls="personal-info-tab">Персональная информация</a>
             <a class="nav-link" id="nav-security-tab" data-toggle="tab" href="#security-tab" role="tab" aria-controls="security-tab">Настройки безопасности</a>
-            <a class="nav-link" id="nav-questions-tab" data-toggle="tab" href="#questions-tab" role="tab" aria-controls="questions-tab">Создать вопрос</a>
             <a class="nav-link" id="nav-my-questions-tab" data-toggle="tab" href="#my-questions-tab" role="tab" aria-controls="my-questions-tab">Мои вопросы <span class="badge badge-light">2</span></a>
           </nav>
         </div>
@@ -79,28 +87,6 @@
                   <div class="alert alert-success mt-2" role="alert" >
                         Новый пароль сохранен
                   </div>  
-                </div>
-              </form>
-            </div>
-            <div class="tab-pane fade mt-3" id="questions-tab" role="tabpanel" aria-labelledby="nav-questions-tab">
-              <form>
-                <h4>Новый вопрос экспертам</h4>
-                <div class="form-group">                  
-                  <input type="text" class="form-control" id="questionTitle" placeholder="Тема вопроса" required>
-                </div>
-                <div class="form-group">                  
-                  <textarea class="form-control" id="questionText" rows="5"  placeholder="Текст вопроса" required></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="questionInputFiles">Прикрепить файлы</label>
-                  <input type="file" class="form-control-file" id="questionInputFiles" multiple>
-                </div>
-                <div class="form-group">
-                  <input type="search" class="form-control mdb-autocomplete" id="eventTags" placeholder="Научные области (теги)" required>
-                  <!-- нашла вариант на angular (кажется), Артем, сделай пожалуйста на реакте, мне нужно описать тебе, как я хочу это выглядеть -->
-                </div>
-                <div class="form-group text-center">
-                  <button type="submit" class="btn btn-secondary">Отправить</button>  
                 </div>
               </form>
             </div>

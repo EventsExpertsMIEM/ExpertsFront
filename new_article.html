@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="bootstrap.css">
+
+    <title>Новая статья</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-light navbar-expand-lg">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMenu">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html">Главная</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="profile.html">Личный кабинет</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="articles.html">Статьи</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="new_question.html">Создать вопрос</a>
+          </li>
+          <li class="nav-item active disabled">
+            <a class="nav-link" href="new_article.html">Создать статью</a>
+          </li>
+        </ul>
+      </div>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="auth.html">Выход</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container">
+      <form class="mt-3">
+        <h3>Новый вопрос экспертам</h3>
+        <div class="form-group">                  
+          <input type="text" class="form-control" id="articleTitle" placeholder="Тема статьи" required>
+        </div>
+        <div class="form-group">                  
+          <textarea class="form-control" id="articleText" rows="30"  placeholder="Текст статьи" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="questionInputFiles">Прикрепить файлы</label>
+          <input type="file" class="form-control-file" id="articleInputFiles" multiple>
+        </div>
+        <div class="form-group">
+          <input type="search" class="form-control mdb-autocomplete" id="eventTags" placeholder="Научные области (теги)" required>
+          <!-- нашла вариант на angular (кажется), Артем, сделай пожалуйста на реакте, мне нужно описать тебе, как я хочу это выглядеть -->
+        </div>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-secondary">Отправить</button>  
+        </div>
+      </form>
+
+    </div>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
