@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="bootstrap.css">
+
+    <title>Статьм</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-light navbar-expand-lg">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMenu">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html">Главная</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="profile.html">Личный кабинет</a>
+          </li>
+          <li class="nav-item active disabled">
+            <a class="nav-link" href="articles.html">Статьи</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="new_question.html">Создать вопрос</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="new_article.html">Создать статью</a>
+          </li>
+        </ul>
+      </div>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="auth.html">Выход</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container">
+      <h3>Каталог всех статей</h3>
+      <h4>Последние опубликованные статьи:</h4>
+      <ul>
+        <li>Название статьи 1</li>
+        <li>Название статьи 2</li>
+        <li>Название статьи 3</li>
+      </ul>
+      <form class="form-group">
+        <div class="row">
+          <div class="col-9">
+            <input class="form-control" type="search" placeholder="Поиск по названиям статей" aria-label="Search">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Название</th>
+                  <th scope="col">Автор</th>
+                  <th scope="col">Дата публикации</th>
+                  <th scope="col">Научные области</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="article1.html">Название 1</a></td>
+                  <td>Иванов И.И.</td>
+                  <td>02.03.2020</td>
+                  <td><a href="#" class="badge badge-primary">Робототехника</a>
+                <a href="#" class="badge badge-primary">Программирование МК</a>
+                <a href="#" class="badge badge-primary">Искуственный интеллект</a></td>
+                </tr>
+                <tr>
+                  <td>Название 2</td>
+                  <td>Иванов И.И.</td>
+                  <td>17.03.2020</td>
+                  <td><a href="#" class="badge badge-primary">Робототехника</a>
+                <a href="#" class="badge badge-primary">Программирование МК</a>
+                <a href="#" class="badge badge-primary">Искуственный интеллект</a></td>
+                </tr>
+                <tr>
+                  <td>Название 3</td>
+                  <td>Иванов И.И.</td>
+                  <td>24.03.2020</td>
+                  <td><a href="#" class="badge badge-primary">Робототехника</a>
+                <a href="#" class="badge badge-primary">Программирование МК</a>
+                <a href="#" class="badge badge-primary">Искуственный интеллект</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-outline-primary" type="submit">Искать</button>
+            <div class="form-check mt-2">
+              <input class="form-check-input" type="checkbox" id="tagCheck1">
+              <label class="form-check-label" for="tagCheck1">
+                Программирование МК
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="tagCheck1">
+              <label class="form-check-label" for="tagCheck2">
+                Робототехника
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="tagCheck1">
+              <label class="form-check-label" for="tagCheck3">
+                Физика
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="tagCheck1">
+              <label class="form-check-label" for="tagCheck4">
+                Химия
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="tagCheck1">
+              <label class="form-check-label" for="tagCheck5">
+                И так далее
+              </label>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
