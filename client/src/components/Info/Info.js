@@ -74,9 +74,7 @@ const Info = (props) => {
           <div className="row">
 
             <div className="col-lg-10 col-md-10 col-sm-10 text-center">
-              <Link to="/" href="/" className="badge badge-primary">Робототехника</Link>
-              <Link to="/" href="/" className="badge badge-primary">Программирование МК</Link>
-              <Link to="/" href="/" className="badge badge-primary">Искуственный интеллект</Link>
+              {tags.map((tag) => <Link key={tag} to="/" className="badge badge-primary">{tag}</Link>)}
             </div>
             <div className="col-lg-2 col-md-2 col-sm-2 text-muted text-center">
               {formatDetailedDateTime(creationDate)}

@@ -28,7 +28,6 @@ const CreateComment = (props) => {
       <div className="form-group">
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label htmlFor="commentTextarea"><h4>Добавить комментарий</h4></label>
-        {/* <textarea className="form-control" id="commentTextarea" rows="3" required /> */}
         <Field
           name="text"
           component={renderTextareaField}
