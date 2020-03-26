@@ -53,7 +53,7 @@ const CreateQuestion = (props) => {
 
   useEffect(() => {
     dispatch(getAllTags());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="container">

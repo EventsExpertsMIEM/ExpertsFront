@@ -281,12 +281,15 @@ export const getQuestion = (id) => async (dispatch) => {
 
   try {
     const res = await axios[method](path);
-    dispatch({
+    const action = dispatch({
       type: ACTION.GET_QUESTION,
       payload: res.data,
     });
+
+    return action;
   } catch (err) {
     console.error(err);
+    return err;
   }
 };
 
