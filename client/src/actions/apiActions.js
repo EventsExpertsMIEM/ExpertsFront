@@ -131,8 +131,10 @@ export const banUser = () => async (dispatch) => {
   }
 };
 
-export const changeRole = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.CHANGE_ROLE;
+export const changeRole = (id, role) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.CHANGE_ROLE;
+  const path = getPath(id, role);
+
   try {
     const res = await axios[method](path);
     dispatch({
@@ -312,25 +314,35 @@ export const deleteQuestion = () => async (dispatch) => {
   }
 };
 
-export const getQuestionAnswers = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_QUESTION_ANSWERS;
+export const getQuestionComments = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.GET_QUESTION_COMMENTS;
+  const path = getPath(id);
   try {
     const res = await axios[method](path);
     dispatch({
-      type: ACTION.GET_QUESTION_ANSWERS,
-      payload: res,
+      type: ACTION.GET_QUESTION_COMMENTS,
+      payload: res.data,
     });
   } catch (err) {
     console.error(err);
   }
 };
 
-export const addQuestionAnswer = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.ADD_QUESTION_ANSWER;
+/**
+ *
+ * @param comment
+ * @param comment.id number
+ * @param comment.text string
+ * @returns {function}
+ */
+export const addQuestionComment = (comment) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.ADD_QUESTION_COMMENT;
+  const path = getPath(comment.id);
+
   try {
-    const res = await axios[method](path);
+    const res = await axios[method](path, comment);
     dispatch({
-      type: ACTION.ADD_QUESTION_ANSWER,
+      type: ACTION.ADD_QUESTION_COMMENT,
       payload: res,
     });
   } catch (err) {
