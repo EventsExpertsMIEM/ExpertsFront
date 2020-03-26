@@ -106,7 +106,7 @@ const Info = (props) => {
           >
             https://мойсайт.рф/нужнаястатья
           </Link>
-          <div className="media mt-3">
+          <div className="media mt-3 mb-3">
             <Link className="mr-3" to="/" href="/">
               <img src={`${process.env.PUBLIC_URL}/favicon.ico`} className="mr-3" alt="..." />
             </Link>

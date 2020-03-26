@@ -12,7 +12,10 @@ const Navigation = () => {
     <nav className="navbar navbar-light bg-light navbar-expand-lg">
       <div className="navbar-nav mr-auto">
         <Link to="/" className="nav-link">Главная</Link>
-        {isLoggedIn && <Link to="/profile" className="nav-link">Личный кабинет</Link>}
+        <Link to="/profile" className="nav-link">Личный кабинет</Link>
+        <Link to="/articles" className="nav-link">Статьи</Link>
+        <Link to="/create-question" className="nav-link">Создать вопрос</Link>
+        <Link to="/create-article" className="nav-link">Создать статью</Link>
       </div>
       <div className="navbar-nav ml-auto">
         {isLoggedIn === true
