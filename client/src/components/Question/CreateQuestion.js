@@ -67,7 +67,6 @@ const CreateQuestion = (props) => {
   const tags = useSelector((store) => store.tags);
 
   const onClick = () => {
-    console.log(question);
     dispatch(addQuestion(question));
     dispatch(reset(FIELD_NAMES.QUESTION));
   };
