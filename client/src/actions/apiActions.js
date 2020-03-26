@@ -262,7 +262,7 @@ export const getAllQuestions = () => async (dispatch) => {
  */
 export const addQuestion = (data) => async (dispatch) => {
   const { path, method } = ACTION_MAP.ADD_QUESTION;
-  data.tags = data.tags || [];
+  data.tags = Array.from(new Set(data.tags.map((tag) => tag.id)));
 
   try {
     const res = await axios[method](path, data);
@@ -382,6 +382,71 @@ export const toggleDownvote = () => async (dispatch) => {
     const res = await axios[method](path);
     dispatch({
       type: ACTION.TOGGLE_DOWNVOTE,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const getAllTags = () => async (dispatch) => {
+  const { path, method } = ACTION_MAP.GET_ALL_TAGS;
+  try {
+    const res = await axios[method](path);
+    dispatch({
+      type: ACTION.GET_ALL_TAGS,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const createTag = () => async (dispatch) => {
+  const { path, method } = ACTION_MAP.CREATE_TAG;
+  try {
+    const res = await axios[method](path);
+    dispatch({
+      type: ACTION.CREATE_TAG,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const getTagInfo = () => async (dispatch) => {
+  const { path, method } = ACTION_MAP.GET_TAG_INFO;
+  try {
+    const res = await axios[method](path);
+    dispatch({
+      type: ACTION.GET_TAG_INFO,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const changeTagName = () => async (dispatch) => {
+  const { path, method } = ACTION_MAP.CHANGE_TAG_NAME;
+  try {
+    const res = await axios[method](path);
+    dispatch({
+      type: ACTION.CHANGE_TAG_NAME,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const deleteTag = () => async (dispatch) => {
+  const { path, method } = ACTION_MAP.DELETE_TAG;
+  try {
+    const res = await axios[method](path);
+    dispatch({
+      type: ACTION.DELETE_TAG,
       payload: res,
     });
   } catch (err) {

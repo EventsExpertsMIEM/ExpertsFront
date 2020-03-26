@@ -3,6 +3,7 @@ import { reducer as formReducer } from 'redux-form';
 import questionsReducer from './questionsReducer';
 import userReducer from './userReducer';
 import commentsReducer from './commentsReducer';
+import tagsReducer from './tagsReducer';
 
 
 export default combineReducers({
@@ -10,4 +11,5 @@ export default combineReducers({
   form: formReducer,
   user: userReducer,
   comments: commentsReducer,
+  tags: tagsReducer,
 });
