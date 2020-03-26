@@ -17,7 +17,6 @@ const CreateComment = (props) => {
 
   const onClick = () => {
     comment.id = questionId;
-    console.log(comment);
     dispatch(addQuestionComment(comment));
     dispatch(getQuestionComments(questionId));
     dispatch(reset(FIELD_NAMES.COMMENT));

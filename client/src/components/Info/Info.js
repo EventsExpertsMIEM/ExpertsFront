@@ -1,26 +1,65 @@
 /* eslint-disable react/prop-types, react/destructuring-assignment, no-unused-vars, no-shadow */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Field } from 'redux-form';
-import { getAllQuestions, getQuestionComments, getUserLoginStatus } from '../../actions';
+import {
+  getQuestionComments, getUserLoginStatus, toggleDownvote, toggleUpvote, getQuestion, increaseViews,
+} from '../../actions';
 import { formatDetailedDateTime, renderInputField, renderTextareaField } from '../helpers/helpers';
 import CommentGroup from './CommentGroup/index';
 
 const Info = (props) => {
+  const [isQuestionFound, setIsQuestionFound] = useState(true);
   const questions = useSelector((store) => store.questions);
   const dispatch = useDispatch();
-  // eslint-disable-next-line react/destructuring-assignment
-  const question = props.location
-    && props.location.state
-    ? props.location.state : questions[props.match.params.id];
+  const id = props.match.params.id || window.location.pathname.match(/\d+/g)[0];
+  const question = questions[id];
+
+  useEffect(() => {
+    (async () => {
+      const res = await dispatch(getQuestion(id));
+      if ((res instanceof Error)) {
+        setIsQuestionFound(false);
+      }
+    })();
+    dispatch(getUserLoginStatus());
+    dispatch(getQuestionComments(id));
+    dispatch(increaseViews(id));
+  }, [dispatch, id]);
+
+  if (!isQuestionFound) {
+    return (
+      <div className="text-center">
+        <h1>Вопрос не найден</h1>
+      </div>
+    );
+  }
+
+
+  if (!question) {
+    return (
+      <div className="text-center">
+        <h1>Загрузка...</h1>
+      </div>
+    );
+  }
+
+  const onUpvoteClick = () => {
+    dispatch(toggleUpvote(id));
+    dispatch(getQuestion(id));
+  };
+
+  const onDownvoteClick = () => {
+    dispatch(toggleDownvote(id));
+    dispatch(getQuestion(id));
+  };
 
   const {
     closed,
     only_experts_answer: onlyExpertsAnswer,
     only_chosen_tags: onlyChosenTags,
-    id,
+    // id,
     u_id: userId,
     email,
     title,
@@ -32,12 +71,6 @@ const Info = (props) => {
     tags,
   } = question;
 
-  useEffect(() => {
-    dispatch(getUserLoginStatus());
-    dispatch(getAllQuestions());
-    dispatch(getQuestionComments(id));
-  }, []);
-
   return (
     <div className="container">
       <div className="card mb-3 mt-3">
@@ -47,6 +80,13 @@ const Info = (props) => {
         <div className="card-body">
           <div className="form-group">
             <h2 className="card-title">{title}</h2>
+            Рейтинг вопроса:
+            {' '}
+            {score}
+            <div className="form-group">
+              <button onClick={onUpvoteClick} type="button" className="btn btn-primary btn-sm">+</button>
+              <button onClick={onDownvoteClick} type="button" className="btn btn-danger btn-sm">—</button>
+            </div>
             <p className="card-text">
               {body}
             </p>
@@ -70,9 +110,9 @@ const Info = (props) => {
 
           </div>
         </div>
+        <h6 className="text-muted text-left pl-3">{`Просмотры: ${viewCount}`}</h6>
         <div className="card-footer">
           <div className="row">
-
             <div className="col-lg-10 col-md-10 col-sm-10 text-center">
               {tags.map((tag) => <Link key={tag} to="/" className="badge badge-primary">{tag}</Link>)}
             </div>

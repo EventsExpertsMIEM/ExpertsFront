@@ -32,6 +32,16 @@ export const ACTION = {
   GET_TAG_INFO: 'GET_TAG_INFO',
   CHANGE_TAG_NAME: 'CHANGE_TAG_NAME',
   DELETE_TAG: 'DELETE_TAG',
+  GET_ALL_ARTICLES: 'GET_ALL_ARTICLES',
+  ADD_ARTICLE: 'ADD_ARTICLE',
+  GET_ARTICLE: 'GET_ARTICLE',
+  UPDATE_ARTICLE: 'UPDATE_ARTICLE',
+  DELETE_ARTICLE: 'DELETE_ARTICLE',
+  GET_ARTICLE_COMMENTS: 'GET_ARTICLE_COMMENTS',
+  ADD_ARTICLE_COMMENT: 'ADD_ARTICLE_COMMENT',
+  INCREASE_ARTICLE_VIEWS: 'INCREASE_ARTICLE_VIEWS',
+  TOGGLE_ARTICLE_UPVOTE: 'TOGGLE_ARTICLE_UPVOTE',
+  TOGGLE_ARTICLE_DOWNVOTE: 'TOGGLE_ARTICLE_DOWNVOTE',
 };
 
 const METHODS = {
@@ -106,7 +116,7 @@ export const ACTION_MAP = {
     method: METHODS.PUT,
   },
   [ACTION.GET_USER_QUESTIONS]: {
-    path: '/user/{id}/questions',
+    getPath: (id) => `/user/${id}/questions`,
     method: METHODS.GET,
   },
   [ACTION.GET_USER_ARTICLES]: {
@@ -126,7 +136,7 @@ export const ACTION_MAP = {
     method: METHODS.POST,
   },
   [ACTION.GET_QUESTION]: {
-    path: '/question/{id}',
+    getPath: (id) => `/question/${id}`,
     method: METHODS.GET,
   },
   [ACTION.UPDATE_QUESTION]: {
@@ -146,15 +156,15 @@ export const ACTION_MAP = {
     method: METHODS.POST,
   },
   [ACTION.INCREASE_VIEWS]: {
-    path: '/question/{id}/increase_views',
+    getPath: (id) => `/question/${id}/increase_views`,
     method: METHODS.GET,
   },
   [ACTION.TOGGLE_UPVOTE]: {
-    path: '/question/{id}/toggle_upvote',
+    getPath: (id) => `/question/${id}/toggle_upvote`,
     method: METHODS.GET,
   },
   [ACTION.TOGGLE_DOWNVOTE]: {
-    path: '/question/{id}/toggle_downvote',
+    getPath: (id) => `/question/${id}/toggle_downvote`,
     method: METHODS.GET,
   },
   [ACTION.GET_ALL_TAGS]: {
@@ -176,5 +186,47 @@ export const ACTION_MAP = {
   [ACTION.DELETE_TAG]: {
     getPath: (id) => `/tag/${id}`,
     method: METHODS.DELETE,
+  },
+
+
+  [ACTION.GET_ALL_ARTICLES]: {
+    path: '/articles/all',
+    method: METHODS.GET,
+  },
+  [ACTION.ADD_ARTICLE]: {
+    path: '/articles',
+    method: METHODS.POST,
+  },
+  [ACTION.GET_ARTICLE]: {
+    path: '/articles/{id}',
+    method: METHODS.GET,
+  },
+  [ACTION.UPDATE_ARTICLE]: {
+    path: '/articles/{id}',
+    method: METHODS.PUT,
+  },
+  [ACTION.DELETE_ARTICLE]: {
+    path: '/articles/{id}',
+    method: METHODS.DELETE,
+  },
+  [ACTION.GET_ARTICLE_COMMENTS]: {
+    getPath: (id) => `/articles/${id}/comments`,
+    method: METHODS.GET,
+  },
+  [ACTION.ADD_ARTICLE_COMMENT]: {
+    getPath: (id) => `/articles/${id}/comment`,
+    method: METHODS.POST,
+  },
+  [ACTION.INCREASE_ARTICLE_VIEWS]: {
+    path: '/articles/{id}/increase_views',
+    method: METHODS.GET,
+  },
+  [ACTION.TOGGLE_ARTICLE_UPVOTE]: {
+    path: '/articles/{id}/toggle_upvote',
+    method: METHODS.GET,
+  },
+  [ACTION.TOGGLE_ARTICLE_DOWNVOTE]: {
+    path: '/articles/{id}/toggle_downvote',
+    method: METHODS.GET,
   },
 };

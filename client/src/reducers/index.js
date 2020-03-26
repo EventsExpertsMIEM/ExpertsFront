@@ -4,6 +4,7 @@ import questionsReducer from './questionsReducer';
 import userReducer from './userReducer';
 import commentsReducer from './commentsReducer';
 import tagsReducer from './tagsReducer';
+import tableReducer from './tableReducer';
 
 
 export default combineReducers({
@@ -12,4 +13,5 @@ export default combineReducers({
   user: userReducer,
   comments: commentsReducer,
   tags: tagsReducer,
+  table: tableReducer,
 });

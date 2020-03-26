@@ -17,6 +17,7 @@ export const FIELD_NAMES = {
   REGISTER: 'register',
   QUESTION: 'question',
   COMMENT: 'comment',
+  ARTICLE: 'article',
 };
 
 export const DEFAULT_LANGUAGE = 'ru';

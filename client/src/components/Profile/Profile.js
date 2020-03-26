@@ -43,7 +43,7 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(getUserInfo(user.id));
-  }, [dispatch]);
+  }, [dispatch, user.id]);
 
   const tabs = getTabs();
 
