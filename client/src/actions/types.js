@@ -27,6 +27,11 @@ export const ACTION = {
   INCREASE_VIEWS: 'INCREASE_VIEWS',
   TOGGLE_UPVOTE: 'TOGGLE_UPVOTE',
   TOGGLE_DOWNVOTE: 'TOGGLE_DOWNVOTE',
+  GET_ALL_TAGS: 'GET_ALL_TAGS',
+  CREATE_TAG: 'CREATE_TAG',
+  GET_TAG_INFO: 'GET_TAG_INFO',
+  CHANGE_TAG_NAME: 'CHANGE_TAG_NAME',
+  DELETE_TAG: 'DELETE_TAG',
 };
 
 const METHODS = {
@@ -151,5 +156,25 @@ export const ACTION_MAP = {
   [ACTION.TOGGLE_DOWNVOTE]: {
     path: '/question/{id}/toggle_downvote',
     method: METHODS.GET,
+  },
+  [ACTION.GET_ALL_TAGS]: {
+    path: '/tag/all',
+    method: METHODS.GET,
+  },
+  [ACTION.CREATE_TAG]: {
+    path: '/tag',
+    method: METHODS.POST,
+  },
+  [ACTION.GET_TAG_INFO]: {
+    getPath: (id) => `/tag/${id}`,
+    method: METHODS.GET,
+  },
+  [ACTION.CHANGE_TAG_NAME]: {
+    getPath: (id) => `/tag/${id}`,
+    method: METHODS.PUT,
+  },
+  [ACTION.DELETE_TAG]: {
+    getPath: (id) => `/tag/${id}`,
+    method: METHODS.DELETE,
   },
 };

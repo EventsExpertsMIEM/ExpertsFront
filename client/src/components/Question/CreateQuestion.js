@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Field, reduxForm, reset } from 'redux-form';
-import { addQuestion } from '../../actions';
+import { addQuestion, getAllTags } from '../../actions';
 import {
   required,
   uppercase,
@@ -13,6 +13,7 @@ import {
   renderTextareaField,
 } from '../helpers/helpers';
 import { FIELD_NAMES } from '../helpers/consts';
+import Tags from './Tags/Tags';
 
 const INPUT_FIELDS = [
   {
@@ -47,13 +48,6 @@ const INPUT_FIELDS = [
     elementType: 'input',
     type: 'checkbox',
   },
-  {
-    name: 'tags',
-    placeholder: 'Научные области (теги)',
-    elementType: 'input',
-    normalize: uppercase,
-    normalizeOnBlur: (data) => data.trim(),
-  },
 ];
 
 const INITIAL_VALUES = {
@@ -70,12 +64,18 @@ const CreateQuestion = (props) => {
   const { pristine, submitting, invalid } = props;
   const dispatch = useDispatch();
   const question = useSelector((store) => store.form.question && store.form.question.values);
+  const tags = useSelector((store) => store.tags);
 
-  const onClick = (e) => {
-    e.preventDefault();
+  const onClick = () => {
+    console.log(question);
     dispatch(addQuestion(question));
     dispatch(reset(FIELD_NAMES.QUESTION));
   };
+
+  useEffect(() => {
+    dispatch(getAllTags());
+  }, []);
+
   return (
     <div className="container">
       <form
@@ -99,7 +99,14 @@ const CreateQuestion = (props) => {
               </div>
             );
           })}
-
+          {tags.length > 0
+                    && (
+                    <Field
+                      key="tags"
+                      name="tags"
+                      component={() => <Tags suggestions={tags} />}
+                    />
+                    )}
           <div className="form-group" />
           <div className="form-group text-center">
             <input

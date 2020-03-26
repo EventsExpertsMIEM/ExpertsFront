@@ -11,7 +11,7 @@ const Comments = () => {
       <div className="media">
         <div className="media-body">
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          {comments.map((comment) => <Comment {...comment} />)}
+          {comments.map((comment) => <Comment key={comment.id} {...comment} />)}
         </div>
       </div>
     </>
