@@ -275,13 +275,15 @@ export const addQuestion = (data) => async (dispatch) => {
   }
 };
 
-export const getQuestion = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_QUESTION;
+export const getQuestion = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.GET_QUESTION;
+  const path = getPath(id);
+
   try {
     const res = await axios[method](path);
     dispatch({
       type: ACTION.GET_QUESTION,
-      payload: res,
+      payload: res.data,
     });
   } catch (err) {
     console.error(err);
@@ -363,8 +365,9 @@ export const increaseViews = () => async (dispatch) => {
   }
 };
 
-export const toggleUpvote = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.TOGGLE_UPVOTE;
+export const toggleUpvote = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.TOGGLE_UPVOTE;
+  const path = getPath(id);
   try {
     const res = await axios[method](path);
     dispatch({
@@ -376,8 +379,9 @@ export const toggleUpvote = () => async (dispatch) => {
   }
 };
 
-export const toggleDownvote = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.TOGGLE_DOWNVOTE;
+export const toggleDownvote = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.TOGGLE_DOWNVOTE;
+  const path = getPath(id);
   try {
     const res = await axios[method](path);
     dispatch({

@@ -2,9 +2,8 @@
 import p from 'immer';
 import { ACTION } from '../actions/types';
 
-
-const INITIAL_STATE = [
-  {
+/* const exampleState = {
+  1: {
     closed: false,
     only_experts_answer: false,
     only_chosen_tags: false,
@@ -19,12 +18,22 @@ const INITIAL_STATE = [
     comment_count: 20,
     tags: [],
   },
-];
+}; */
+
+const INITIAL_STATE = {};
+
+const normalize = (arr) => arr.reduce((acc, cur) => {
+  acc[cur.id] = cur;
+  return acc;
+}, {});
 
 export default p((state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ACTION.GET_ALL_QUESTIONS:
-      state = action.payload;
+      state = normalize(action.payload);
+      return state;
+    case ACTION.GET_QUESTION:
+      state[action.payload.id] = action.payload;
       return state;
     default:
       return state;

@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FIELD_NAMES } from '../../helpers/consts';
 
 const Tags = (props) => {
-  console.log(props);
   const initialTags = useSelector((store) => store.form.question
       && store.form.question.values
       && store.form.question.values.tags);

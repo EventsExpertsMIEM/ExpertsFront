@@ -3,8 +3,9 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Field } from 'redux-form';
-import { getAllQuestions, getQuestionComments, getUserLoginStatus } from '../../actions';
+import {
+  getQuestionComments, getUserLoginStatus, toggleDownvote, toggleUpvote, getQuestion,
+} from '../../actions';
 import { formatDetailedDateTime, renderInputField, renderTextareaField } from '../helpers/helpers';
 import CommentGroup from './CommentGroup/index';
 
@@ -12,15 +13,39 @@ const Info = (props) => {
   const questions = useSelector((store) => store.questions);
   const dispatch = useDispatch();
   // eslint-disable-next-line react/destructuring-assignment
-  const question = props.location
-    && props.location.state
-    ? props.location.state : questions[props.match.params.id];
+  const id = props.match.params.id || window.location.pathname.match(/\d+/g)[0];
+
+  useEffect(() => {
+    dispatch(getQuestion(id));
+    dispatch(getUserLoginStatus());
+    dispatch(getQuestionComments(id));
+  }, []);
+
+  const question = questions[id];
+
+  if (!question) {
+    return (
+      <div className="text-center">
+        <h1>Загрузка...</h1>
+      </div>
+    );
+  }
+
+  const onUpvoteClick = () => {
+    dispatch(toggleUpvote(id));
+    dispatch(getQuestion(id));
+  };
+
+  const onDownvoteClick = () => {
+    dispatch(toggleDownvote(id));
+    dispatch(getQuestion(id));
+  };
 
   const {
     closed,
     only_experts_answer: onlyExpertsAnswer,
     only_chosen_tags: onlyChosenTags,
-    id,
+    // id,
     u_id: userId,
     email,
     title,
@@ -32,12 +57,6 @@ const Info = (props) => {
     tags,
   } = question;
 
-  useEffect(() => {
-    dispatch(getUserLoginStatus());
-    dispatch(getAllQuestions());
-    dispatch(getQuestionComments(id));
-  }, []);
-
   return (
     <div className="container">
       <div className="card mb-3 mt-3">
@@ -47,6 +66,13 @@ const Info = (props) => {
         <div className="card-body">
           <div className="form-group">
             <h2 className="card-title">{title}</h2>
+            Рейтинг вопроса:
+            {' '}
+            {score}
+            <div className="form-group">
+              <button onClick={onUpvoteClick} type="button" className="btn btn-primary btn-sm">+</button>
+              <button onClick={onDownvoteClick} type="button" className="btn btn-danger btn-sm">—</button>
+            </div>
             <p className="card-text">
               {body}
             </p>

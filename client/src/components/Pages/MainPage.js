@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserLoginStatus, getAllQuestions } from '../../actions';
 import { formatDetailedDateTime } from '../helpers/helpers';
+import radixSort from '../helpers/radixSort';
 
 const MainPage = () => {
   // eslint-disable-next-line no-unused-vars
@@ -16,10 +17,18 @@ const MainPage = () => {
     dispatch(getAllQuestions());
   }, [dispatch]);
 
+  if (Object.values(questions).length < 1) {
+    return (
+      <div className="text-center">
+        <h1>Загрузка...</h1>
+      </div>
+    );
+  }
+
 
   return (
     <div className="container">
-      {Object.values(questions).map((question) => {
+      {radixSort(Object.values(questions), 'id', 'DESC').map((question) => {
         const {
           closed,
           only_experts_answer: onlyExpertsAnswer,
