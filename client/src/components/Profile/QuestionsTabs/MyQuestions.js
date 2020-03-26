@@ -1,7 +1,15 @@
-/* eslint-disable react/jsx-props-no-spreading, no-shadow,react/prop-types */
-import React from 'react';
+/* eslint-disable react/jsx-props-no-spreading, no-shadow,react/prop-types,
+ react/destructuring-assignment */
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTable } from 'react-table';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserQuestions } from '../../../actions';
+
+const dict = {
+  active: 'Открыт',
+  closed: 'Закрыт',
+};
 
 const columns = [
   {
@@ -10,39 +18,35 @@ const columns = [
       {
         Header: 'Тема вопросов',
         accessor: 'id',
+        Cell: (props) => {
+          const { title, id } = props.row.original;
+          return (<Link to={`/info/${id}`}>{title}</Link>);
+        },
       },
       {
         Header: 'Статус',
         accessor: 'status',
+        Cell: (props) => {
+          console.log(props);
+          const { status } = props.row.original;
+          return (<div>{dict[status] || status}</div>);
+        },
       },
     ],
   },
 ];
 
-const data = [{
-  id: <Link to="/">Вопрос 1</Link>,
-  status: 'Открыт',
-}, {
-  id: <Link to="/">Вопрос 2</Link>,
-  status:
-  <div>
-    Новые ответы
-    <span className="badge badge-light"> 1 </span>
-  </div>,
-},
-{
-  id: <Link to="/">Вопрос 3</Link>,
-  status: 'Открыт',
-},
-{
-  id: <Link to="/">Вопрос 4</Link>,
-  status: 'Закрыт',
-},
-];
-
 const Table = (props) => {
-  const { columns, data } = props;
-  // Use the state and functions returned from useTable to build your UI
+  const dispatch = useDispatch();
+  const tableData = useSelector((store) => store.table);
+  console.log('tableData', tableData);
+
+  useEffect(() => {
+    dispatch(getUserQuestions(props.id));
+  }, []);
+
+
+  const { columns } = props;
   const {
     getTableProps,
     getTableBodyProps,
@@ -51,12 +55,16 @@ const Table = (props) => {
     prepareRow,
   } = useTable({
     columns,
-    data,
+    data: tableData,
   });
 
+  if (!tableData) {
+    return <div>Вопросы не найдены</div>;
+  }
+
   return (
-    <div className="tab-pane fade mt-3 active show">
-      <table {...getTableProps()} className="table">
+    <div className="mt-3">
+      <table {...getTableProps()} className="table text-center">
         <thead className="thead-light">
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -81,8 +89,9 @@ const Table = (props) => {
   );
 };
 
-const MyQuestions = () => (
-  <Table columns={columns} data={data} />
+const MyQuestions = (props) => (
+  // eslint-disable-next-line react/destructuring-assignment
+  <Table columns={columns} id={props.user.id} />
 );
 
 export default MyQuestions;

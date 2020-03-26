@@ -116,7 +116,7 @@ export const ACTION_MAP = {
     method: METHODS.PUT,
   },
   [ACTION.GET_USER_QUESTIONS]: {
-    path: '/user/{id}/questions',
+    getPath: (id) => `/user/${id}/questions`,
     method: METHODS.GET,
   },
   [ACTION.GET_USER_ARTICLES]: {
@@ -156,7 +156,7 @@ export const ACTION_MAP = {
     method: METHODS.POST,
   },
   [ACTION.INCREASE_VIEWS]: {
-    path: '/question/{id}/increase_views',
+    getPath: (id) => `/question/${id}/increase_views`,
     method: METHODS.GET,
   },
   [ACTION.TOGGLE_UPVOTE]: {

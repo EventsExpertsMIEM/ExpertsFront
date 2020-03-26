@@ -198,13 +198,14 @@ export const changeUserInfo = () => async (dispatch) => {
   }
 };
 
-export const getUserQuestions = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_USER_QUESTIONS;
+export const getUserQuestions = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.GET_USER_QUESTIONS;
+  const path = getPath(id);
   try {
     const res = await axios[method](path);
     dispatch({
       type: ACTION.GET_USER_QUESTIONS,
-      payload: res,
+      payload: res.data,
     });
   } catch (err) {
     console.error(err);
@@ -355,8 +356,9 @@ export const addQuestionComment = (comment) => async (dispatch) => {
   }
 };
 
-export const increaseViews = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.INCREASE_VIEWS;
+export const increaseViews = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.INCREASE_VIEWS;
+  const path = getPath(id);
   try {
     const res = await axios[method](path);
     dispatch({

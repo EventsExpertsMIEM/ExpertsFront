@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  getQuestionComments, getUserLoginStatus, toggleDownvote, toggleUpvote, getQuestion,
+  getQuestionComments, getUserLoginStatus, toggleDownvote, toggleUpvote, getQuestion, increaseViews,
 } from '../../actions';
 import { formatDetailedDateTime, renderInputField, renderTextareaField } from '../helpers/helpers';
 import CommentGroup from './CommentGroup/index';
@@ -13,7 +13,6 @@ const Info = (props) => {
   const [isQuestionFound, setIsQuestionFound] = useState(true);
   const questions = useSelector((store) => store.questions);
   const dispatch = useDispatch();
-  // eslint-disable-next-line react/destructuring-assignment
   const id = props.match.params.id || window.location.pathname.match(/\d+/g)[0];
   const question = questions[id];
 
@@ -26,6 +25,7 @@ const Info = (props) => {
     })();
     dispatch(getUserLoginStatus());
     dispatch(getQuestionComments(id));
+    dispatch(increaseViews(id));
   }, [dispatch, id]);
 
   if (!isQuestionFound) {
@@ -110,9 +110,9 @@ const Info = (props) => {
 
           </div>
         </div>
+        <h6 className="text-muted text-left pl-3">{`Просмотры: ${viewCount}`}</h6>
         <div className="card-footer">
           <div className="row">
-
             <div className="col-lg-10 col-md-10 col-sm-10 text-center">
               {tags.map((tag) => <Link key={tag} to="/" className="badge badge-primary">{tag}</Link>)}
             </div>
