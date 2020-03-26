@@ -20,11 +20,6 @@ const getTabs = () => [
     component: ProfileTabs.SecurityTab,
   },
   {
-    tabUrl: 'create-question',
-    info: 'Создать вопрос',
-    component: QuestionsTabs.CreateQuestion,
-  },
-  {
     tabUrl: 'personal-questions',
     info: 'Мои вопросы',
     badge: 3,

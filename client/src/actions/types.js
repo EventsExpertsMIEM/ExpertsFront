@@ -22,8 +22,8 @@ export const ACTION = {
   GET_QUESTION: 'GET_QUESTION',
   UPDATE_QUESTION: 'UPDATE_QUESTION',
   DELETE_QUESTION: 'DELETE_QUESTION',
-  GET_QUESTION_ANSWERS: 'GET_QUESTION_ANSWERS',
-  ADD_QUESTION_ANSWER: 'ADD_QUESTION_ANSWER',
+  GET_QUESTION_COMMENTS: 'GET_QUESTION_COMMENTS',
+  ADD_QUESTION_COMMENT: 'ADD_QUESTION_COMMENT',
   INCREASE_VIEWS: 'INCREASE_VIEWS',
   TOGGLE_UPVOTE: 'TOGGLE_UPVOTE',
   TOGGLE_DOWNVOTE: 'TOGGLE_DOWNVOTE',
@@ -34,6 +34,13 @@ const METHODS = {
   POST: 'post',
   PUT: 'put',
   DELETE: 'delete',
+};
+
+export const ROLES = {
+  USER: 'user',
+  EXPERT: 'expert',
+  MODERATOR: 'moderator',
+  ADMIN: 'admin',
 };
 
 export const ACTION_MAP = {
@@ -74,7 +81,7 @@ export const ACTION_MAP = {
     method: METHODS.GET,
   },
   [ACTION.CHANGE_ROLE]: {
-    path: '/user/{id}/role/{role}',
+    getPath: (id, role) => `/user/${id}/role/${role}`,
     method: METHODS.GET,
   },
   [ACTION.GET_USER_LOGIN_STATUS]: {
@@ -125,12 +132,12 @@ export const ACTION_MAP = {
     path: '/question/{id}',
     method: METHODS.DELETE,
   },
-  [ACTION.GET_QUESTION_ANSWERS]: {
-    path: '/question/{id}/comments',
+  [ACTION.GET_QUESTION_COMMENTS]: {
+    getPath: (id) => `/question/${id}/comments`,
     method: METHODS.GET,
   },
-  [ACTION.ADD_QUESTION_ANSWER]: {
-    path: '/question/{id}/comment',
+  [ACTION.ADD_QUESTION_COMMENT]: {
+    getPath: (id) => `/question/${id}/comment`,
     method: METHODS.POST,
   },
   [ACTION.INCREASE_VIEWS]: {
