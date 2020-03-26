@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types, react/destructuring-assignment, no-unused-vars, no-shadow */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -10,18 +10,32 @@ import { formatDetailedDateTime, renderInputField, renderTextareaField } from '.
 import CommentGroup from './CommentGroup/index';
 
 const Info = (props) => {
+  const [isQuestionFound, setIsQuestionFound] = useState(true);
   const questions = useSelector((store) => store.questions);
   const dispatch = useDispatch();
   // eslint-disable-next-line react/destructuring-assignment
   const id = props.match.params.id || window.location.pathname.match(/\d+/g)[0];
+  const question = questions[id];
 
   useEffect(() => {
-    dispatch(getQuestion(id));
+    (async () => {
+      const res = await dispatch(getQuestion(id));
+      if ((res instanceof Error)) {
+        setIsQuestionFound(false);
+      }
+    })();
     dispatch(getUserLoginStatus());
     dispatch(getQuestionComments(id));
-  }, []);
+  }, [dispatch, id]);
 
-  const question = questions[id];
+  if (!isQuestionFound) {
+    return (
+      <div className="text-center">
+        <h1>Вопрос не найден</h1>
+      </div>
+    );
+  }
+
 
   if (!question) {
     return (
