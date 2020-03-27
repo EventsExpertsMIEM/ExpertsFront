@@ -18,6 +18,7 @@ export const FIELD_NAMES = {
   QUESTION: 'question',
   COMMENT: 'comment',
   ARTICLE: 'article',
+  SECURITY_TAB: 'securityTab',
 };
 
 export const DEFAULT_LANGUAGE = 'ru';
