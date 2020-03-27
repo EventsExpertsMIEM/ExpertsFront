@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import requireAuth from '../requireAuth';
 
 const Articles = () => (
   <div className="container">
@@ -101,4 +102,4 @@ const Articles = () => (
   </div>
 );
 
-export default Articles;
+export default requireAuth(Articles);

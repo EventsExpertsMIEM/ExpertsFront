@@ -37,9 +37,9 @@ const Register = (props) => {
       && store.form[FIELD_NAMES.REGISTER].values);
   const passwordsMatch = registerData.password === registerData.repeatPassword;
 
-  const onClick = (e) => {
+  const onClick = async (e) => {
     e.preventDefault();
-    dispatch(register(registerData));
+    await dispatch(register(registerData));
     dispatch(reset(FIELD_NAMES.REGISTER));
   };
 

@@ -9,13 +9,16 @@ import radixSort from '../helpers/radixSort';
 const MainPage = () => {
   // eslint-disable-next-line no-unused-vars
   const questions = useSelector((store) => store.questions);
+  const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const onClick = () => dispatch(getAllQuestions());
 
   useEffect(() => {
-    dispatch(getUserLoginStatus());
-    dispatch(getAllQuestions());
-  }, [dispatch]);
+    (async () => {
+      await dispatch(getAllQuestions());
+      await dispatch(getUserLoginStatus());
+    })();
+  }, [dispatch, user.isLoggedIn]);
 
   if (Object.values(questions).length < 1) {
     return (
