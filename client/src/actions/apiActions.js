@@ -18,11 +18,10 @@ export const login = (data) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   const { path, method } = ACTION_MAP.LOGOUT;
   try {
-    const res = await axios[method](path);
     dispatch({
       type: ACTION.LOGOUT,
-      payload: res,
     });
+    await axios[method](path);
   } catch (err) {
     console.error(err);
   }
@@ -48,8 +47,10 @@ export const register = (data) => async (dispatch) => {
       type: ACTION.REGISTER,
       payload: res,
     });
+    return res;
   } catch (err) {
     console.error(err);
+    return err;
   }
 };
 

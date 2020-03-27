@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -8,21 +9,59 @@ const Navigation = () => {
   const dispatch = useDispatch();
   const onClick = () => dispatch(logout());
 
+  const POSITION = {
+    LEFT: 'mr-1',
+    RIGHT: 'ml-1',
+    RIGHT2: 'ml-auto',
+  };
+
+  const map = {
+    main: {
+      path: '/', name: 'Главная', requireAuth: false, position: POSITION.LEFT,
+    },
+    profile: {
+      path: '/profile', name: 'Личный кабинет', requireAuth: true, position: POSITION.LEFT,
+    },
+    articles: {
+      path: '/articles', name: 'Статьи', requireAuth: true, position: POSITION.LEFT,
+    },
+    createQuestion: {
+      path: '/create-question', name: 'Создать вопрос', requireAuth: true, position: POSITION.LEFT,
+    },
+    createArticle: {
+      path: '/create-article', name: 'Создать статью', requireAuth: true, position: POSITION.LEFT,
+    },
+    login: {
+      path: '/auth/login', name: 'Вход', requireAuth: false, position: POSITION.RIGHT2,
+    },
+    logout: {
+      path: '/', name: 'Выход', requireAuth: true, position: POSITION.RIGHT2, onClick,
+    },
+    register: {
+      path: '/auth/register', name: 'Регистация', requireAuth: false, position: POSITION.RIGHT,
+    },
+  };
+
   return (
     <nav className="navbar navbar-light bg-light navbar-expand-lg">
-      <div className="navbar-nav mr-auto">
-        <Link to="/" className="nav-link">Главная</Link>
-        <Link to="/profile" className="nav-link">Личный кабинет</Link>
-        <Link to="/articles" className="nav-link">Статьи</Link>
-        <Link to="/create-question" className="nav-link">Создать вопрос</Link>
-        <Link to="/create-article" className="nav-link">Создать статью</Link>
-      </div>
-      <div className="navbar-nav ml-auto">
-        {isLoggedIn === true
-          ? <Link to="/" className="nav-link" onClick={onClick}>Выход</Link>
-          : <Link to="/auth/login" className="nav-link">Вход</Link>}
-        <Link to="/auth/register" className="nav-link">Регистрация</Link>
-      </div>
+      {Object.values(map).map(({
+        path, position, name, requireAuth, ...props
+      }) => {
+        if (name !== 'Главная' && requireAuth !== isLoggedIn) {
+          return;
+        }
+        // eslint-disable-next-line consistent-return
+        return (
+          <Link
+            key={name}
+            to={path}
+            className={`nav-link ${position}`}
+            {...props}
+          >
+            {name}
+          </Link>
+        );
+      })}
     </nav>
   );
 };

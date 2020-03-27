@@ -14,6 +14,7 @@ import {
 } from '../helpers/helpers';
 import { FIELD_NAMES } from '../helpers/consts';
 import Tags from './Tags/Tags';
+import requireAuth from '../requireAuth';
 
 const INPUT_FIELDS = [
   {
@@ -125,4 +126,4 @@ const CreateQuestion = (props) => {
 export default reduxForm({
   form: FIELD_NAMES.QUESTION,
   initialValues: INITIAL_VALUES,
-})(CreateQuestion);
+})(requireAuth(CreateQuestion));
