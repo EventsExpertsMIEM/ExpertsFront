@@ -13,6 +13,7 @@ import {
   renderTextareaField,
 } from '../helpers/helpers';
 import { FIELD_NAMES } from '../helpers/consts';
+import requireAuth from '../requireAuth';
 
 const INPUT_FIELDS = [
   {
@@ -97,4 +98,4 @@ const CreateQuestion = (props) => {
 export default reduxForm({
   form: FIELD_NAMES.ARTICLE,
   initialValues: INITIAL_VALUES,
-})(CreateQuestion);
+})(requireAuth(CreateQuestion));

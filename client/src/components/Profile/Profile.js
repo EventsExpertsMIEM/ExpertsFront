@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {
-  Link, Redirect, Route, Switch, useRouteMatch,
+  Link, Redirect, Route, useRouteMatch,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileTabs from './ProfileTabs';
@@ -9,6 +9,11 @@ import { getUserInfo } from '../../actions';
 import requireAuth from '../requireAuth';
 
 const getTabs = () => [
+  {
+    tabUrl: '',
+    info: '',
+    component: () => <Redirect to="profile/personal-info" />,
+  },
   {
     tabUrl: 'personal-info',
     info: 'Персональная информация',
@@ -67,21 +72,14 @@ const Profile = () => {
         </div>
         <div className="col-lg-8">
           <div className="tab-content" id="nav-tabContent">
-            <Switch>
+            {tabs.map(({ tabUrl, component }) => (
               <Route
-                path={path}
+                key={tabUrl}
                 exact
-                render={() => <Redirect to={`${path}/${tabs[0].tabUrl}`} />}
+                path={`${path}/${tabUrl}`}
+                component={typeof component === 'function' ? () => component(props) : component}
               />
-              {tabs.map(({ tabUrl, component }) => (
-                <Route
-                  key={tabUrl}
-                  exact
-                  path={`${path}/${tabUrl}`}
-                  component={typeof component === 'function' ? () => component(props) : component}
-                />
-              ))}
-            </Switch>
+            ))}
           </div>
         </div>
       </div>

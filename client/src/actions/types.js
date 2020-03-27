@@ -80,15 +80,15 @@ export const ACTION_MAP = {
     method: METHODS.POST,
   },
   [ACTION.CLOSE_ALL_SESSIONS]: {
-    path: '/close_all_sessions',
+    getPath: () => '/close_all_sessions',
     method: METHODS.POST,
   },
   [ACTION.RESET_PASSWORD]: {
-    path: '/reset_password',
+    getPath: () => '/reset_password',
     method: METHODS.POST,
   },
   [ACTION.CHANGE_PASSWORD]: {
-    path: '/change_password',
+    getPath: () => '/change_password',
     method: METHODS.POST,
   },
   [ACTION.BAN_USER]: {

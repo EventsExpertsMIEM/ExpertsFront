@@ -13,8 +13,7 @@ const INITIAL_STATE = {
 export default p((state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ACTION.REGISTER:
-      state = action.payload;
-      state.isLoggedIn = true;
+      alert(action.payload.data.description);
       return state;
     case ACTION.LOGOUT:
       state = INITIAL_STATE;
