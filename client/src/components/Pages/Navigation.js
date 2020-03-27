@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/jsx-props-no-spreading, consistent-return, array-callback-return */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -50,7 +50,6 @@ const Navigation = () => {
         if (name !== 'Главная' && requireAuth !== isLoggedIn) {
           return;
         }
-        // eslint-disable-next-line consistent-return
         return (
           <Link
             key={name}

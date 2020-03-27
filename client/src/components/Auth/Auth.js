@@ -34,7 +34,7 @@ const Auth = () => {
           </div>
         </nav>
         <Switch>
-          <Route path={`${path}`} exact render={() => <Redirect to={`${path}/register`} />} />
+          <Route path={path} exact render={() => <Redirect to={`${path}/register`} />} />
           <Route path={`${path}/login`} component={SignIn} />
           <Route path={`${path}/register`} exact>
             {signIn ? <Redirect to="/" /> : <SignUp />}
