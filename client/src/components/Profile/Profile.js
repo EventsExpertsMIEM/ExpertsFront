@@ -70,15 +70,15 @@ const Profile = () => {
     tabUrl, info, badge, renderCondition,
   }) => (
     checkCondition(renderCondition, props) && (
-      <Link
-        key={tabUrl}
-        className="nav-link active"
-        role="tab"
-        to={`${url}/${tabUrl}`}
-      >
-        {info}
-        {badge && <span className="badge badge-light">{badge}</span>}
-      </Link>
+    <Link
+      key={tabUrl}
+      className="nav-link active"
+      role="tab"
+      to={`${url}/${tabUrl}`}
+    >
+      {info}
+      {badge && <span className="badge badge-light">{badge}</span>}
+    </Link>
     )
   );
 
@@ -92,6 +92,14 @@ const Profile = () => {
     />
     )
   );
+
+  if (!user.role) {
+    return (
+      <div className="text-center">
+        <h1>Загрузка...</h1>
+      </div>
+    );
+  }
 
   return (
     <div className="container">
