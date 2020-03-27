@@ -135,10 +135,11 @@ export const changePassword = () => async (dispatch) => {
   }
 };
 
-export const banUser = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.BAN_USER;
+export const banUser = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.BAN_USER;
+  const path = getPath(id);
   try {
-    const res = await axios[method](path);
+    const res = await axios[method](path, id);
     dispatch({
       type: ACTION.BAN_USER,
       payload: res,
@@ -190,15 +191,18 @@ export const getUserInfo = (id) => async (dispatch) => {
 };
 
 export const getAllUsers = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_ALL_USERS;
+  const { getPath, method } = ACTION_MAP.GET_ALL_USERS;
+  const path = getPath();
   try {
     const res = await axios[method](path);
     dispatch({
       type: ACTION.GET_ALL_USERS,
-      payload: res,
+      payload: res.data,
     });
+    return res.data;
   } catch (err) {
     console.error(err);
+    return err;
   }
 };
 

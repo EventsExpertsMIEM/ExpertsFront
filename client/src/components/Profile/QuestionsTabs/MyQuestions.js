@@ -2,8 +2,8 @@
  react/destructuring-assignment */
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useTable } from 'react-table';
 import { useDispatch, useSelector } from 'react-redux';
+import Table from '../Table';
 import { getUserQuestions } from '../../../actions';
 
 const dict = {
@@ -35,61 +35,18 @@ const columns = [
   },
 ];
 
-const Table = (props) => {
+
+const MyQuestions = (props) => {
   const dispatch = useDispatch();
-  const tableData = useSelector((store) => store.table);
+  const data = useSelector((store) => store.table.questions);
 
   useEffect(() => {
-    dispatch(getUserQuestions(props.id));
-  }, [dispatch, props.id]);
-
-
-  const { columns } = props;
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-  } = useTable({
-    columns,
-    data: tableData,
-  });
-
-  if (!tableData) {
-    return <div>Вопросы не найдены</div>;
-  }
-
+    dispatch(getUserQuestions(props.user.id));
+  }, [dispatch, props.user.id]);
   return (
-    <div className="mt-3">
-      <table {...getTableProps()} className="table text-center">
-        <thead className="thead-light">
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => <td {...cell.getCellProps()}>{cell.render('Cell')}</td>)}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+  // eslint-disable-next-line react/destructuring-assignment
+    <Table data={data} columns={columns} id={props.user.id} />
   );
 };
-
-const MyQuestions = (props) => (
-  // eslint-disable-next-line react/destructuring-assignment
-  <Table columns={columns} id={props.user.id} />
-);
 
 export default MyQuestions;

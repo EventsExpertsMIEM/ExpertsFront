@@ -17,7 +17,7 @@ const Navigation = () => {
 
   const map = {
     main: {
-      path: '/', name: 'Главная', requireAuth: false, position: POSITION.LEFT,
+      path: '/', name: 'Главная', requireAuth: null, position: POSITION.LEFT,
     },
     profile: {
       path: '/profile', name: 'Личный кабинет', requireAuth: true, position: POSITION.LEFT,
@@ -47,7 +47,7 @@ const Navigation = () => {
       {Object.values(map).map(({
         path, position, name, requireAuth, ...props
       }) => {
-        if (name !== 'Главная' && requireAuth !== isLoggedIn) {
+        if (requireAuth !== null && requireAuth !== isLoggedIn) {
           return;
         }
         return (

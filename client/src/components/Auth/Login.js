@@ -36,7 +36,6 @@ const Login = (props) => {
       setError(res.response.data.description);
     } else {
       await dispatch(reset(FIELD_NAMES.LOGIN));
-      setError('');
     }
   };
 
