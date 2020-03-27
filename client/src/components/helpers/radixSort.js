@@ -1,4 +1,6 @@
-// Sorting time complexity O(n*k), n - length of the array, i - length of the largest number
+/* eslint-disable no-param-reassign */
+
+// O(n*k), n - length of array, k - length of largest number
 
 const getDigit = (num, i) => Math.floor(Math.abs(num) / 10 ** i) % 10;
 
@@ -11,23 +13,34 @@ const mostDigits = (nums) => nums.reduce((acc, num) => Math.max(acc, digitCount(
  * @param {string} sortByKey
  * @param {boolean} [isAscending]
  * @returns {arr} sortedArr
- */
-const radixSort = (arr, sortByKey, isAscending = true) => {
+ * */
+const radixSort = (arr, sortByKey, isAscending) => {
   const nums = arr.map((obj) => obj[sortByKey] || 0);
   const maxDigitCount = mostDigits(nums);
 
-  const sort = ((_, i) => {
+  for (let k = 0; k < maxDigitCount; k += 1) {
     const digitBuckets = Array.from({ length: 10 }, () => []);
 
     arr.forEach((el) => {
-      const digit = getDigit(el[sortByKey] || 0, i);
+      const digit = getDigit(el[sortByKey] || 0, k);
       digitBuckets[digit].push(el);
     });
-  });
 
-  Array.from({ length: maxDigitCount }, sort);
+    // eslint-disable-next-line
+        (function flatten() {
+      // eslint-disable-next-line no-param-reassign
+      arr = [];
+      const cb = (bucket, current) => {
+        arr = bucket.concat(current);
+        return arr;
+      };
 
-  return isAscending ? arr : arr.reverse();
+      return isAscending
+        ? digitBuckets.reduce(cb)
+        : digitBuckets.reduceRight(cb);
+    })();
+  }
+  return arr;
 };
 
 export default radixSort;

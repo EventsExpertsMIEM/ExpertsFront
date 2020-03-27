@@ -1,35 +1,43 @@
-/* eslint-disable react/prop-types, react/destructuring-assignment */
+/* eslint-disable react/prop-types, react/destructuring-assignment,
+ jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers } from '../../../actions';
+import { banUser, getAllUsers } from '../../../actions';
 import Table from '../Table';
 import requireRights from '../../requireRights';
 
+/*  const example = {
+  id: 30,
+  name: 'F',
+  surname: 'F',
+  email: 'ff@ff.ff',
+  role: 'user',
+  tags: [],
+  interests: [],
+  position: 'F',
+  rating: 0,
+  registration_date: 1585309843.295268,
+  status: 'active',
+  question_count: 0,
+  article_count: 0,
+  comment_count: 0,
+}; */
 const AdminPanel = () => {
   const dispatch = useDispatch();
   const data = useSelector((store) => store.table.users);
+  const onBanClick = async (id) => {
+    await dispatch(banUser(id));
+    await dispatch(getAllUsers());
+  };
+  const isBanned = (status) => status === 'banned';
+  const disabled = (status) => (isBanned(status) ? 'disabled' : undefined);
+  const onBan = (status, id) => (isBanned(status) ? undefined : () => onBanClick(id));
 
   useEffect(() => {
     (async () => {
       await dispatch(getAllUsers());
     })();
   }, [dispatch]);
-  /*  const example = {
-    id: 30,
-    name: 'F',
-    surname: 'F',
-    email: 'ff@ff.ff',
-    role: 'user',
-    tags: [],
-    interests: [],
-    position: 'F',
-    rating: 0,
-    registration_date: 1585309843.295268,
-    status: 'active',
-    question_count: 0,
-    article_count: 0,
-    comment_count: 0,
-  }; */
 
   const columns = [
     {
@@ -47,13 +55,19 @@ const AdminPanel = () => {
           Header: 'Статус',
           accessor: 'role',
           Cell: (props) => {
-            const { role } = props.row.original;
+            const { role, status, id } = props.row.original;
             return (
               <div>
-                {role}
-                <div>Изменить роль</div>
-                <div>Забанить</div>
-                <div>Перейти в профиль</div>
+                <h4 className="text-center">{`Роль: ${role}`}</h4>
+                <h4 className="text-center">{`Статус: ${status}`}</h4>
+                <h4 className="text-center page-link btn">Изменить роль</h4>
+                <h4
+                  className={`text-center page-link btn btn-danger ${disabled(status)}`}
+                  onClick={onBan(status, id)}
+                >
+                  Забанить
+                </h4>
+                <h4 className="text-center page-link btn">Перейти в профиль</h4>
               </div>
             );
           },

@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign, no-case-declarations */
 import p from 'immer';
 import { ACTION } from '../actions/types';
-
+import radixSort from '../components/helpers/radixSort';
 
 const INITIAL_STATE = { questions: [], users: [] };
 
@@ -11,7 +11,7 @@ export default p((state = INITIAL_STATE, action) => {
       state.questions = action.payload;
       return state;
     case ACTION.GET_ALL_USERS:
-      state.users = action.payload;
+      state.users = radixSort(action.payload, 'id', false);
       return state;
     default:
       return state;

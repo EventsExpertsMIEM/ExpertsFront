@@ -142,10 +142,12 @@ export const banUser = (id) => async (dispatch) => {
     const res = await axios[method](path, id);
     dispatch({
       type: ACTION.BAN_USER,
-      payload: res,
+      payload: res.data,
     });
+    return res.data;
   } catch (err) {
     console.error(err);
+    return err;
   }
 };
 
