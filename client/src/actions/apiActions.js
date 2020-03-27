@@ -10,8 +10,10 @@ export const login = (data) => async (dispatch) => {
       type: ACTION.LOGIN,
       payload: res,
     });
+    return res;
   } catch (err) {
     console.error(err);
+    return err;
   }
 };
 
@@ -39,10 +41,12 @@ export const logout = () => async (dispatch) => {
  */
 export const register = (data) => async (dispatch) => {
   const { path, method } = ACTION_MAP.REGISTER;
-  delete data.repeatPassword;
+
+  const registerData = { ...data };
+  delete registerData.repeatPassword;
 
   try {
-    const res = await axios[method](path, data);
+    const res = await axios[method](path, registerData);
     dispatch({
       type: ACTION.REGISTER,
       payload: res,

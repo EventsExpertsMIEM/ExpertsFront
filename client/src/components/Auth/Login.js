@@ -1,5 +1,6 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+/* eslint-disable react/jsx-props-no-spreading, react/prop-types */
+
+import React, { useState } from 'react';
 import { Field, reduxForm, reset } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
@@ -20,18 +21,23 @@ const INPUTS_FIELDS = [
 ];
 
 const Login = (props) => {
-  // eslint-disable-next-line react/prop-types
   const { pristine, submitting, invalid } = props;
   const dispatch = useDispatch();
   const loginData = useSelector((store) => store.form.login && store.form.login.values);
-  // eslint-disable-next-line no-unused-vars
-  const { path, url } = useRouteMatch();
+  const { path } = useRouteMatch();
   const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
+  const [error, setError] = useState('');
 
-  const onClick = (e) => {
+  const onClick = async (e) => {
+    setError('');
     e.preventDefault();
-    dispatch(login(loginData));
-    dispatch(reset(FIELD_NAMES.LOGIN));
+    const res = await dispatch(login(loginData));
+    if (res instanceof Error) {
+      setError(res.response.data.description);
+    } else {
+      await dispatch(reset(FIELD_NAMES.LOGIN));
+      setError('');
+    }
   };
 
   return (
@@ -64,6 +70,7 @@ const Login = (props) => {
                 onClick={onClick}
                 disabled={pristine || submitting || invalid}
               />
+              {error && <p className="text-danger">{error}</p>}
             </div>
           </form>
         ))}
