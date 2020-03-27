@@ -2,7 +2,9 @@
  jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { banUser, getAllUsers } from '../../../actions';
+import {
+  banUser, changeRole, getAllUsers, ROLES,
+} from '../../../actions';
 import Table from '../Table';
 import requireRights from '../../requireRights';
 
@@ -29,6 +31,11 @@ const AdminPanel = () => {
     await dispatch(banUser(id));
     await dispatch(getAllUsers());
   };
+  const onRoleChangeClick = async (id, role) => {
+    await dispatch(changeRole(id, role));
+    await dispatch(getAllUsers());
+  };
+
   const isBanned = (status) => status === 'banned';
   const disabled = (status) => (isBanned(status) ? 'disabled' : undefined);
   const onBan = (status, id) => (isBanned(status) ? undefined : () => onBanClick(id));
@@ -60,7 +67,23 @@ const AdminPanel = () => {
               <div>
                 <h4 className="text-center">{`Роль: ${role}`}</h4>
                 <h4 className="text-center">{`Статус: ${status}`}</h4>
-                <h4 className="text-center page-link btn">Изменить роль</h4>
+                <select
+                  className="form-control"
+                  onChange={(e) => onRoleChangeClick(id, e.target.value)}
+                >
+                  <option value="" defaultValue readOnly>Изменить роль</option>
+                  {Object.values(ROLES).map((el) => (
+                    el !== ROLES.SUPERADMIN && (
+                    <option
+                      key={el}
+                      value={el}
+                      disabled={el === role}
+                    >
+                      {el}
+                    </option>
+                    )
+                  ))}
+                </select>
                 <h4
                   className={`text-center page-link btn btn-danger ${disabled(status)}`}
                   onClick={onBan(status, id)}
