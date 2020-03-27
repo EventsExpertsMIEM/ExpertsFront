@@ -80,9 +80,14 @@ export const deleteUser = () => async (dispatch) => {
 };
 
 export const closeAllSessions = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.CLOSE_ALL_SESSIONS;
+  const { getPath, method } = ACTION_MAP.CLOSE_ALL_SESSIONS;
+  const path = getPath();
   try {
-    const res = await axios[method](path);
+    const res = await axios[method](path, null, {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+    });
     dispatch({
       type: ACTION.CLOSE_ALL_SESSIONS,
       payload: res,
@@ -92,10 +97,16 @@ export const closeAllSessions = () => async (dispatch) => {
   }
 };
 
-export const resetPassword = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.RESET_PASSWORD;
+/**
+ * @param {object} data
+ * @param {string} data.email
+ * @returns {function(...[*]=)}
+ */
+export const resetPassword = ({ email }) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.RESET_PASSWORD;
+  const path = getPath();
   try {
-    const res = await axios[method](path);
+    const res = await axios[method](path, { email });
     dispatch({
       type: ACTION.RESET_PASSWORD,
       payload: res,
@@ -106,7 +117,8 @@ export const resetPassword = () => async (dispatch) => {
 };
 
 export const changePassword = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.CHANGE_PASSWORD;
+  const { getPath, method } = ACTION_MAP.CHANGE_PASSWORD;
+  const path = getPath();
   try {
     const res = await axios[method](path);
     dispatch({

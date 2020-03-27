@@ -33,7 +33,8 @@ const Register = (props) => {
   // eslint-disable-next-line react/prop-types
   const { pristine, submitting, invalid } = props;
   const dispatch = useDispatch();
-  const registerData = useSelector((store) => store.form.register && store.form.register.values);
+  const registerData = useSelector((store) => store.form[FIELD_NAMES.REGISTER]
+      && store.form[FIELD_NAMES.REGISTER].values);
   const passwordsMatch = registerData.password === registerData.repeatPassword;
 
   const onClick = (e) => {
