@@ -56,6 +56,7 @@ export const ROLES = {
   EXPERT: 'expert',
   MODERATOR: 'moderator',
   ADMIN: 'admin',
+  SUPERADMIN: 'superadmin',
 };
 
 export const ACTION_MAP = {
@@ -92,7 +93,7 @@ export const ACTION_MAP = {
     method: METHODS.POST,
   },
   [ACTION.BAN_USER]: {
-    path: '/user/{id}/ban',
+    getPath: (id) => `/user/${id}/ban`,
     method: METHODS.GET,
   },
   [ACTION.CHANGE_ROLE]: {
@@ -108,7 +109,7 @@ export const ACTION_MAP = {
     method: METHODS.GET,
   },
   [ACTION.GET_ALL_USERS]: {
-    path: '/user/all',
+    getPath: () => '/user/all',
     method: METHODS.GET,
   },
   [ACTION.CHANGE_USER_INFO]: {

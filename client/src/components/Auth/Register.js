@@ -36,7 +36,6 @@ const Register = (props) => {
   const { pristine, submitting, invalid } = props;
   const history = useHistory();
 
-  console.log('Register', props);
   const dispatch = useDispatch();
   const registerData = useSelector((store) => store.form[FIELD_NAMES.REGISTER]
         && store.form[FIELD_NAMES.REGISTER].values);
