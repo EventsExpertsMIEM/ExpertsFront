@@ -28,7 +28,7 @@ const MainPage = () => {
 
   return (
     <div className="container">
-      {radixSort(Object.values(questions), 'id', 'DESC').map((question) => {
+      {radixSort(Object.values(questions), 'id', false).map((question) => {
         const {
           closed,
           only_experts_answer: onlyExpertsAnswer,
