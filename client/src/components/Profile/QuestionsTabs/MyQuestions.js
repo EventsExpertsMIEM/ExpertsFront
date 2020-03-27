@@ -27,7 +27,6 @@ const columns = [
         Header: 'Статус',
         accessor: 'status',
         Cell: (props) => {
-          console.log(props);
           const { status } = props.row.original;
           return (<div>{dict[status] || status}</div>);
         },
@@ -39,11 +38,10 @@ const columns = [
 const Table = (props) => {
   const dispatch = useDispatch();
   const tableData = useSelector((store) => store.table);
-  console.log('tableData', tableData);
 
   useEffect(() => {
     dispatch(getUserQuestions(props.id));
-  }, []);
+  }, [dispatch, props.id]);
 
 
   const { columns } = props;
