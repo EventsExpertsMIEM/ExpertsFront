@@ -49,7 +49,6 @@ const CreateQuestion = (props) => {
 
   const onClick = (e) => {
     e.preventDefault();
-    console.log(article);
     dispatch(addArticle(article));
     dispatch(reset(FIELD_NAMES.ARTICLE));
   };

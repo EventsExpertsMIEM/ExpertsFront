@@ -173,8 +173,8 @@ export const ACTION_MAP = {
     method: METHODS.GET,
   },
   [ACTION.CREATE_TAG]: {
-    path: '/tag',
-    method: METHODS.POST,
+    getPath: () => '/tag',
+    method: METHODS.GET,
   },
   [ACTION.GET_TAG_INFO]: {
     getPath: (id) => `/tag/${id}`,

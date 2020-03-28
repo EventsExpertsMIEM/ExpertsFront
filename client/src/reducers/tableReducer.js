@@ -3,7 +3,7 @@ import p from 'immer';
 import { ACTION } from '../actions/types';
 import radixSort from '../components/helpers/radixSort';
 
-const INITIAL_STATE = { questions: [], users: [] };
+const INITIAL_STATE = { questions: [], users: [], tags: [] };
 
 export default p((state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -12,6 +12,9 @@ export default p((state = INITIAL_STATE, action) => {
       return state;
     case ACTION.GET_ALL_USERS:
       state.users = radixSort(action.payload, 'id', false);
+      return state;
+    case ACTION.GET_ALL_TAGS:
+      state.tags = radixSort(action.payload, 'id', false);
       return state;
     default:
       return state;
