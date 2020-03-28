@@ -2,12 +2,11 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserLoginStatus, getAllQuestions } from '../../actions';
+import { getUserLoginStatus, getAllQuestions, getAllArticles } from '../../actions';
 import { formatDetailedDateTime } from '../helpers/helpers';
 import radixSort from '../helpers/radixSort';
 
 const MainPage = () => {
-  // eslint-disable-next-line no-unused-vars
   const questions = useSelector((store) => store.questions);
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
@@ -16,6 +15,7 @@ const MainPage = () => {
   useEffect(() => {
     (async () => {
       await dispatch(getAllQuestions());
+      await dispatch(getAllArticles());
       await dispatch(getUserLoginStatus());
     })();
   }, [dispatch, user.isLoggedIn]);
@@ -27,7 +27,6 @@ const MainPage = () => {
       </div>
     );
   }
-
 
   return (
     <div className="container">
@@ -57,7 +56,7 @@ const MainPage = () => {
               </p>
               <Link
                 to={{
-                  pathname: `/info/${id}`,
+                  pathname: `/questions/${id}`,
                   state: question,
                 }}
                 className="card-link btn btn-outline-primary"

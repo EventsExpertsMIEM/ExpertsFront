@@ -3,7 +3,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { changePassword, closeAllSessions, resetPassword } from '../../../actions';
+import {
+  changePassword, closeAllSessions, deleteUser, resetPassword,
+} from '../../../actions';
 import { renderInputField, required } from '../../helpers/helpers';
 import { FIELD_NAMES } from '../../helpers/consts';
 
@@ -11,8 +13,8 @@ const SecurityTab = (props) => {
   const { pristine, submitting, invalid } = props;
 
   const dispatch = useDispatch();
-  const data = useSelector((store) => store.form[FIELD_NAMES.SECURITY_TAB]
-        && store.form[FIELD_NAMES.SECURITY_TAB].values);
+  const data = useSelector((store) => store.form[FIELD_NAMES.SECURITY]
+        && store.form[FIELD_NAMES.SECURITY].values);
   const email = useSelector((store) => store.user && store.user.email);
   const passwordsMatch = data.newPassword === data.repeatNewPassword;
 
@@ -22,6 +24,11 @@ const SecurityTab = (props) => {
     return dispatch(changePassword());
   };
   const onResetPassword = () => dispatch(resetPassword({ email }));
+
+  // TODO: input password
+  const onDeleteUser = async (password) => {
+    await dispatch(deleteUser({ password }));
+  };
 
   const INPUTS_FIELDS = [
     {
@@ -66,13 +73,16 @@ const SecurityTab = (props) => {
           Закрыть все сессии, кроме
           текущей
         </h4>
+        <h4 className="text-center page-link btn btn-danger" onClick={onDeleteUser}>
+          Удалить аккаунт
+        </h4>
       </div>
     </form>
   );
 };
 
 export default reduxForm({
-  form: FIELD_NAMES.SECURITY_TAB,
+  form: FIELD_NAMES.SECURITY,
   initialValues: {
     currentPassword: '',
     newPassword: '',

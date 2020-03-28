@@ -2,8 +2,7 @@
 import p from 'immer';
 import { ACTION } from '../actions/types';
 
-
-const INITIAL_STATE = [
+/* const exmaple = [
   {
     id: 22,
     p_id: 13,
@@ -14,12 +13,19 @@ const INITIAL_STATE = [
     creation_date: 1585210224.960805,
     score: 0,
   },
-];
+]; */
+
+
+const INITIAL_STATE = [];
 
 export default p((state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ACTION.GET_QUESTION_COMMENTS:
+    case ACTION.GET_ARTICLE_COMMENTS:
       state = action.payload;
+      return state;
+    case ACTION.RESET_COMMENTS:
+      state = [];
       return state;
     default:
       return state;

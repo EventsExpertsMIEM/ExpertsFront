@@ -4,27 +4,63 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  getQuestionComments, getUserLoginStatus, toggleDownvote, toggleUpvote, getQuestion, increaseViews,
+  getQuestionComments,
+  toggleQuestionDownvote,
+  getUserLoginStatus,
+  toggleQuestionUpvote,
+  getQuestion,
+  increaseQuestionViews,
+  getArticleComments,
+  increaseArticleViews,
+  toggleArticleDownvote,
+  getArticle,
+  toggleArticleUpvote,
 } from '../../actions';
 import { formatDetailedDateTime, renderInputField, renderTextareaField } from '../helpers/helpers';
 import CommentGroup from './CommentGroup/index';
+import { subjectsName } from '../../actions/types';
+
+const mapSubjToActions = {
+  questions: {
+    getSubj: getQuestion,
+    getComments: getQuestionComments,
+    increaseViews: increaseQuestionViews,
+    toggleUpvote: toggleQuestionUpvote,
+    toggleDownvote: toggleQuestionDownvote,
+    subjectsName: subjectsName.questions,
+  },
+  articles: {
+    getSubj: getArticle,
+    getComments: getArticleComments,
+    increaseViews: increaseArticleViews,
+    toggleUpvote: toggleArticleUpvote,
+    toggleDownvote: toggleArticleDownvote,
+    subjectsName: subjectsName.articles,
+  },
+};
 
 const Info = (props) => {
-  const [isQuestionFound, setIsQuestionFound] = useState(true);
-  const questions = useSelector((store) => store.questions);
   const dispatch = useDispatch();
+  const [isQuestionFound, setIsQuestionFound] = useState(true);
+  const type = window.location.pathname.split('/')[1];
+
+  const {
+    getSubj, getComments, increaseViews, toggleUpvote, toggleDownvote, subjectsName,
+  } = mapSubjToActions[type];
+
+  const subjects = useSelector((store) => store[subjectsName]);
   const id = props.match.params.id || window.location.pathname.match(/\d+/g)[0];
-  const question = questions[id];
+  const subject = subjects[id];
 
   useEffect(() => {
     (async () => {
-      const res = await dispatch(getQuestion(id));
+      const res = await dispatch(getSubj(id));
       if ((res instanceof Error)) {
         setIsQuestionFound(false);
       }
     })();
     dispatch(getUserLoginStatus());
-    dispatch(getQuestionComments(id));
+    dispatch(getComments(id));
     dispatch(increaseViews(id));
   }, [dispatch, id]);
 
@@ -37,7 +73,7 @@ const Info = (props) => {
   }
 
 
-  if (!question) {
+  if (!subject) {
     return (
       <div className="text-center">
         <h1>Загрузка...</h1>
@@ -47,12 +83,12 @@ const Info = (props) => {
 
   const onUpvoteClick = () => {
     dispatch(toggleUpvote(id));
-    dispatch(getQuestion(id));
+    dispatch(getSubj(id));
   };
 
   const onDownvoteClick = () => {
     dispatch(toggleDownvote(id));
-    dispatch(getQuestion(id));
+    dispatch(getSubj(id));
   };
 
   const {
@@ -69,7 +105,7 @@ const Info = (props) => {
     view_count: viewCount,
     comment_count: commentCount,
     tags,
-  } = question;
+  } = subject;
 
   return (
     <div className="container">
@@ -123,7 +159,7 @@ const Info = (props) => {
         </div>
       </div>
       <CommentGroup.Comments />
-      <CommentGroup.CreateComment questionId={id} />
+      <CommentGroup.CreateComment subjectId={id} subjectType={type} />
     </div>
   );
 };

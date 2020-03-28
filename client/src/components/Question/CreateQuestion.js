@@ -10,10 +10,10 @@ import {
   maxValue128,
   maxValue1024,
   renderInputField,
-  renderTextareaField,
+  renderTextareaField, trim,
 } from '../helpers/helpers';
 import { FIELD_NAMES } from '../helpers/consts';
-import Tags from './Tags/Tags';
+import Tags from '../Tags/Tags';
 import requireAuth from '../requireAuth';
 
 const INPUT_FIELDS = [
@@ -23,6 +23,7 @@ const INPUT_FIELDS = [
     validate: [required, minValue28, maxValue128],
     elementType: 'input',
     normalize: uppercase,
+    normalizeOnBlur: trim,
   },
   {
     name: 'body',
@@ -30,6 +31,7 @@ const INPUT_FIELDS = [
     validate: [required, maxValue1024],
     elementType: 'textarea',
     normalize: uppercase,
+    normalizeOnBlur: trim,
   },
   {
     name: 'only_experts_answer',
@@ -64,7 +66,8 @@ const CreateQuestion = (props) => {
   // eslint-disable-next-line react/prop-types
   const { pristine, submitting, invalid } = props;
   const dispatch = useDispatch();
-  const question = useSelector((store) => store.form.question && store.form.question.values);
+  const question = useSelector((store) => store.form[FIELD_NAMES.QUESTION]
+      && store.form[FIELD_NAMES.QUESTION].values);
   const tags = useSelector((store) => store.tags);
 
   const onClick = () => {
@@ -84,8 +87,10 @@ const CreateQuestion = (props) => {
         <div className="tab-pane show active mt-3" id="security" aria-labelledby="nav-security">
           <h4>Новый вопрос экспертам</h4>
           {INPUT_FIELDS.map((input) => {
-            const { name, placeholder, type } = input;
-            const renderComponent = name === 'body' ? renderTextareaField : renderInputField;
+            const {
+              name, placeholder, type, elementType,
+            } = input;
+            const renderComponent = elementType === 'textarea' ? renderTextareaField : renderInputField;
 
             return (
               <div className="form-group" key={placeholder}>
@@ -104,10 +109,9 @@ const CreateQuestion = (props) => {
                     <Field
                       key="tags"
                       name="tags"
-                      component={() => <Tags suggestions={tags} />}
+                      component={() => <Tags suggestions={tags} fieldName={FIELD_NAMES.QUESTION} />}
                     />
                     )}
-          <div className="form-group" />
           <div className="form-group text-center">
             <input
               type="submit"

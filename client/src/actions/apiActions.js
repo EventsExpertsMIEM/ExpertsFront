@@ -71,10 +71,11 @@ export const confirmUser = () => async (dispatch) => {
   }
 };
 
-export const deleteUser = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.DELETE;
+export const deleteUser = ({ password }) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.DELETE;
+  const path = getPath();
   try {
-    const res = await axios[method](path);
+    const res = await axios[method](path, { password });
     dispatch({
       type: ACTION.DELETE,
       payload: res,
@@ -135,16 +136,19 @@ export const changePassword = () => async (dispatch) => {
   }
 };
 
-export const banUser = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.BAN_USER;
+export const banUser = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.BAN_USER;
+  const path = getPath(id);
   try {
-    const res = await axios[method](path);
+    const res = await axios[method](path, id);
     dispatch({
       type: ACTION.BAN_USER,
-      payload: res,
+      payload: res.data,
     });
+    return res.data;
   } catch (err) {
     console.error(err);
+    return err;
   }
 };
 
@@ -190,15 +194,18 @@ export const getUserInfo = (id) => async (dispatch) => {
 };
 
 export const getAllUsers = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_ALL_USERS;
+  const { getPath, method } = ACTION_MAP.GET_ALL_USERS;
+  const path = getPath();
   try {
     const res = await axios[method](path);
     dispatch({
       type: ACTION.GET_ALL_USERS,
-      payload: res,
+      payload: res.data,
     });
+    return res.data;
   } catch (err) {
     console.error(err);
+    return err;
   }
 };
 
@@ -242,6 +249,7 @@ export const getUserArticles = () => async (dispatch) => {
   }
 };
 
+// TODO: просмотр истори комменатриев?
 export const getUserComments = () => async (dispatch) => {
   const { path, method } = ACTION_MAP.GET_USER_COMMENTS;
   try {
@@ -279,8 +287,9 @@ export const getAllQuestions = () => async (dispatch) => {
  * @returns {function}
  */
 export const addQuestion = (data) => async (dispatch) => {
-  const { path, method } = ACTION_MAP.ADD_QUESTION;
+  const { getPath, method } = ACTION_MAP.ADD_QUESTION;
   data.tags = Array.from(new Set(data.tags.map((tag) => tag.id)));
+  const path = getPath();
 
   try {
     const res = await axios[method](path, data);
@@ -373,13 +382,13 @@ export const addQuestionComment = (comment) => async (dispatch) => {
   }
 };
 
-export const increaseViews = (id) => async (dispatch) => {
-  const { getPath, method } = ACTION_MAP.INCREASE_VIEWS;
+export const increaseQuestionViews = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.INCREASE_QUESTION_VIEWS;
   const path = getPath(id);
   try {
     const res = await axios[method](path);
     dispatch({
-      type: ACTION.INCREASE_VIEWS,
+      type: ACTION.INCREASE_QUESTION_VIEWS,
       payload: res,
     });
   } catch (err) {
@@ -387,13 +396,13 @@ export const increaseViews = (id) => async (dispatch) => {
   }
 };
 
-export const toggleUpvote = (id) => async (dispatch) => {
-  const { getPath, method } = ACTION_MAP.TOGGLE_UPVOTE;
+export const toggleQuestionUpvote = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.TOGGLE_QUESTION_UPVOTE;
   const path = getPath(id);
   try {
     const res = await axios[method](path);
     dispatch({
-      type: ACTION.TOGGLE_UPVOTE,
+      type: ACTION.TOGGLE_QUESTION_UPVOTE,
       payload: res,
     });
   } catch (err) {
@@ -401,13 +410,13 @@ export const toggleUpvote = (id) => async (dispatch) => {
   }
 };
 
-export const toggleDownvote = (id) => async (dispatch) => {
-  const { getPath, method } = ACTION_MAP.TOGGLE_DOWNVOTE;
+export const toggleQuestionDownvote = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.TOGGLE_QUESTION_DOWNVOTE;
   const path = getPath(id);
   try {
     const res = await axios[method](path);
     dispatch({
-      type: ACTION.TOGGLE_DOWNVOTE,
+      type: ACTION.TOGGLE_QUESTION_DOWNVOTE,
       payload: res,
     });
   } catch (err) {
@@ -428,34 +437,39 @@ export const getAllTags = () => async (dispatch) => {
   }
 };
 
-export const createTag = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.CREATE_TAG;
+export const createTag = (name) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.CREATE_TAG;
+  const path = getPath(name);
   try {
     const res = await axios[method](path);
     dispatch({
       type: ACTION.CREATE_TAG,
-      payload: res,
+      payload: res.data,
     });
   } catch (err) {
     console.error(err);
   }
 };
 
-export const getTagInfo = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_TAG_INFO;
+export const getTagInfo = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.GET_TAG_INFO;
+  const path = getPath(id);
   try {
     const res = await axios[method](path);
     dispatch({
       type: ACTION.GET_TAG_INFO,
-      payload: res,
+      payload: res.data,
     });
+    return res.data;
   } catch (err) {
     console.error(err);
+    return err;
   }
 };
 
-export const changeTagName = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.CHANGE_TAG_NAME;
+export const changeTagName = (id, newName) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.CHANGE_TAG_NAME;
+  const path = getPath(id, newName);
   try {
     const res = await axios[method](path);
     dispatch({
@@ -467,12 +481,170 @@ export const changeTagName = () => async (dispatch) => {
   }
 };
 
-export const deleteTag = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.DELETE_TAG;
+export const deleteTag = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.DELETE_TAG;
+  const path = getPath(id);
+
   try {
     const res = await axios[method](path);
     dispatch({
       type: ACTION.DELETE_TAG,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const getAllArticles = () => async (dispatch) => {
+  const { path, method } = ACTION_MAP.GET_ALL_ARTICLES;
+  try {
+    const res = (await axios[method](path)).data;
+    dispatch({
+      type: ACTION.GET_ALL_ARTICLES,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+/**
+ * @param {object} data
+ * @params {string} data.title
+ * @params {string} data.body
+ * @returns {function}
+ */
+export const addArticle = (data) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.ADD_ARTICLE;
+  const path = getPath();
+  data.tags = Array.from(new Set(data.tags.map((tag) => tag.id)));
+  try {
+    const res = await axios[method](path, data);
+    dispatch({
+      type: ACTION.ADD_ARTICLE,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const getArticle = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.GET_ARTICLE;
+  const path = getPath(id);
+
+  try {
+    const res = await axios[method](path);
+    const action = dispatch({
+      type: ACTION.GET_ARTICLE,
+      payload: res.data,
+    });
+
+    return action;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};
+
+export const updateArticle = () => async (dispatch) => {
+  const { path, method } = ACTION_MAP.UPDATE_ARTICLE;
+  try {
+    const res = await axios[method](path);
+    dispatch({
+      type: ACTION.UPDATE_ARTICLE,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const deleteArticle = () => async (dispatch) => {
+  const { path, method } = ACTION_MAP.DELETE_ARTICLE;
+  try {
+    const res = await axios[method](path);
+    dispatch({
+      type: ACTION.DELETE_ARTICLE,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const getArticleComments = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.GET_ARTICLE_COMMENTS;
+  const path = getPath(id);
+  try {
+    const res = await axios[method](path);
+    dispatch({
+      type: ACTION.GET_ARTICLE_COMMENTS,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+/**
+ *
+ * @param article
+ * @param article.id number
+ * @param article.text string
+ * @returns {function}
+ */
+export const addArticleComment = (article) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.ADD_ARTICLE_COMMENT;
+  const path = getPath(article.id);
+
+  try {
+    const res = await axios[method](path, article);
+    dispatch({
+      type: ACTION.ADD_ARTICLE_COMMENT,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const increaseArticleViews = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.INCREASE_ARTICLE_VIEWS;
+  const path = getPath(id);
+  try {
+    const res = await axios[method](path);
+    dispatch({
+      type: ACTION.INCREASE_ARTICLE_VIEWS,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const toggleArticleUpvote = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.TOGGLE_ARTICLE_UPVOTE;
+  const path = getPath(id);
+  try {
+    const res = await axios[method](path);
+    dispatch({
+      type: ACTION.TOGGLE_ARTICLE_UPVOTE,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const toggleArticleDownvote = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.TOGGLE_ARTICLE_DOWNVOTE;
+  const path = getPath(id);
+  try {
+    const res = await axios[method](path);
+    dispatch({
+      type: ACTION.TOGGLE_ARTICLE_DOWNVOTE,
       payload: res,
     });
   } catch (err) {

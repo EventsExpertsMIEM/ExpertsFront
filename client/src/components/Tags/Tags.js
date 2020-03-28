@@ -4,12 +4,13 @@ import React, { useState } from 'react';
 import { change } from 'redux-form';
 import ReactTags from 'react-tag-autocomplete';
 import { useDispatch, useSelector } from 'react-redux';
-import { FIELD_NAMES } from '../../helpers/consts';
+import { FIELD_NAMES } from '../helpers/consts';
 
 const Tags = (props) => {
-  const initialTags = useSelector((store) => store.form.question
-      && store.form.question.values
-      && store.form.question.values.tags);
+  const { fieldName } = props;
+  const initialTags = useSelector((store) => store.form[fieldName]
+        && store.form[fieldName].values
+        && store.form[fieldName].values.tags);
   const [tags, setTags] = useState(initialTags);
   // eslint-disable-next-line no-unused-vars
   const [suggestions, setSuggestions] = useState(props.suggestions);
@@ -18,13 +19,13 @@ const Tags = (props) => {
   const handleDelete = (i) => {
     tags.splice(i, 1);
     setTags(tags);
-    dispatch(change(FIELD_NAMES.QUESTION, 'tags', tags));
+    dispatch(change(FIELD_NAMES[fieldName.toUpperCase()], 'tags', tags));
   };
 
   const handleAddition = (tag) => {
     const newTags = [].concat(tags, tag);
     setTags(newTags);
-    dispatch(change(FIELD_NAMES.QUESTION, 'tags', newTags));
+    dispatch(change(FIELD_NAMES[fieldName.toUpperCase()], 'tags', newTags));
   };
 
   return (
