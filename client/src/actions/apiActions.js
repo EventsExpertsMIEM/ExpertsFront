@@ -383,12 +383,12 @@ export const addQuestionComment = (comment) => async (dispatch) => {
 };
 
 export const increaseQuestionViews = (id) => async (dispatch) => {
-  const { getPath, method } = ACTION_MAP.INCREASE_VIEWS;
+  const { getPath, method } = ACTION_MAP.INCREASE_QUESTION_VIEWS;
   const path = getPath(id);
   try {
     const res = await axios[method](path);
     dispatch({
-      type: ACTION.INCREASE_VIEWS,
+      type: ACTION.INCREASE_QUESTION_VIEWS,
       payload: res,
     });
   } catch (err) {
@@ -437,14 +437,14 @@ export const getAllTags = () => async (dispatch) => {
   }
 };
 
-export const createTag = (text) => async (dispatch) => {
+export const createTag = (name) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.CREATE_TAG;
-  const path = getPath();
+  const path = getPath(name);
   try {
-    const res = await axios[method](path, { text });
+    const res = await axios[method](path);
     dispatch({
       type: ACTION.CREATE_TAG,
-      payload: res,
+      payload: res.data,
     });
   } catch (err) {
     console.error(err);
@@ -467,11 +467,11 @@ export const getTagInfo = (id) => async (dispatch) => {
   }
 };
 
-export const changeTagName = (id, text) => async (dispatch) => {
+export const changeTagName = (id, newName) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.CHANGE_TAG_NAME;
-  const path = getPath(id);
+  const path = getPath(id, newName);
   try {
-    const res = await axios[method](path, { id, text });
+    const res = await axios[method](path);
     dispatch({
       type: ACTION.CHANGE_TAG_NAME,
       payload: res,
@@ -518,6 +518,7 @@ export const getAllArticles = () => async (dispatch) => {
 export const addArticle = (data) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.ADD_ARTICLE;
   const path = getPath();
+  data.tags = Array.from(new Set(data.tags.map((tag) => tag.id)));
   try {
     const res = await axios[method](path, data);
     dispatch({
@@ -610,12 +611,12 @@ export const addArticleComment = (article) => async (dispatch) => {
 };
 
 export const increaseArticleViews = (id) => async (dispatch) => {
-  const { getPath, method } = ACTION_MAP.INCREASE_VIEWS;
+  const { getPath, method } = ACTION_MAP.INCREASE_ARTICLE_VIEWS;
   const path = getPath(id);
   try {
     const res = await axios[method](path);
     dispatch({
-      type: ACTION.INCREASE_VIEWS,
+      type: ACTION.INCREASE_ARTICLE_VIEWS,
       payload: res,
     });
   } catch (err) {

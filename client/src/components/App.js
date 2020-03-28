@@ -11,14 +11,17 @@ import CreateQuestion from './Question/CreateQuestion';
 import Articles from './Article/Articles';
 import CreateArticle from './Article/CreateArticle';
 
-const map = {
+const routesMap = {
   main: {
     path: '/', requireAuth: null, component: MainPage, exact: true,
   },
-  info: { path: '/info/:id', requireAuth: null, component: Info },
+  info: { path: '/questions/:id', requireAuth: null, component: Info },
   profile: { path: '/profile', requireAuth: true, component: Profile },
   createQuestion: { path: '/create-question', requireAuth: true, component: CreateQuestion },
-  articles: { path: '/articles', requireAuth: true, component: Articles },
+  articles: {
+    path: '/articles', requireAuth: true, component: Articles, exact: true,
+  },
+  article: { path: '/articles/:id', requireAuth: true, component: Info },
   createArticle: { path: '/create-article', requireAuth: true, component: CreateArticle },
   auth: { path: '/auth', requireAuth: false, component: Auth },
   notFoundPage: { path: '*', requireAuth: false, component: NotFoundPage },
@@ -31,7 +34,7 @@ const App = () => {
     <Router>
       <Navigation />
       <Switch>
-        {Object.values(map).map(({
+        {Object.values(routesMap).map(({
           // eslint-disable-next-line no-unused-vars
           path, component, exact, requireAuth,
         }) => (

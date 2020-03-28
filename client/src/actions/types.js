@@ -24,7 +24,7 @@ export const ACTION = {
   DELETE_QUESTION: 'DELETE_QUESTION',
   GET_QUESTION_COMMENTS: 'GET_QUESTION_COMMENTS',
   ADD_QUESTION_COMMENT: 'ADD_QUESTION_COMMENT',
-  INCREASE_VIEWS: 'INCREASE_VIEWS',
+  INCREASE_QUESTION_VIEWS: 'INCREASE_QUESTION_VIEWS',
   TOGGLE_QUESTION_UPVOTE: 'TOGGLE_QUESTION_UPVOTE',
   TOGGLE_QUESTION_DOWNVOTE: 'TOGGLE_QUESTION_DOWNVOTE',
   GET_ALL_TAGS: 'GET_ALL_TAGS',
@@ -42,6 +42,8 @@ export const ACTION = {
   INCREASE_ARTICLE_VIEWS: 'INCREASE_ARTICLE_VIEWS',
   TOGGLE_ARTICLE_UPVOTE: 'TOGGLE_ARTICLE_UPVOTE',
   TOGGLE_ARTICLE_DOWNVOTE: 'TOGGLE_ARTICLE_DOWNVOTE',
+  // ui
+  RESET_COMMENTS: 'RESET_COMMENTS',
 };
 
 const METHODS = {
@@ -156,7 +158,7 @@ export const ACTION_MAP = {
     getPath: (id) => `/question/${id}/comment`,
     method: METHODS.POST,
   },
-  [ACTION.INCREASE_VIEWS]: {
+  [ACTION.INCREASE_QUESTION_VIEWS]: {
     getPath: (id) => `/question/${id}/increase_views`,
     method: METHODS.GET,
   },
@@ -173,7 +175,7 @@ export const ACTION_MAP = {
     method: METHODS.GET,
   },
   [ACTION.CREATE_TAG]: {
-    getPath: () => '/tag',
+    getPath: (name) => `/tag?name=${name}`,
     method: METHODS.GET,
   },
   [ACTION.GET_TAG_INFO]: {
@@ -181,7 +183,7 @@ export const ACTION_MAP = {
     method: METHODS.GET,
   },
   [ACTION.CHANGE_TAG_NAME]: {
-    getPath: (id) => `/tag/${id}`,
+    getPath: (id, newName) => `/tag/${id}?name=${newName}`,
     method: METHODS.PUT,
   },
   [ACTION.DELETE_TAG]: {
@@ -199,7 +201,7 @@ export const ACTION_MAP = {
     method: METHODS.POST,
   },
   [ACTION.GET_ARTICLE]: {
-    path: '/article/{id}',
+    getPath: (id) => `/article/${id}`,
     method: METHODS.GET,
   },
   [ACTION.UPDATE_ARTICLE]: {
@@ -219,15 +221,20 @@ export const ACTION_MAP = {
     method: METHODS.POST,
   },
   [ACTION.INCREASE_ARTICLE_VIEWS]: {
-    path: '/article/{id}/increase_views',
+    getPath: (id) => `/article/${id}/increase_views`,
     method: METHODS.GET,
   },
   [ACTION.TOGGLE_ARTICLE_UPVOTE]: {
-    path: '/article/{id}/toggle_upvote',
+    getPath: (id) => `/article/${id}/toggle_upvote`,
     method: METHODS.GET,
   },
   [ACTION.TOGGLE_ARTICLE_DOWNVOTE]: {
-    path: '/article/{id}/toggle_downvote',
+    getPath: (id) => `/article/${id}/toggle_downvote`,
     method: METHODS.GET,
   },
+};
+
+export const subjectsName = {
+  questions: 'questions',
+  articles: 'articles',
 };

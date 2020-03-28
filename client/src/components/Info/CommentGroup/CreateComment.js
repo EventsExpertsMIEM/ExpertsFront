@@ -5,20 +5,38 @@ import { Field, reduxForm, reset } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { renderTextareaField } from '../../helpers/helpers';
 import { FIELD_NAMES } from '../../helpers/consts';
-import { addQuestionComment, getQuestionComments } from '../../../actions';
+import {
+  addArticleComment, addQuestionComment, getArticleComments, getQuestionComments,
+} from '../../../actions';
+import { subjectsName } from '../../../actions/types';
+
+const mapSubjToActions = {
+  [subjectsName.questions]: {
+    addComment: addQuestionComment,
+    getComments: getQuestionComments,
+  },
+  [subjectsName.articles]: {
+    addComment: addArticleComment,
+    getComments: getArticleComments,
+  },
+};
 
 const CreateComment = (props) => {
   const {
-    pristine, submitting, invalid, questionId,
+    pristine, submitting, invalid, subjectId, subjectType,
   } = props;
   const dispatch = useDispatch();
+
   const comment = useSelector((store) => store.form[FIELD_NAMES.COMMENT]
         && store.form[FIELD_NAMES.COMMENT].values);
 
-  const onClick = () => {
-    comment.id = questionId;
-    dispatch(addQuestionComment(comment));
-    dispatch(getQuestionComments(questionId));
+  const { addComment, getComments } = mapSubjToActions[subjectType];
+
+  const onClick = async (e) => {
+    e.preventDefault();
+    comment.id = subjectId;
+    await dispatch(addComment(comment));
+    await dispatch(getComments(subjectId));
     dispatch(reset(FIELD_NAMES.COMMENT));
   };
 
