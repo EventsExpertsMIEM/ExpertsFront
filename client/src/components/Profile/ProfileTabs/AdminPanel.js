@@ -7,6 +7,7 @@ import {
 } from '../../../actions';
 import Table from '../Table';
 import requireRights from '../../requireRights';
+import TagsPanel from './TagsPanel';
 
 /*  const example = {
   id: 30,
@@ -51,7 +52,7 @@ const AdminPanel = () => {
 
   const columns = [
     {
-      Header: 'Мои вопросы',
+      Header: 'Пользователи',
       columns: [
         {
           Header: 'Email',
@@ -102,7 +103,12 @@ const AdminPanel = () => {
     },
   ];
 
-  return <Table data={data} columns={columns} />;
+  return (
+    <>
+      <TagsPanel />
+      <Table data={data} columns={columns} />
+    </>
+  );
 };
 
 export default requireRights(AdminPanel);

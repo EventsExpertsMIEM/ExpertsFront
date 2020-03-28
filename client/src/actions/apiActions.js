@@ -437,10 +437,11 @@ export const getAllTags = () => async (dispatch) => {
   }
 };
 
-export const createTag = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.CREATE_TAG;
+export const createTag = (text) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.CREATE_TAG;
+  const path = getPath();
   try {
-    const res = await axios[method](path);
+    const res = await axios[method](path, { text });
     dispatch({
       type: ACTION.CREATE_TAG,
       payload: res,
@@ -450,23 +451,27 @@ export const createTag = () => async (dispatch) => {
   }
 };
 
-export const getTagInfo = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_TAG_INFO;
+export const getTagInfo = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.GET_TAG_INFO;
+  const path = getPath(id);
   try {
     const res = await axios[method](path);
     dispatch({
       type: ACTION.GET_TAG_INFO,
-      payload: res,
+      payload: res.data,
     });
+    return res.data;
   } catch (err) {
     console.error(err);
+    return err;
   }
 };
 
-export const changeTagName = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.CHANGE_TAG_NAME;
+export const changeTagName = (id, text) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.CHANGE_TAG_NAME;
+  const path = getPath(id);
   try {
-    const res = await axios[method](path);
+    const res = await axios[method](path, { id, text });
     dispatch({
       type: ACTION.CHANGE_TAG_NAME,
       payload: res,
@@ -476,8 +481,10 @@ export const changeTagName = () => async (dispatch) => {
   }
 };
 
-export const deleteTag = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.DELETE_TAG;
+export const deleteTag = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.DELETE_TAG;
+  const path = getPath(id);
+
   try {
     const res = await axios[method](path);
     dispatch({

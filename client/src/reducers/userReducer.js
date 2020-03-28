@@ -24,18 +24,18 @@ export default p((state = INITIAL_STATE, action) => {
     case ACTION.GET_USER_LOGIN_STATUS: {
       const {
         is_logged_in: isLoggedIn,
-        info,
+        // info,
       } = action.payload;
 
-      const userState = {
+      /* const userState = {
         isLoggedIn,
         name: info && info.name,
         surname: info && info.surname,
         email: info && info.email,
         id: info && info.id,
-      };
+      }; */
 
-      state = userState;
+      state.isLoggedIn = isLoggedIn;
       return state;
     }
     case ACTION.GET_USER_INFO: {

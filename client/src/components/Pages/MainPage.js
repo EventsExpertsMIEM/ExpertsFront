@@ -29,7 +29,6 @@ const MainPage = () => {
       </div>
     );
   }
-  console.log(articles, questions);
 
   let elements = questions;
 
