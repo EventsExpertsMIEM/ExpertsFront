@@ -10,10 +10,10 @@ import {
   maxValue128,
   maxValue1024,
   renderInputField,
-  renderTextareaField,
+  renderTextareaField, trim,
 } from '../helpers/helpers';
 import { FIELD_NAMES } from '../helpers/consts';
-import Tags from './Tags/Tags';
+import Tags from '../Tags/Tags';
 import requireAuth from '../requireAuth';
 
 const INPUT_FIELDS = [
@@ -23,6 +23,7 @@ const INPUT_FIELDS = [
     validate: [required, minValue28, maxValue128],
     elementType: 'input',
     normalize: uppercase,
+    normalizeOnBlur: trim,
   },
   {
     name: 'body',
@@ -30,6 +31,7 @@ const INPUT_FIELDS = [
     validate: [required, maxValue1024],
     elementType: 'textarea',
     normalize: uppercase,
+    normalizeOnBlur: trim,
   },
   {
     name: 'only_experts_answer',
@@ -85,8 +87,10 @@ const CreateQuestion = (props) => {
         <div className="tab-pane show active mt-3" id="security" aria-labelledby="nav-security">
           <h4>Новый вопрос экспертам</h4>
           {INPUT_FIELDS.map((input) => {
-            const { name, placeholder, type } = input;
-            const renderComponent = name === 'body' ? renderTextareaField : renderInputField;
+            const {
+              name, placeholder, type, elementType,
+            } = input;
+            const renderComponent = elementType === 'textarea' ? renderTextareaField : renderInputField;
 
             return (
               <div className="form-group" key={placeholder}>

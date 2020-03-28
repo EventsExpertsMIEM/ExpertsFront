@@ -10,11 +10,11 @@ import {
   maxValue128,
   maxValue1024,
   renderInputField,
-  renderTextareaField,
+  renderTextareaField, trim,
 } from '../helpers/helpers';
 import { FIELD_NAMES } from '../helpers/consts';
 import requireAuth from '../requireAuth';
-import Tags from '../Question/Tags/Tags';
+import Tags from '../Tags/Tags';
 
 const INPUT_FIELDS = [
   {
@@ -23,6 +23,7 @@ const INPUT_FIELDS = [
     validate: [required, minValue28, maxValue128],
     elementType: 'input',
     normalize: uppercase,
+    normalizeOnBlur: trim,
   },
   {
     name: 'body',
@@ -30,6 +31,7 @@ const INPUT_FIELDS = [
     validate: [required, maxValue1024],
     elementType: 'textarea',
     normalize: uppercase,
+    normalizeOnBlur: trim,
   },
 ];
 

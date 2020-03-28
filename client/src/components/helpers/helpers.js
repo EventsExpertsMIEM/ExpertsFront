@@ -12,6 +12,8 @@ export const minValue = (min) => (value) => (value && value.length < min ? `Ми
 
 export const maxValue = (max) => (value) => (value && value.length > max ? `Максимальное число символов: ${max}` : undefined);
 
+export const trim = (data) => typeof data === 'string' && data.trim();
+
 export const minValue28 = minValue(28);
 
 export const maxValue128 = maxValue(128);
@@ -34,7 +36,7 @@ export const renderField = (props, elementType) => {
   const element = React.createElement(elementType, {
     ...input,
     id,
-    className: className || 'form-control',
+    className: className || type === 'checkbox' ? '' : 'form-control',
     placeholder,
     autoComplete,
     disabled,

@@ -13,8 +13,8 @@ const SecurityTab = (props) => {
   const { pristine, submitting, invalid } = props;
 
   const dispatch = useDispatch();
-  const data = useSelector((store) => store.form[FIELD_NAMES.SECURITY_TAB]
-        && store.form[FIELD_NAMES.SECURITY_TAB].values);
+  const data = useSelector((store) => store.form[FIELD_NAMES.SECURITY]
+        && store.form[FIELD_NAMES.SECURITY].values);
   const email = useSelector((store) => store.user && store.user.email);
   const passwordsMatch = data.newPassword === data.repeatNewPassword;
 
@@ -82,7 +82,7 @@ const SecurityTab = (props) => {
 };
 
 export default reduxForm({
-  form: FIELD_NAMES.SECURITY_TAB,
+  form: FIELD_NAMES.SECURITY,
   initialValues: {
     currentPassword: '',
     newPassword: '',
