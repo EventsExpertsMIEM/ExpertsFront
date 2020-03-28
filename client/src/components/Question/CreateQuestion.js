@@ -64,7 +64,8 @@ const CreateQuestion = (props) => {
   // eslint-disable-next-line react/prop-types
   const { pristine, submitting, invalid } = props;
   const dispatch = useDispatch();
-  const question = useSelector((store) => store.form.question && store.form.question.values);
+  const question = useSelector((store) => store.form[FIELD_NAMES.QUESTION]
+      && store.form[FIELD_NAMES.QUESTION].values);
   const tags = useSelector((store) => store.tags);
 
   const onClick = () => {
@@ -104,10 +105,9 @@ const CreateQuestion = (props) => {
                     <Field
                       key="tags"
                       name="tags"
-                      component={() => <Tags suggestions={tags} />}
+                      component={() => <Tags suggestions={tags} fieldName={FIELD_NAMES.QUESTION} />}
                     />
                     )}
-          <div className="form-group" />
           <div className="form-group text-center">
             <input
               type="submit"

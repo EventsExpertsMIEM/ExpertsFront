@@ -38,7 +38,7 @@ const Navigation = () => {
       path: '/', name: 'Выход', requireAuth: true, position: POSITION.RIGHT2, onClick,
     },
     register: {
-      path: '/auth/register', name: 'Регистация', requireAuth: false, position: POSITION.RIGHT,
+      path: '/auth/register', name: 'Регистрация', requireAuth: false, position: POSITION.RIGHT,
     },
   };
 

@@ -4,7 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  getQuestionComments, getUserLoginStatus, toggleDownvote, toggleUpvote, getQuestion, increaseViews,
+  getQuestionComments,
+  toggleQuestionDownvote,
+  getUserLoginStatus,
+  toggleQuestionUpvote,
+  getQuestion,
+  increaseQuestionViews,
 } from '../../actions';
 import { formatDetailedDateTime, renderInputField, renderTextareaField } from '../helpers/helpers';
 import CommentGroup from './CommentGroup/index';
@@ -25,7 +30,7 @@ const Info = (props) => {
     })();
     dispatch(getUserLoginStatus());
     dispatch(getQuestionComments(id));
-    dispatch(increaseViews(id));
+    dispatch(increaseQuestionViews(id));
   }, [dispatch, id]);
 
   if (!isQuestionFound) {
@@ -46,12 +51,12 @@ const Info = (props) => {
   }
 
   const onUpvoteClick = () => {
-    dispatch(toggleUpvote(id));
+    dispatch(toggleQuestionUpvote(id));
     dispatch(getQuestion(id));
   };
 
   const onDownvoteClick = () => {
-    dispatch(toggleDownvote(id));
+    dispatch(toggleQuestionDownvote(id));
     dispatch(getQuestion(id));
   };
 
