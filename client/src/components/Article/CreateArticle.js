@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Field, reduxForm, reset } from 'redux-form';
-import { addQuestion, getAllTags } from '../../actions';
+import { addArticle, getAllTags } from '../../actions';
 import {
   required,
   uppercase,
@@ -14,6 +14,7 @@ import {
 } from '../helpers/helpers';
 import { FIELD_NAMES } from '../helpers/consts';
 import requireAuth from '../requireAuth';
+import Tags from '../Question/Tags/Tags';
 
 const INPUT_FIELDS = [
   {
@@ -35,9 +36,6 @@ const INPUT_FIELDS = [
 const INITIAL_VALUES = {
   title: '',
   body: '',
-  only_experts_answer: false,
-  closed: false,
-  only_chosen_tags: false,
   tags: [],
 };
 
@@ -45,11 +43,15 @@ const CreateQuestion = (props) => {
   // eslint-disable-next-line react/prop-types
   const { pristine, submitting, invalid } = props;
   const dispatch = useDispatch();
-  const question = useSelector((store) => store.form.question && store.form.question.values);
+  const article = useSelector((store) => store.form[FIELD_NAMES.ARTICLE]
+      && store.form[FIELD_NAMES.ARTICLE].values);
+  const tags = useSelector((store) => store.tags);
 
-  const onClick = () => {
-    dispatch(addQuestion(question));
-    dispatch(reset(FIELD_NAMES.QUESTION));
+  const onClick = (e) => {
+    e.preventDefault();
+    console.log(article);
+    dispatch(addArticle(article));
+    dispatch(reset(FIELD_NAMES.ARTICLE));
   };
 
   useEffect(() => {
@@ -79,7 +81,14 @@ const CreateQuestion = (props) => {
               </div>
             );
           })}
-          <div className="form-group" />
+          {tags.length > 0
+          && (
+          <Field
+            key="tags"
+            name="tags"
+            component={() => <Tags suggestions={tags} fieldName={FIELD_NAMES.ARTICLE} />}
+          />
+          )}
           <div className="form-group text-center">
             <input
               type="submit"

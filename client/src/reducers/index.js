@@ -5,6 +5,7 @@ import user from './userReducer';
 import comments from './commentsReducer';
 import tags from './tagsReducer';
 import table from './tableReducer';
+import articles from './articlesReducer';
 
 export default combineReducers({
   questions,
@@ -13,4 +14,5 @@ export default combineReducers({
   comments,
   tags,
   table,
+  articles,
 });

@@ -2,13 +2,14 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserLoginStatus, getAllQuestions } from '../../actions';
+import { getUserLoginStatus, getAllQuestions, getAllArticles } from '../../actions';
 import { formatDetailedDateTime } from '../helpers/helpers';
 import radixSort from '../helpers/radixSort';
 
 const MainPage = () => {
   // eslint-disable-next-line no-unused-vars
   const questions = useSelector((store) => store.questions);
+  const articles = useSelector((store) => store.articles);
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const onClick = () => dispatch(getAllQuestions());
@@ -16,6 +17,7 @@ const MainPage = () => {
   useEffect(() => {
     (async () => {
       await dispatch(getAllQuestions());
+      await dispatch(getAllArticles());
       await dispatch(getUserLoginStatus());
     })();
   }, [dispatch, user.isLoggedIn]);
@@ -27,11 +29,18 @@ const MainPage = () => {
       </div>
     );
   }
+  console.log(articles, questions);
 
+  let elements = questions;
+
+  // TODO: delete
+  if (false) {
+    elements = articles;
+  }
 
   return (
     <div className="container">
-      {radixSort(Object.values(questions), 'id', false).map((question) => {
+      {radixSort(Object.values(elements), 'id', false).map((question) => {
         const {
           closed,
           only_experts_answer: onlyExpertsAnswer,

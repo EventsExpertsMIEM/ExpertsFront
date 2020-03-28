@@ -10,7 +10,12 @@ const Comment = (props) => {
   return (
     <div key={id} className="media-body mt-3 mb-3">
       <h5 className="mt-0">{email}</h5>
-      <img src={`${process.env.PUBLIC_URL}/favicon.ico`} className="mr-3" alt="..." />
+      <img
+        src={`${process.env.PUBLIC_URL}/androsheep2.jpg`}
+        className="mr-3 rounded img-thumbnail img-fluid"
+        style={{ width: '10%' }}
+        alt="..."
+      />
       {text}
       <div>
         <div>Дата создания:</div>

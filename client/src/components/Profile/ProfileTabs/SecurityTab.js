@@ -3,7 +3,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { changePassword, closeAllSessions, resetPassword } from '../../../actions';
+import {
+  changePassword, closeAllSessions, deleteUser, resetPassword,
+} from '../../../actions';
 import { renderInputField, required } from '../../helpers/helpers';
 import { FIELD_NAMES } from '../../helpers/consts';
 
@@ -22,6 +24,11 @@ const SecurityTab = (props) => {
     return dispatch(changePassword());
   };
   const onResetPassword = () => dispatch(resetPassword({ email }));
+
+  // TODO: input password
+  const onDeleteUser = async (password) => {
+    await dispatch(deleteUser({ password }));
+  };
 
   const INPUTS_FIELDS = [
     {
@@ -65,6 +72,9 @@ const SecurityTab = (props) => {
         <h4 className="text-center page-link btn" onClick={onCloseAllSessions}>
           Закрыть все сессии, кроме
           текущей
+        </h4>
+        <h4 className="text-center page-link btn btn-danger" onClick={onDeleteUser}>
+          Удалить аккаунт
         </h4>
       </div>
     </form>

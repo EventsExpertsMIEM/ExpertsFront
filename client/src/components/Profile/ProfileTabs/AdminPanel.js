@@ -39,6 +39,9 @@ const AdminPanel = () => {
   const isBanned = (status) => status === 'banned';
   const disabled = (status) => (isBanned(status) ? 'disabled' : undefined);
   const onBan = (status, id) => (isBanned(status) ? undefined : () => onBanClick(id));
+  const onOpenProfile = (id) => {
+    alert(JSON.stringify(data[data.length - id], null, 4));
+  };
 
   useEffect(() => {
     (async () => {
@@ -90,7 +93,7 @@ const AdminPanel = () => {
                 >
                   Забанить
                 </h4>
-                <h4 className="text-center page-link btn">Перейти в профиль</h4>
+                <h4 className="text-center page-link btn" onClick={() => onOpenProfile(id)}>Подробнее</h4>
               </div>
             );
           },
