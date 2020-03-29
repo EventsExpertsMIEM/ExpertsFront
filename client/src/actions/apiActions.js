@@ -130,11 +130,11 @@ export const resetPassword = ({ email }) => async (dispatch) => {
   }
 };
 
-export const changePassword = (password) => async (dispatch) => {
+export const changePassword = (old_password, new_password) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.CHANGE_PASSWORD;
   const path = getPath();
   try {
-    const res = await axios[method](path, { password });
+    const res = await axios[method](path, { old_password, new_password });
     dispatch({
       type: ACTION.CHANGE_PASSWORD,
       payload: res.data,
