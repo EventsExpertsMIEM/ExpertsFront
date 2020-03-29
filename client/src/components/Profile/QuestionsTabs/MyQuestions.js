@@ -9,19 +9,11 @@ import Table from '../Table';
 import CreateQuestion from '../../Question/CreateQuestion';
 import { FIELD_NAMES } from '../../helpers/consts';
 import { deleteQuestion, getUserQuestions, updateQuestion } from '../../../actions';
+import { normalizeTags, scrollToRef } from '../../helpers/helpers';
 
 const dict = {
   active: 'Открыт',
   closed: 'Закрыт',
-};
-
-const normalizeTags = (tags) => tags.reduce((acc, tag) => {
-  acc[tag.name] = tag;
-  return acc;
-}, {});
-
-const scrollToRef = (ref) => {
-  setTimeout(() => ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' }), 10);
 };
 
 const getColumns = (ref, toggleShow) => [
@@ -65,7 +57,6 @@ const getColumns = (ref, toggleShow) => [
           };
 
           const executeScroll = () => scrollToRef(ref);
-
           return (
             <>
               <div>{dict[status] || status}</div>

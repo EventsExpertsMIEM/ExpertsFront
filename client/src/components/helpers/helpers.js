@@ -68,3 +68,18 @@ export const formatDateTime = (date, options = DEFAULT_DATE_FORMAT_OPTIONS) => {
 export const formatDetailedDateTime = (dateTime) => formatDateTime(
   dateTime, DETAILED_DATE_FORMAT_OPTIONS,
 );
+
+export const formatModalData = (data) => Object.entries(data).reduce((acc, [key, value]) => {
+  // eslint-disable-next-line no-param-reassign
+  acc += `${key} = ${value} `;
+  return acc;
+}, '');
+
+export const normalizeTags = (tags) => tags.reduce((acc, tag) => {
+  acc[tag.name] = tag;
+  return acc;
+}, {});
+
+export const scrollToRef = (ref) => {
+  setTimeout(() => ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' }), 10);
+};
