@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="bootstrap.css">
 
+    <!--load all font awesome styles -->
+    <link href="css/fontawesome/css/all.css" rel="stylesheet">
+
     <title>Личный кабинет</title>
   </head>
   <body>
@@ -46,6 +49,7 @@
         <div class="col-lg-4">
           <nav class="nav flex-column"> 
             <a class="nav-link active" id="nav-personal-tab" data-toggle="tab" href="#personal-info-tab" role="tab" aria-controls="personal-info-tab">Персональная информация</a>
+            <a class="nav-link" id="nav-education-tab" data-toggle="tab" href="#education-tab" role="tab" aria-controls="education-tab">Данные об образовании</a>
             <a class="nav-link" id="nav-security-tab" data-toggle="tab" href="#security-tab" role="tab" aria-controls="security-tab">Настройки безопасности</a>
             <a class="nav-link" id="nav-my-questions-tab" data-toggle="tab" href="#my-questions-tab" role="tab" aria-controls="my-questions-tab">Мои вопросы <span class="badge badge-light">1</span></a>
             <a class="nav-link" id="nav-my-subscriptions-tab" data-toggle="tab" href="#my-subscriptions-tab" role="tab" aria-controls="my-subscriptions-tab">Подписки <span class="badge badge-light">3</span></a>
@@ -58,18 +62,15 @@
               <h4>Иванов Иван Иванович</h4>
               <p>+7 999 123-45-67</p>
               <p>iivanov@mail.ru</p>
-              <div class="form-group">                  
-                <input type="text" class="form-control" id="userOrg" placeholder="МИЭМ НИУ ВШЭ" required>
-              </div>
-              <div class="form-group">                  
-                <input type="text" class="form-control" id="userPos" placeholder="Старший научный сотрудник" required>
-              </div>
-              <div class="form-group text-center">
-                  <button type="submit" class="btn btn-seconadary">Сохранить</button>
-                  <div class="alert alert-success mt-2" role="alert" >
-                        Данные о месте работы и должности сохранены
-                  </div>  
-              </div>              
+              <p>МИЭМ НИУ ВШЭ    <a href="" data-toggle="modal" data-target="#OrgPosModal" class="ml-2"><i class="far fa-edit"></i></a></p>
+              <p>Старший научный сотрудник</p>           
+            </div>
+            <div class="tab-pane fade mt-3 text-center" id="education-tab" role="tabpanel" aria-labelledby="nav-education-tab">
+              <h4>Диплом о высшем образовании    <a href="" data-toggle="modal" data-target="#EditEduModal" class="ml-2"><i class="far fa-edit"></i></a></h4>
+              <p>МИЭМ НИУ ВШЭ</p>
+              <p>2.09.03.01 — Информатика и вычислительная техника</p>
+              <p>бакалавр, выпуск 2014 года</p>
+              <a href="" data-toggle="modal" data-target="#NewEduModal"><h5>Добавить диплом об образовании</h5></a>
             </div>
             <div class="tab-pane fade mt-3" id="security-tab" role="tabpanel" aria-labelledby="nav-security-tab">
               <form>
@@ -201,6 +202,123 @@
         </div>
       </div>
     </div>
+    <!-- Organisation/position modal -->
+      <div class="modal" tabindex="-1" role="dialog" id="OrgPosModal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Место работы и должность:</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+             <form>
+               <div class="form-group">
+                  <label for="userOrg">Организация:</label>                 
+                  <input type="text" class="form-control" id="userOrg" placeholder="МИЭМ НИУ ВШЭ" required>
+                </div>
+                <div class="form-group">
+                  <label for="userPos">Должность:</label>                  
+                  <input type="text" class="form-control" id="userPos" placeholder="Старший научный сотрудник" required>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-seconadary">Сохранить</button>
+                    <div class="alert alert-success" role="alert" >
+                          Данные о месте работы и должности сохранены
+                    </div>  
+                </div>
+             </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Education modal 1-->
+      <div class="modal" tabindex="-1" role="dialog" id="EditEduModal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Редактировать диплом об образовании:</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+             <form>
+               <div class="form-group">
+                  <label for="eduInst">Название высшего учебного заведения:</label>                 
+                  <input type="text" class="form-control" id="eduInst" placeholder="МИЭМ НИУ ВШЭ" required>
+                </div>
+                <div class="form-group">
+                  <label for="eduSpec">Специальность:</label>                  
+                  <input type="text" class="form-control" id="eduSpec" placeholder="2.09.03.01 — Информатика и вычислительная техника" required>
+                </div>
+                <div class="form-group">
+                  <label for="eduLevel">Степень:</label>
+                  <select class="form-control" id="eduLevel">
+                    <option selected="selected">Бакалавр</option>
+                    <option>Магистр</option>
+                    <option>Доктор наук</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="eduYear">Год выпуска:</label>                  
+                  <input type="number" class="form-control" id="eduYear" placeholder="2014" required>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-seconadary">Сохранить</button>
+                    <div class="alert alert-success" role="alert" >
+                          Данные о дипломе сохранены
+                    </div>  
+                </div>
+             </form>
+            </div>
+          </div>
+        </div>
+      </div> 
+      <!-- Education modal 2-->
+      <div class="modal" tabindex="-1" role="dialog" id="NewEduModal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Добавить диплом об образовании:</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+             <form>
+               <div class="form-group">
+                  <label for="eduInst">Название высшего учебного заведения:</label>                 
+                  <input type="text" class="form-control" id="eduInst" placeholder="" required>
+                </div>
+                <div class="form-group">
+                  <label for="eduSpec">Специальность:</label>                  
+                  <input type="text" class="form-control" id="eduSpec" placeholder="" required>
+                </div>
+                <div class="form-group">
+                  <label for="eduLevel">Степень:</label>
+                  <select class="form-control" id="eduLevel">
+                    <option selected="selected">Бакалавр</option>
+                    <option>Магистр</option>
+                    <option>Доктор наук</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="eduYear">Год выпуска:</label>                  
+                  <input type="number" class="form-control" id="eduYear" placeholder="" required>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-seconadary">Сохранить</button>
+                    <div class="alert alert-success" role="alert" >
+                          Данные о дипломе сохранены
+                    </div>  
+                </div>
+             </form>
+            </div>
+          </div>
+        </div>
+      </div> 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
