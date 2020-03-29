@@ -3,7 +3,7 @@
 import React from 'react';
 import { Field, reduxForm, reset } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { renderTextareaField } from '../../helpers/helpers';
+import { renderTextareaField, trim } from '../../helpers/helpers';
 import { FIELD_NAMES } from '../../helpers/consts';
 import {
   addArticleComment, addQuestionComment, getArticleComments, getQuestionComments,
@@ -48,6 +48,7 @@ const CreateComment = (props) => {
         <Field
           name="text"
           component={renderTextareaField}
+          normalizeOnBlur={trim}
         />
       </div>
       <div className="row">
