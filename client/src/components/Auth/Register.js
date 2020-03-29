@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading,react/prop-types */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Field, reduxForm, reset } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -33,19 +33,20 @@ const INPUTS_FIELDS = [
 
 const Register = (props) => {
   // eslint-disable-next-line react/prop-types
-  const { pristine, submitting, invalid } = props;
+  const {
+    pristine, submitting, invalid,
+  } = props;
   const history = useHistory();
-
   const dispatch = useDispatch();
-  const registerData = useSelector((store) => store.form[FIELD_NAMES.REGISTER]
-        && store.form[FIELD_NAMES.REGISTER].values);
-  const passwordsMatch = registerData.password === registerData.repeatPassword;
+  const registerData = useSelector((store) => store.form[FIELD_NAMES.REGISTER]);
+  const { values, active } = registerData;
+  const passwordsMatch = values.password === values.repeatPassword;
   const [error, setError] = useState('');
 
   const onClick = async (e) => {
     setError('');
     e.preventDefault();
-    const res = await dispatch(register(registerData));
+    const res = await dispatch(register(values));
     if (res instanceof Error) {
       setError(res.response.data.description);
     } else {
@@ -54,6 +55,12 @@ const Register = (props) => {
       history.push('/auth/login');
     }
   };
+
+  useEffect(() => {
+    if (active) {
+      setError('');
+    }
+  }, [active]);
 
   return (
     <form id="signUp">

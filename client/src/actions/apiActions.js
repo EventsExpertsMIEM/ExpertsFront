@@ -13,6 +13,7 @@ export const login = (data) => async (dispatch) => {
     return res;
   } catch (err) {
     console.error(err);
+    alert(err);
     return err;
   }
 };
@@ -26,6 +27,7 @@ export const logout = () => async (dispatch) => {
     await axios[method](path);
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -54,6 +56,7 @@ export const register = (data) => async (dispatch) => {
     return res;
   } catch (err) {
     console.error(err);
+    alert(err);
     return err;
   }
 };
@@ -61,45 +64,47 @@ export const register = (data) => async (dispatch) => {
 export const confirmUser = () => async (dispatch) => {
   const { path, method } = ACTION_MAP.CONFIRM;
   try {
-    const res = await axios[method](path);
+    await axios[method](path);
     dispatch({
       type: ACTION.CONFIRM,
-      payload: res,
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
-export const deleteUser = ({ password }) => async (dispatch) => {
+export const deleteUser = (password) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.DELETE;
   const path = getPath();
   try {
     const res = await axios[method](path, { password });
     dispatch({
       type: ACTION.DELETE,
-      payload: res,
     });
+    return res.data;
   } catch (err) {
     console.error(err);
+    alert(err);
+    return err;
   }
 };
 
-export const closeAllSessions = () => async (dispatch) => {
+export const closeAllSessions = (password) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.CLOSE_ALL_SESSIONS;
   const path = getPath();
   try {
-    const res = await axios[method](path, null, {
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-    });
+    const res = await axios[method](path, { password });
+
     dispatch({
       type: ACTION.CLOSE_ALL_SESSIONS,
-      payload: res,
     });
+
+    return res.data;
   } catch (err) {
     console.error(err);
+    alert(err);
+    return err;
   }
 };
 
@@ -115,24 +120,30 @@ export const resetPassword = ({ email }) => async (dispatch) => {
     const res = await axios[method](path, { email });
     dispatch({
       type: ACTION.RESET_PASSWORD,
-      payload: res,
+      payload: res.data,
     });
+    return res.data;
   } catch (err) {
     console.error(err);
+    alert(err);
+    return err;
   }
 };
 
-export const changePassword = () => async (dispatch) => {
+export const changePassword = (password) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.CHANGE_PASSWORD;
   const path = getPath();
   try {
-    const res = await axios[method](path);
+    const res = await axios[method](path, { password });
     dispatch({
       type: ACTION.CHANGE_PASSWORD,
-      payload: res,
+      payload: res.data,
     });
+    return res.data;
   } catch (err) {
     console.error(err);
+    alert(err);
+    return err;
   }
 };
 
@@ -148,6 +159,7 @@ export const banUser = (id) => async (dispatch) => {
     return res.data;
   } catch (err) {
     console.error(err);
+    alert(err);
     return err;
   }
 };
@@ -164,19 +176,23 @@ export const changeRole = (id, role) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
 export const getUserLoginStatus = () => async (dispatch) => {
   const { path, method } = ACTION_MAP.GET_USER_LOGIN_STATUS;
   try {
-    const res = (await axios[method](path)).data;
+    const res = await axios[method](path);
     dispatch({
       type: ACTION.GET_USER_LOGIN_STATUS,
-      payload: res,
+      payload: res.data,
     });
+    return res.data;
   } catch (err) {
     console.error(err);
+    alert(err);
+    return err;
   }
 };
 
@@ -190,6 +206,7 @@ export const getUserInfo = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -205,6 +222,7 @@ export const getAllUsers = () => async (dispatch) => {
     return res.data;
   } catch (err) {
     console.error(err);
+    alert(err);
     return err;
   }
 };
@@ -219,6 +237,7 @@ export const changeUserInfo = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -233,6 +252,7 @@ export const getUserQuestions = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -246,6 +266,7 @@ export const getUserArticles = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -260,6 +281,7 @@ export const getUserComments = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -273,6 +295,7 @@ export const getAllQuestions = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -299,6 +322,7 @@ export const addQuestion = (data) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -316,6 +340,7 @@ export const getQuestion = (id) => async (dispatch) => {
     return action;
   } catch (err) {
     console.error(err);
+    alert(err);
     return err;
   }
 };
@@ -330,6 +355,7 @@ export const updateQuestion = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -343,6 +369,7 @@ export const deleteQuestion = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -357,6 +384,7 @@ export const getQuestionComments = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -379,6 +407,7 @@ export const addQuestionComment = (comment) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -393,6 +422,7 @@ export const increaseQuestionViews = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -407,6 +437,7 @@ export const toggleQuestionUpvote = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -421,6 +452,7 @@ export const toggleQuestionDownvote = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -434,6 +466,7 @@ export const getAllTags = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -448,6 +481,7 @@ export const createTag = (name) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -463,6 +497,7 @@ export const getTagInfo = (id) => async (dispatch) => {
     return res.data;
   } catch (err) {
     console.error(err);
+    alert(err);
     return err;
   }
 };
@@ -478,6 +513,7 @@ export const changeTagName = (id, newName) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -493,6 +529,7 @@ export const deleteTag = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -506,6 +543,7 @@ export const getAllArticles = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -527,6 +565,7 @@ export const addArticle = (data) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -544,6 +583,7 @@ export const getArticle = (id) => async (dispatch) => {
     return action;
   } catch (err) {
     console.error(err);
+    alert(err);
     return err;
   }
 };
@@ -558,6 +598,7 @@ export const updateArticle = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -571,6 +612,7 @@ export const deleteArticle = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -585,6 +627,7 @@ export const getArticleComments = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -607,6 +650,7 @@ export const addArticleComment = (article) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -621,6 +665,7 @@ export const increaseArticleViews = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -635,6 +680,7 @@ export const toggleArticleUpvote = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };
 
@@ -649,5 +695,6 @@ export const toggleArticleDownvote = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err);
   }
 };

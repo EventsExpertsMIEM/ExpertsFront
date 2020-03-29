@@ -4,7 +4,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import {
-  changePassword, closeAllSessions, deleteUser, resetPassword,
+  changePassword, closeAllSessions, deleteUser, getUserLoginStatus, resetPassword,
 } from '../../../actions';
 import { renderInputField, required } from '../../helpers/helpers';
 import { FIELD_NAMES } from '../../helpers/consts';
@@ -18,16 +18,28 @@ const SecurityTab = (props) => {
   const email = useSelector((store) => store.user && store.user.email);
   const passwordsMatch = data.newPassword === data.repeatNewPassword;
 
-  const onCloseAllSessions = () => dispatch(closeAllSessions());
+  const onCloseAllSessions = async () => {
+    const password = window.prompt('Введите текущий пароль');
+    if (password) {
+      const res = await dispatch(closeAllSessions(password));
+      alert(JSON.stringify(res, null, 4));
+    }
+  };
   const onChangePassword = (e) => {
     e.preventDefault();
-    return dispatch(changePassword());
+    return dispatch(changePassword(data.newPassword));
   };
-  const onResetPassword = () => dispatch(resetPassword({ email }));
+  const onResetPassword = async () => {
+    await dispatch(resetPassword({ email }));
+  };
 
-  // TODO: input password
-  const onDeleteUser = async (password) => {
-    await dispatch(deleteUser({ password }));
+  const onDeleteUser = async () => {
+    const password = window.prompt('Введите текущий пароль');
+    if (password) {
+      const res = await dispatch(deleteUser(password));
+      alert(JSON.stringify(res, null, 4));
+      await dispatch(getUserLoginStatus());
+    }
   };
 
   const INPUTS_FIELDS = [

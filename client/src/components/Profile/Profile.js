@@ -7,10 +7,10 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileTabs from './ProfileTabs';
 import QuestionsTabs from './QuestionsTabs';
-import { getUserInfo, ROLES } from '../../actions';
+import { getUserQuestions, ROLES } from '../../actions';
 import requireAuth from '../requireAuth';
 
-const getTabs = () => [
+const getTabs = (params) => [
   {
     tabUrl: '',
     info: '',
@@ -29,15 +29,15 @@ const getTabs = () => [
   {
     tabUrl: 'personal-questions',
     info: 'Мои вопросы',
-    badge: 3,
+    badge: params.questions.length,
     component: QuestionsTabs.MyQuestions,
   },
-  {
-    tabUrl: 'personal-subscriptions',
-    info: 'Мои подписки',
-    badge: 2,
-    component: QuestionsTabs.Subscriptions,
-  },
+  /*  {
+      tabUrl: 'personal-subscriptions',
+      info: 'Мои подписки',
+      badge: 2,
+      component: QuestionsTabs.Subscriptions,
+    }, */
   {
     tabUrl: 'admin-panel',
     info: 'Панель администратора',
@@ -52,33 +52,38 @@ const getTabs = () => [
 const checkCondition = (condition, props) => ((!condition || (typeof condition === 'function' && condition(props))));
 
 const Profile = () => {
-  const { path, url } = useRouteMatch();
   const dispatch = useDispatch();
+  const { path, url } = useRouteMatch();
   const user = useSelector((state) => state.user);
+
+  const questions = useSelector((store) => store.table.questions);
 
   const props = {
     user,
+    questions,
   };
 
-  useEffect(() => {
-    dispatch(getUserInfo(user.id));
-  }, [dispatch, user.id]);
+  const tabs = getTabs(props);
 
-  const tabs = getTabs();
+  useEffect(() => {
+    if (user.id) {
+      dispatch(getUserQuestions(user.id));
+    }
+  }, [dispatch, user.id]);
 
   const renderLinks = ({
     tabUrl, info, badge, renderCondition,
   }) => (
     checkCondition(renderCondition, props) && (
-    <Link
-      key={tabUrl}
-      className="nav-link active"
-      role="tab"
-      to={`${url}/${tabUrl}`}
-    >
-      {info}
-      {badge && <span className="badge badge-light">{badge}</span>}
-    </Link>
+      <Link
+        key={tabUrl}
+        className="nav-link active"
+        role="tab"
+        to={`${url}/${tabUrl}`}
+      >
+        {info}
+        {!!badge && <span className="badge badge-light">{badge}</span>}
+      </Link>
     )
   );
 
