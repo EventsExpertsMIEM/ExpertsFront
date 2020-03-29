@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/jsx-props-no-spreading, react/prop-types */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Field, reduxForm, reset } from 'redux-form';
@@ -63,29 +63,34 @@ const INITIAL_VALUES = {
 };
 
 const CreateQuestion = (props) => {
-  // eslint-disable-next-line react/prop-types
-  const { pristine, submitting, invalid } = props;
+  const {
+    pristine, submitting, invalid, scrollRef, title = 'Новый вопрос экспертам',
+  } = props;
   const dispatch = useDispatch();
   const question = useSelector((store) => store.form[FIELD_NAMES.QUESTION]
-      && store.form[FIELD_NAMES.QUESTION].values);
+        && store.form[FIELD_NAMES.QUESTION].values);
   const tags = useSelector((store) => store.tags);
 
-  const onClick = () => {
+  const defaultOnClick = () => {
     dispatch(addQuestion(question));
     dispatch(reset(FIELD_NAMES.QUESTION));
   };
+
+  const { onClick = defaultOnClick } = props;
 
   useEffect(() => {
     dispatch(getAllTags());
   }, [dispatch]);
 
   return (
-    <div className="container">
+    <div
+      className="container"
+    >
       <form
         id="questions-tab"
       >
         <div className="tab-pane show active mt-3" id="security" aria-labelledby="nav-security">
-          <h4>Новый вопрос экспертам</h4>
+          {title && <h4>{title}</h4>}
           {INPUT_FIELDS.map((input) => {
             const {
               name, placeholder, type, elementType,
@@ -114,6 +119,7 @@ const CreateQuestion = (props) => {
                     )}
           <div className="form-group text-center">
             <input
+              ref={scrollRef}
               type="submit"
               className="btn btn-seconadary"
               value="Сохранить"
@@ -130,4 +136,6 @@ const CreateQuestion = (props) => {
 export default reduxForm({
   form: FIELD_NAMES.QUESTION,
   initialValues: INITIAL_VALUES,
+  enableReinitialize: true,
+  keepDirtyOnReinitialize: true,
 })(requireAuth(CreateQuestion));

@@ -10,7 +10,7 @@ import QuestionsTabs from './QuestionsTabs';
 import { getUserQuestions, ROLES } from '../../actions';
 import requireAuth from '../requireAuth';
 
-const getTabs = (params) => [
+const getTabs = (questions) => [
   {
     tabUrl: '',
     info: '',
@@ -29,7 +29,7 @@ const getTabs = (params) => [
   {
     tabUrl: 'personal-questions',
     info: 'Мои вопросы',
-    badge: params.questions.length,
+    badge: questions.length,
     component: QuestionsTabs.MyQuestions,
   },
   /*  {
@@ -60,10 +60,10 @@ const Profile = () => {
 
   const props = {
     user,
-    questions,
+    // questions,
   };
 
-  const tabs = getTabs(props);
+  const tabs = getTabs(questions);
 
   useEffect(() => {
     if (user.id) {

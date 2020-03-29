@@ -226,7 +226,7 @@ export const getAllUsers = () => async (dispatch) => {
     return err;
   }
 };
-
+// TODO implement
 export const changeUserInfo = () => async (dispatch) => {
   const { path, method } = ACTION_MAP.CHANGE_USER_INFO;
   try {
@@ -256,6 +256,7 @@ export const getUserQuestions = (id) => async (dispatch) => {
   }
 };
 
+// TODO implement
 export const getUserArticles = () => async (dispatch) => {
   const { path, method } = ACTION_MAP.GET_USER_ARTICLES;
   try {
@@ -269,8 +270,7 @@ export const getUserArticles = () => async (dispatch) => {
     alert(err);
   }
 };
-
-// TODO: просмотр истори комменатриев?
+// TODO: implement просмотр истори комменатриев?
 export const getUserComments = () => async (dispatch) => {
   const { path, method } = ACTION_MAP.GET_USER_COMMENTS;
   try {
@@ -345,10 +345,40 @@ export const getQuestion = (id) => async (dispatch) => {
   }
 };
 
-export const updateQuestion = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.UPDATE_QUESTION;
+/**
+ * @param {object} question
+ * @param {string} question.title
+ * @param {string} question.body
+ * @param {boolean} question.closed
+ * @param {boolean} question.only_experts_answer
+ * @param {boolean} question.only_chosen_tags
+ * @param {Array<number>} question.tags
+ * @returns {function()}
+ */
+
+export const updateQuestion = (question) => async (dispatch) => {
+  const {
+    id, title,
+    body,
+    closed,
+    only_experts_answer,
+    only_chosen_tags, tags,
+  } = question;
+
+  const data = {
+    title,
+    body,
+    closed,
+    only_experts_answer,
+    only_chosen_tags,
+    tags,
+  };
+
+  const { getPath, method } = ACTION_MAP.UPDATE_QUESTION;
+  const path = getPath(id);
+  data.tags = Array.from(new Set(data.tags.map((tag) => tag.id)));
   try {
-    const res = await axios[method](path);
+    const res = await axios[method](path, data);
     dispatch({
       type: ACTION.UPDATE_QUESTION,
       payload: res,
@@ -359,8 +389,9 @@ export const updateQuestion = () => async (dispatch) => {
   }
 };
 
-export const deleteQuestion = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.DELETE_QUESTION;
+export const deleteQuestion = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.DELETE_QUESTION;
+  const path = getPath(id);
   try {
     const res = await axios[method](path);
     dispatch({
@@ -464,9 +495,11 @@ export const getAllTags = () => async (dispatch) => {
       type: ACTION.GET_ALL_TAGS,
       payload: res.data,
     });
+    return res.data;
   } catch (err) {
     console.error(err);
     alert(err);
+    return err;
   }
 };
 
@@ -587,7 +620,7 @@ export const getArticle = (id) => async (dispatch) => {
     return err;
   }
 };
-
+// TODO implement
 export const updateArticle = () => async (dispatch) => {
   const { path, method } = ACTION_MAP.UPDATE_ARTICLE;
   try {
@@ -602,6 +635,7 @@ export const updateArticle = () => async (dispatch) => {
   }
 };
 
+// TODO implement
 export const deleteArticle = () => async (dispatch) => {
   const { path, method } = ACTION_MAP.DELETE_ARTICLE;
   try {

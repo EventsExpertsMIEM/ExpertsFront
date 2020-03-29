@@ -143,11 +143,11 @@ export const ACTION_MAP = {
     method: METHODS.GET,
   },
   [ACTION.UPDATE_QUESTION]: {
-    path: '/question/{id}',
+    getPath: (id) => `/question/${id}`,
     method: METHODS.PUT,
   },
   [ACTION.DELETE_QUESTION]: {
-    path: '/question/{id}',
+    getPath: (id) => `/question/${id}`,
     method: METHODS.DELETE,
   },
   [ACTION.GET_QUESTION_COMMENTS]: {
