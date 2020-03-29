@@ -2,7 +2,9 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserLoginStatus, getAllQuestions, getAllArticles } from '../../actions';
+import {
+  getUserLoginStatus, getAllQuestions, getAllArticles, getUserInfo,
+} from '../../actions';
 import { formatDetailedDateTime } from '../helpers/helpers';
 import radixSort from '../helpers/radixSort';
 
@@ -16,7 +18,10 @@ const MainPage = () => {
     (async () => {
       await dispatch(getAllQuestions());
       await dispatch(getAllArticles());
-      await dispatch(getUserLoginStatus());
+      const res = await dispatch(getUserLoginStatus());
+      if (user.isLoggedIn && res.info && res.info.id) {
+        await dispatch(getUserInfo(res.info.id));
+      }
     })();
   }, [dispatch, user.isLoggedIn]);
 

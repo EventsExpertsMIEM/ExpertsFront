@@ -1,10 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading, no-shadow,react/prop-types,
  react/destructuring-assignment */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import Table from '../Table';
-import { getUserQuestions } from '../../../actions';
 
 const dict = {
   active: 'Открыт',
@@ -20,7 +18,7 @@ const columns = [
         accessor: 'id',
         Cell: (props) => {
           const { title, id } = props.row.original;
-          return (<Link to={`/info/${id}`}>{title}</Link>);
+          return (<Link to={`/questions/${id}`}>{title}</Link>);
         },
       },
       {
@@ -37,15 +35,10 @@ const columns = [
 
 
 const MyQuestions = (props) => {
-  const dispatch = useDispatch();
-  const data = useSelector((store) => store.table.questions);
+  const { questions } = props;
 
-  useEffect(() => {
-    dispatch(getUserQuestions(props.user.id));
-  }, [dispatch, props.user.id]);
   return (
-  // eslint-disable-next-line react/destructuring-assignment
-    <Table data={data} columns={columns} id={props.user.id} />
+    <Table data={questions} columns={columns} id={props.user.id} />
   );
 };
 
