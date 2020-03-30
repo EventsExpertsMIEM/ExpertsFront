@@ -52,7 +52,7 @@ const getTabs = ({
   },
   {
     tabUrl: 'edit-personal-data',
-    info: 'Редактирвоать профиль',
+    info: 'Редакритровать профиль',
     component: QuestionsTabs.EditPersonaData,
     onClick: () => dispatch(initialize(FIELD_NAMES.PROFILE, currentUserData)),
   },
