@@ -232,12 +232,43 @@ export const getAllUsers = () => async (dispatch) => {
     return err;
   }
 };
-// TODO implement
-export const changeUserInfo = (id) => async (dispatch) => {
+
+/**
+ * @param {number} userId
+ * @param {object} user
+ * @param {number} user.id
+ * @param {string} user.name
+ * @param {string} user.surname
+ * @param {string} user.email
+ * @param {string} user.position
+ * @param {Array<number>} user.tags
+ * @param {Array<number>} user.interests
+ * @returns {function()}
+ */
+export const changeUserInfo = (userId, user) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.CHANGE_USER_INFO;
-  const path = getPath(id);
+  const {
+    name,
+    surname,
+    email,
+    position,
+    tags,
+    interests,
+  } = user;
+
+  const data = {
+    name,
+    surname,
+    email,
+    position,
+    tags,
+    interests,
+  };
+
+  const path = getPath(userId);
+
   try {
-    const res = await axios[method](path);
+    const res = await axios[method](path, data);
     dispatch({
       type: ACTION.CHANGE_USER_INFO,
       payload: res,

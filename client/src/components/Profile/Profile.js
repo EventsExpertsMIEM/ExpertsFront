@@ -5,14 +5,18 @@ import {
   Link, Redirect, Route, useRouteMatch,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { initialize } from 'redux-form';
 import ProfileTabs from './ProfileTabs';
 import QuestionsTabs from './QuestionsTabs';
 import {
   getUserArticles, getUserComments, getUserQuestions, ROLES,
 } from '../../actions';
 import requireAuth from '../requireAuth';
+import { FIELD_NAMES } from '../helpers/consts';
 
-const getTabs = ({ questions, articles, comments }) => [
+const getTabs = ({
+  dispatch, currentUserData, questions, articles, comments,
+}) => [
   {
     tabUrl: '',
     info: '',
@@ -47,6 +51,12 @@ const getTabs = ({ questions, articles, comments }) => [
     component: QuestionsTabs.MyComments,
   },
   {
+    tabUrl: 'edit-personal-data',
+    info: 'Редакритровать профиль',
+    component: QuestionsTabs.EditPersonaData,
+    onClick: () => dispatch(initialize(FIELD_NAMES.PROFILE, currentUserData)),
+  },
+  {
     tabUrl: 'admin-panel',
     info: 'Панель администратора',
     component: ProfileTabs.AdminPanel,
@@ -68,12 +78,19 @@ const Profile = () => {
   const articles = useSelector((store) => store.table.articles);
   const comments = useSelector((store) => store.table.comments);
 
-  const props = {
-    user,
-    // questions,
+  const currentUserData = {
+    name: user.name,
+    surname: user.surname,
+    position: user.position,
   };
 
-  const tabs = getTabs({ questions, articles, comments });
+  const props = {
+    user,
+  };
+
+  const tabs = getTabs({
+    dispatch, currentUserData, questions, articles, comments,
+  });
 
   useEffect(() => {
     if (user.id) {
@@ -85,10 +102,11 @@ const Profile = () => {
   }, [dispatch, user.id]);
 
   const renderLinks = ({
-    tabUrl, info, badge, renderCondition,
+    tabUrl, info, badge, renderCondition, onClick,
   }) => (
     checkCondition(renderCondition, props) && (
     <Link
+      onClick={onClick}
       key={tabUrl}
       className="nav-link active"
       role="tab"
@@ -136,5 +154,4 @@ const Profile = () => {
     </div>
   );
 };
-
 export default requireAuth(Profile);

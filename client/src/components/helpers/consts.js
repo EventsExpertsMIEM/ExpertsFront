@@ -19,6 +19,7 @@ export const FIELD_NAMES = {
   COMMENT: 'comment',
   ARTICLE: 'article',
   SECURITY: 'securityTab',
+  PROFILE: 'editProfile',
 };
 
 export const DEFAULT_LANGUAGE = 'ru';
