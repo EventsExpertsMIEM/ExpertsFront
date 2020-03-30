@@ -73,7 +73,7 @@ const Articles = () => {
       />
       <Table
         data={Object.values(articles)
-          .filter((article) => article.title.toLowerCase().startsWith(query))}
+          .filter((article) => article.title.toLowerCase().indexOf(query) > -1)}
         columns={columns}
       />
     </div>

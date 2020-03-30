@@ -7,7 +7,6 @@ import {
 } from '../../actions';
 import { formatDetailedDateTime } from '../helpers/helpers';
 import radixSort from '../helpers/radixSort';
-import Table from '../Profile/Table';
 
 const MainPage = () => {
   const questions = useSelector((store) => store.questions);
@@ -42,7 +41,7 @@ const MainPage = () => {
   }
 
   const formattedQuestions = radixSort(Object.values(questions), 'id', false)
-    .filter((question) => question.title.toLowerCase().startsWith(query))
+    .filter((question) => question.title.toLowerCase().indexOf(query) > -1)
     .slice(0, length);
 
   return (
