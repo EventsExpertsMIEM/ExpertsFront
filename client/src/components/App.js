@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import MainPage from './Pages/MainPage';
-import Profile from './Profile/Profile';
 import Auth from './Auth/Auth';
 import NotFoundPage from './Pages/NotFondPage';
 import Navigation from './Pages/Navigation';
@@ -10,6 +9,8 @@ import Info from './Info/Info';
 import CreateQuestion from './Question/CreateQuestion';
 import Articles from './Article/Articles';
 import CreateArticle from './Article/CreateArticle';
+// eslint-disable-next-line import/no-named-as-default,import/no-named-as-default-member
+import Profile from './Profile/Profile';
 
 const routesMap = {
   main: {
