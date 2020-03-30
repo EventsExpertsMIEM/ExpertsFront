@@ -277,7 +277,7 @@ export const getUserArticles = (userId) => async (dispatch) => {
     alert(err.response.data.description);
   }
 };
-// TODO: implement просмотр истори комменатриев?
+
 export const getUserComments = (userId) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.GET_USER_COMMENTS;
   const path = getPath(userId);
@@ -285,7 +285,7 @@ export const getUserComments = (userId) => async (dispatch) => {
     const res = await axios[method](path);
     dispatch({
       type: ACTION.GET_USER_COMMENTS,
-      payload: res,
+      payload: res.data,
     });
   } catch (err) {
     console.error(err);

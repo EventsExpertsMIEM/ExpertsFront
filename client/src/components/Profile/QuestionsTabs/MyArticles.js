@@ -91,7 +91,6 @@ const getColumns = (ref, toggleShow) => [
   },
 ];
 
-
 const MyArticles = () => {
   const dispatch = useDispatch();
   const articles = useSelector((store) => store.table.articles);

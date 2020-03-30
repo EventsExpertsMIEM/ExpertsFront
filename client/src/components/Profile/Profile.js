@@ -7,10 +7,12 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileTabs from './ProfileTabs';
 import QuestionsTabs from './QuestionsTabs';
-import { getUserArticles, getUserQuestions, ROLES } from '../../actions';
+import {
+  getUserArticles, getUserComments, getUserQuestions, ROLES,
+} from '../../actions';
 import requireAuth from '../requireAuth';
 
-const getTabs = ({ questions, articles }) => [
+const getTabs = ({ questions, articles, comments }) => [
   {
     tabUrl: '',
     info: '',
@@ -39,6 +41,12 @@ const getTabs = ({ questions, articles }) => [
     component: QuestionsTabs.MyArticles,
   },
   {
+    tabUrl: 'personal-comments',
+    info: 'Мои комментарии',
+    badge: comments.length,
+    component: QuestionsTabs.MyComments,
+  },
+  {
     tabUrl: 'admin-panel',
     info: 'Панель администратора',
     component: ProfileTabs.AdminPanel,
@@ -58,18 +66,21 @@ const Profile = () => {
 
   const questions = useSelector((store) => store.table.questions);
   const articles = useSelector((store) => store.table.articles);
+  const comments = useSelector((store) => store.table.comments);
 
   const props = {
     user,
     // questions,
   };
 
-  const tabs = getTabs({ questions, articles });
+  const tabs = getTabs({ questions, articles, comments });
 
   useEffect(() => {
     if (user.id) {
       dispatch(getUserQuestions(user.id));
       dispatch(getUserArticles(user.id));
+      dispatch(getUserArticles(user.id));
+      dispatch(getUserComments(user.id));
     }
   }, [dispatch, user.id]);
 

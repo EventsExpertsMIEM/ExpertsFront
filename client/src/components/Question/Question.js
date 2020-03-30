@@ -17,6 +17,7 @@ const Question = (props) => {
   } = mapSubjToActions[type];
 
   const subjects = useSelector((store) => store[subjectsName]);
+  const comments = useSelector((store) => store.comments);
   const id = props.match.params.id || window.location.pathname.match(/\d+/g)[0];
   const subject = subjects[id];
 
@@ -30,7 +31,7 @@ const Question = (props) => {
     dispatch(getUserLoginStatus());
     dispatch(getComments(id));
     dispatch(increaseViews(id));
-  }, [dispatch, id]);
+  }, [dispatch, getSubj, getComments, increaseViews, id]);
 
   if (!isQuestionFound) {
     return (
@@ -126,7 +127,7 @@ const Question = (props) => {
           </div>
         </div>
       </div>
-      <CommentGroup.Comments type={type} />
+      <CommentGroup.Comments getComments={getComments} comments={comments} />
       <CommentGroup.CreateComment subjectId={id} subjectType={type} />
     </div>
   );
