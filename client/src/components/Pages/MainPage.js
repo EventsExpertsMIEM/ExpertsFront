@@ -7,16 +7,20 @@ import {
 } from '../../actions';
 import { formatDetailedDateTime } from '../helpers/helpers';
 import radixSort from '../helpers/radixSort';
+import Table from '../Profile/Table';
 
 const MainPage = () => {
   const questions = useSelector((store) => store.questions);
   const user = useSelector((store) => store.user);
   const [length, setLength] = useState(10);
+  const [query, setQuery] = useState('');
   const dispatch = useDispatch();
   const onClick = async () => {
     await dispatch(getAllQuestions());
     setLength(length + 10);
   };
+
+  const handleChange = (e) => setQuery(e.target.value.trim().toLowerCase());
 
   useEffect(() => {
     (async () => {
@@ -37,9 +41,20 @@ const MainPage = () => {
     );
   }
 
+  const formattedQuestions = radixSort(Object.values(questions), 'id', false)
+    .filter((question) => question.title.toLowerCase().startsWith(query))
+    .slice(0, length);
+
   return (
     <div className="container">
-      {radixSort(Object.values(questions), 'id', false).slice(0, length).map((question) => {
+      <input
+        className="form-control"
+        type="search"
+        placeholder="Поиск по названиям вопросов"
+        aria-label="Search"
+        onChange={handleChange}
+      />
+      {formattedQuestions.map((question) => {
         const {
           closed,
           only_experts_answer: onlyExpertsAnswer,
@@ -95,7 +110,7 @@ const MainPage = () => {
           </div>
         );
       })}
-      {(length < Object.values(questions).length)
+      {!query && (length < Object.values(questions).length)
             && (
             <button
               type="button"
@@ -105,6 +120,7 @@ const MainPage = () => {
               Загрузить еще
             </button>
             )}
+      {formattedQuestions.length === 0 && <div className="text-center">Ничего не найдено</div>}
     </div>
   );
 };
