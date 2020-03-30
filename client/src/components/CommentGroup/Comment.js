@@ -8,7 +8,17 @@ import { toggleCommentDownvote, toggleCommentUpvote } from '../../actions';
 const Comment = (props) => {
   const dispatch = useDispatch();
   const {
-    id, p_id, u_id, email, text, status, creation_date, score, getComments, showPublicationId,
+    id,
+    p_id,
+    u_id,
+    email,
+    text,
+    status,
+    creation_date,
+    score,
+    post_type,
+    getComments,
+    showPublicationId,
   } = props;
 
   const onUpvoteClick = () => {
@@ -23,8 +33,9 @@ const Comment = (props) => {
 
   return (
     <div key={id} className="media-body mt-3 mb-3">
-      {showPublicationId && <span>{`ID вопроса/статьи ${p_id}`}</span>}
-      {!!showPublicationId && (
+      {showPublicationId
+            && <div className="text-left"><Link to={`/${post_type}s/${p_id}`}>{`${post_type} #${p_id}`}</Link></div>}
+      {!showPublicationId && (
         <>
           <h5 className="mt-0">{email}</h5>
           <img
@@ -33,9 +44,9 @@ const Comment = (props) => {
             style={{ width: '10%' }}
             alt="..."
           />
-          <span className="text-center">{text}</span>
         </>
       )}
+      <span className="text-center">{text}</span>
       <div>
         <div>Дата создания:</div>
         <div>{formatDetailedDateTime(creation_date)}</div>
