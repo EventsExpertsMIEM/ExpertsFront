@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import axios from 'axios';
-import { ACTION, ACTION_MAP } from './types';
+import { ACTION, ACTION_MAP, subjectsName } from './types';
 
 export const login = (data) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.LOGIN;
@@ -666,7 +666,6 @@ export const updateArticle = (article) => async (dispatch) => {
   }
 };
 
-// TODO implement
 export const deleteArticle = (id) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.DELETE_ARTICLE;
   const path = getPath(id);
@@ -763,4 +762,53 @@ export const toggleArticleDownvote = (id) => async (dispatch) => {
     console.error(err);
     alert(err.response.data.description);
   }
+};
+
+export const toggleCommentUpvote = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.TOGGLE_COMMENT_UPVOTE;
+  const path = getPath(id);
+  try {
+    const res = await axios[method](path);
+    dispatch({
+      type: ACTION.TOGGLE_COMMENT_UPVOTE,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+    alert(err.response.data.description);
+  }
+};
+
+export const toggleCommentDownvote = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.TOGGLE_COMMENT_DOWNVOTE;
+  const path = getPath(id);
+  try {
+    const res = await axios[method](path);
+    dispatch({
+      type: ACTION.TOGGLE_ARTICLE_DOWNVOTE,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+    alert(err.response.data.description);
+  }
+};
+
+export const mapSubjToActions = {
+  questions: {
+    getSubj: getQuestion,
+    getComments: getQuestionComments,
+    increaseViews: increaseQuestionViews,
+    toggleUpvote: toggleQuestionUpvote,
+    toggleDownvote: toggleQuestionDownvote,
+    subjectsName: subjectsName.questions,
+  },
+  articles: {
+    getSubj: getArticle,
+    getComments: getArticleComments,
+    increaseViews: increaseArticleViews,
+    toggleUpvote: toggleArticleUpvote,
+    toggleDownvote: toggleArticleDownvote,
+    subjectsName: subjectsName.articles,
+  },
 };
