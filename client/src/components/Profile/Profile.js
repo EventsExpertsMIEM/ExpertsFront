@@ -7,10 +7,10 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileTabs from './ProfileTabs';
 import QuestionsTabs from './QuestionsTabs';
-import { getUserQuestions, ROLES } from '../../actions';
+import { getUserArticles, getUserQuestions, ROLES } from '../../actions';
 import requireAuth from '../requireAuth';
 
-const getTabs = (questions) => [
+const getTabs = ({ questions, articles }) => [
   {
     tabUrl: '',
     info: '',
@@ -32,12 +32,12 @@ const getTabs = (questions) => [
     badge: questions.length,
     component: QuestionsTabs.MyQuestions,
   },
-  /*  {
-      tabUrl: 'personal-subscriptions',
-      info: 'Мои подписки',
-      badge: 2,
-      component: QuestionsTabs.Subscriptions,
-    }, */
+  {
+    tabUrl: 'personal-articles',
+    info: 'Мои статьи',
+    badge: articles.length,
+    component: QuestionsTabs.MyArticles,
+  },
   {
     tabUrl: 'admin-panel',
     info: 'Панель администратора',
@@ -57,17 +57,19 @@ const Profile = () => {
   const user = useSelector((state) => state.user);
 
   const questions = useSelector((store) => store.table.questions);
+  const articles = useSelector((store) => store.table.articles);
 
   const props = {
     user,
     // questions,
   };
 
-  const tabs = getTabs(questions);
+  const tabs = getTabs({ questions, articles });
 
   useEffect(() => {
     if (user.id) {
       dispatch(getUserQuestions(user.id));
+      dispatch(getUserArticles(user.id));
     }
   }, [dispatch, user.id]);
 
@@ -75,15 +77,15 @@ const Profile = () => {
     tabUrl, info, badge, renderCondition,
   }) => (
     checkCondition(renderCondition, props) && (
-      <Link
-        key={tabUrl}
-        className="nav-link active"
-        role="tab"
-        to={`${url}/${tabUrl}`}
-      >
-        {info}
-        {!!badge && <span className="badge badge-light">{badge}</span>}
-      </Link>
+    <Link
+      key={tabUrl}
+      className="nav-link active"
+      role="tab"
+      to={`${url}/${tabUrl}`}
+    >
+      {info}
+      {!!badge && <span className="badge badge-light">{badge}</span>}
+    </Link>
     )
   );
 
@@ -123,4 +125,5 @@ const Profile = () => {
     </div>
   );
 };
+
 export default requireAuth(Profile);

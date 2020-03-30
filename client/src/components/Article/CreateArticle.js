@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/jsx-props-no-spreading, react/prop-types */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Field, reduxForm, reset } from 'redux-form';
@@ -13,8 +13,8 @@ import {
   renderTextareaField, trim,
 } from '../helpers/helpers';
 import { FIELD_NAMES } from '../helpers/consts';
-import requireAuth from '../requireAuth';
 import Tags from '../Tags/Tags';
+import requireAuth from '../requireAuth';
 
 const INPUT_FIELDS = [
   {
@@ -42,18 +42,21 @@ const INITIAL_VALUES = {
 };
 
 const CreateQuestion = (props) => {
-  // eslint-disable-next-line react/prop-types
-  const { pristine, submitting, invalid } = props;
+  const {
+    pristine, submitting, invalid, scrollRef, title = 'Новая статья',
+  } = props;
   const dispatch = useDispatch();
   const article = useSelector((store) => store.form[FIELD_NAMES.ARTICLE]
-      && store.form[FIELD_NAMES.ARTICLE].values);
+        && store.form[FIELD_NAMES.ARTICLE].values);
   const tags = useSelector((store) => store.tags);
 
-  const onClick = (e) => {
+  const defaultOnClick = (e) => {
     e.preventDefault();
     dispatch(addArticle(article));
     dispatch(reset(FIELD_NAMES.ARTICLE));
   };
+
+  const { onClick = defaultOnClick } = props;
 
   useEffect(() => {
     dispatch(getAllTags());
@@ -65,7 +68,7 @@ const CreateQuestion = (props) => {
         id="questions-tab"
       >
         <div className="tab-pane show active mt-3" id="security" aria-labelledby="nav-security">
-          <h4>Новый вопрос экспертам</h4>
+          <h4>{title}</h4>
           {INPUT_FIELDS.map((input) => {
             const { name, placeholder, type } = input;
             const renderComponent = name === 'body' ? renderTextareaField : renderInputField;
@@ -83,15 +86,16 @@ const CreateQuestion = (props) => {
             );
           })}
           {tags.length > 0
-          && (
-          <Field
-            key="tags"
-            name="tags"
-            component={() => <Tags suggestions={tags} fieldName={FIELD_NAMES.ARTICLE} />}
-          />
-          )}
+                    && (
+                    <Field
+                      key="tags"
+                      name="tags"
+                      component={() => <Tags suggestions={tags} fieldName={FIELD_NAMES.ARTICLE} />}
+                    />
+                    )}
           <div className="form-group text-center">
             <input
+              ref={scrollRef}
               type="submit"
               className="btn btn-seconadary"
               value="Сохранить"
@@ -108,4 +112,6 @@ const CreateQuestion = (props) => {
 export default reduxForm({
   form: FIELD_NAMES.ARTICLE,
   initialValues: INITIAL_VALUES,
+  enableReinitialize: true,
+  keepDirtyOnReinitialize: true,
 })(requireAuth(CreateQuestion));

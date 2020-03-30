@@ -63,19 +63,19 @@ export const ROLES = {
 
 export const ACTION_MAP = {
   [ACTION.LOGIN]: {
-    path: '/login',
+    getPath: () => '/login',
     method: METHODS.POST,
   },
   [ACTION.LOGOUT]: {
-    path: '/logout',
+    getPath: () => '/logout',
     method: METHODS.GET,
   },
   [ACTION.REGISTER]: {
-    path: '/register',
+    getPath: () => '/register',
     method: METHODS.POST,
   },
   [ACTION.CONFIRM]: {
-    path: '/confirm',
+    getPath: () => '/confirm',
     method: METHODS.POST,
   },
   [ACTION.DELETE]: {
@@ -103,11 +103,11 @@ export const ACTION_MAP = {
     method: METHODS.GET,
   },
   [ACTION.GET_USER_LOGIN_STATUS]: {
-    path: '/login_status',
+    getPath: () => '/login_status',
     method: METHODS.GET,
   },
   [ACTION.GET_USER_INFO]: {
-    path: '/user',
+    getPath: () => '/user',
     method: METHODS.GET,
   },
   [ACTION.GET_ALL_USERS]: {
@@ -115,7 +115,7 @@ export const ACTION_MAP = {
     method: METHODS.GET,
   },
   [ACTION.CHANGE_USER_INFO]: {
-    path: '/user/{id}',
+    getPath: (id) => `/user/${id}`,
     method: METHODS.PUT,
   },
   [ACTION.GET_USER_QUESTIONS]: {
@@ -123,15 +123,15 @@ export const ACTION_MAP = {
     method: METHODS.GET,
   },
   [ACTION.GET_USER_ARTICLES]: {
-    path: '/user/{id}/article',
+    getPath: (id) => `/user/${id}/articles`,
     method: METHODS.GET,
   },
   [ACTION.GET_USER_COMMENTS]: {
-    path: '/user/{id}/comments',
+    getPath: (id) => `/user/${id}/comments`,
     method: METHODS.GET,
   },
   [ACTION.GET_ALL_QUESTIONS]: {
-    path: '/question/all',
+    getPath: () => '/question/all',
     method: METHODS.GET,
   },
   [ACTION.ADD_QUESTION]: {
@@ -171,7 +171,7 @@ export const ACTION_MAP = {
     method: METHODS.GET,
   },
   [ACTION.GET_ALL_TAGS]: {
-    path: '/tag/all',
+    getPath: () => '/tag/all',
     method: METHODS.GET,
   },
   [ACTION.CREATE_TAG]: {
@@ -193,7 +193,7 @@ export const ACTION_MAP = {
 
 
   [ACTION.GET_ALL_ARTICLES]: {
-    path: '/article/all',
+    getPath: () => '/article/all',
     method: METHODS.GET,
   },
   [ACTION.ADD_ARTICLE]: {
@@ -205,11 +205,11 @@ export const ACTION_MAP = {
     method: METHODS.GET,
   },
   [ACTION.UPDATE_ARTICLE]: {
-    path: '/article/{id}',
+    getPath: (id) => `/article/${id}`,
     method: METHODS.PUT,
   },
   [ACTION.DELETE_ARTICLE]: {
-    path: '/article/{id}',
+    getPath: (id) => `/article/${id}`,
     method: METHODS.DELETE,
   },
   [ACTION.GET_ARTICLE_COMMENTS]: {

@@ -3,7 +3,8 @@ import axios from 'axios';
 import { ACTION, ACTION_MAP } from './types';
 
 export const login = (data) => async (dispatch) => {
-  const { path, method } = ACTION_MAP.LOGIN;
+  const { getPath, method } = ACTION_MAP.LOGIN;
+  const path = getPath();
   try {
     const res = await axios[method](path, data);
     dispatch({
@@ -19,7 +20,8 @@ export const login = (data) => async (dispatch) => {
 };
 
 export const logout = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.LOGOUT;
+  const { getPath, method } = ACTION_MAP.LOGOUT;
+  const path = getPath();
   try {
     dispatch({
       type: ACTION.LOGOUT,
@@ -42,7 +44,8 @@ export const logout = () => async (dispatch) => {
  * @returns {function}
  */
 export const register = (data) => async (dispatch) => {
-  const { path, method } = ACTION_MAP.REGISTER;
+  const { getPath, method } = ACTION_MAP.REGISTER;
+  const path = getPath();
 
   const registerData = { ...data };
   delete registerData.repeatPassword;
@@ -62,7 +65,8 @@ export const register = (data) => async (dispatch) => {
 };
 
 export const confirmUser = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.CONFIRM;
+  const { getPath, method } = ACTION_MAP.CONFIRM;
+  const path = getPath();
   try {
     await axios[method](path);
     dispatch({
@@ -181,7 +185,8 @@ export const changeRole = (id, role) => async (dispatch) => {
 };
 
 export const getUserLoginStatus = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_USER_LOGIN_STATUS;
+  const { getPath, method } = ACTION_MAP.GET_USER_LOGIN_STATUS;
+  const path = getPath();
   try {
     const res = await axios[method](path);
     dispatch({
@@ -197,7 +202,8 @@ export const getUserLoginStatus = () => async (dispatch) => {
 };
 
 export const getUserInfo = (id) => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_USER_INFO;
+  const { getPath, method } = ACTION_MAP.GET_USER_INFO;
+  const path = getPath();
   try {
     const res = await axios[method](`${path}/${id}`);
     dispatch({
@@ -227,8 +233,9 @@ export const getAllUsers = () => async (dispatch) => {
   }
 };
 // TODO implement
-export const changeUserInfo = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.CHANGE_USER_INFO;
+export const changeUserInfo = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.CHANGE_USER_INFO;
+  const path = getPath(id);
   try {
     const res = await axios[method](path);
     dispatch({
@@ -256,14 +263,14 @@ export const getUserQuestions = (id) => async (dispatch) => {
   }
 };
 
-// TODO implement
-export const getUserArticles = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_USER_ARTICLES;
+export const getUserArticles = (userId) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.GET_USER_ARTICLES;
+  const path = getPath(userId);
   try {
     const res = await axios[method](path);
     dispatch({
       type: ACTION.GET_USER_ARTICLES,
-      payload: res,
+      payload: res.data,
     });
   } catch (err) {
     console.error(err);
@@ -271,8 +278,9 @@ export const getUserArticles = () => async (dispatch) => {
   }
 };
 // TODO: implement просмотр истори комменатриев?
-export const getUserComments = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_USER_COMMENTS;
+export const getUserComments = (userId) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.GET_USER_COMMENTS;
+  const path = getPath(userId);
   try {
     const res = await axios[method](path);
     dispatch({
@@ -286,7 +294,8 @@ export const getUserComments = () => async (dispatch) => {
 };
 
 export const getAllQuestions = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_ALL_QUESTIONS;
+  const { getPath, method } = ACTION_MAP.GET_ALL_QUESTIONS;
+  const path = getPath();
   try {
     const res = (await axios[method](path)).data;
     dispatch({
@@ -355,7 +364,6 @@ export const getQuestion = (id) => async (dispatch) => {
  * @param {Array<number>} question.tags
  * @returns {function()}
  */
-
 export const updateQuestion = (question) => async (dispatch) => {
   const {
     id, title,
@@ -488,7 +496,8 @@ export const toggleQuestionDownvote = (id) => async (dispatch) => {
 };
 
 export const getAllTags = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_ALL_TAGS;
+  const { getPath, method } = ACTION_MAP.GET_ALL_TAGS;
+  const path = getPath();
   try {
     const res = await axios[method](path);
     dispatch({
@@ -565,7 +574,8 @@ export const deleteTag = (id) => async (dispatch) => {
 };
 
 export const getAllArticles = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_ALL_ARTICLES;
+  const { getPath, method } = ACTION_MAP.GET_ALL_ARTICLES;
+  const path = getPath();
   try {
     const res = (await axios[method](path)).data;
     dispatch({
@@ -618,14 +628,37 @@ export const getArticle = (id) => async (dispatch) => {
     return err;
   }
 };
-// TODO implement
-export const updateArticle = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.UPDATE_ARTICLE;
+
+/**
+ * @param {object} article
+ * @param {object} article.id
+ * @param {string} article.title
+ * @param {string} article.body
+ * @param {Array<number>} article.tags
+ * @returns {function()}
+ */
+
+export const updateArticle = (article) => async (dispatch) => {
+  const {
+    id,
+    title,
+    body,
+    tags,
+  } = article;
+
+  const data = {
+    title,
+    body,
+    tags,
+  };
+
+  const { getPath, method } = ACTION_MAP.UPDATE_ARTICLE;
+  const path = getPath(id);
+  data.tags = Array.from(new Set(data.tags.map((tag) => tag.id)));
   try {
-    const res = await axios[method](path);
+    await axios[method](path, data);
     dispatch({
       type: ACTION.UPDATE_ARTICLE,
-      payload: res,
     });
   } catch (err) {
     console.error(err);
@@ -634,8 +667,9 @@ export const updateArticle = () => async (dispatch) => {
 };
 
 // TODO implement
-export const deleteArticle = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.DELETE_ARTICLE;
+export const deleteArticle = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.DELETE_ARTICLE;
+  const path = getPath(id);
   try {
     const res = await axios[method](path);
     dispatch({
