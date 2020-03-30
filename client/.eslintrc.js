@@ -25,6 +25,9 @@ module.exports = {
         "no-console": "off",
         "no-alert": "off",
         "camelcase": "off",
+        "react/prop-types": "off",
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/no-static-element-interactions": "off",
         "react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}],
     }
 };
