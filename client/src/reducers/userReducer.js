@@ -2,11 +2,15 @@
 import p from 'immer';
 import { ACTION } from '../actions/types';
 
-const INITIAL_STATE = {
+/* const example = {
   id: 1,
   name: 'Test',
   surname: 'Testov',
   email: 'test@test.test',
+  isLoggedIn: false,
+} */
+
+const INITIAL_STATE = {
   isLoggedIn: false,
 };
 
@@ -23,19 +27,19 @@ export default p((state = INITIAL_STATE, action) => {
       return state;
     case ACTION.GET_USER_LOGIN_STATUS: {
       const {
-        is_logged_in: isLoggedIn,
+        is_logged_in,
         // info,
       } = action.payload;
 
       /* const userState = {
-        isLoggedIn,
-        name: info && info.name,
-        surname: info && info.surname,
-        email: info && info.email,
-        id: info && info.id,
-      }; */
+              isLoggedIn: is_logged_in,
+              name: info && info.name,
+              surname: info && info.surname,
+              email: info && info.email,
+              id: info && info.id,
+            }; */
 
-      state.isLoggedIn = isLoggedIn;
+      state.isLoggedIn = is_logged_in;
       return state;
     }
     case ACTION.GET_USER_INFO: {

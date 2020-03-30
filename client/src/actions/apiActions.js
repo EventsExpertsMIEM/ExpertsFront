@@ -1,9 +1,10 @@
 /* eslint-disable no-param-reassign */
 import axios from 'axios';
-import { ACTION, ACTION_MAP } from './types';
+import { ACTION, ACTION_MAP, subjectsName } from './types';
 
 export const login = (data) => async (dispatch) => {
-  const { path, method } = ACTION_MAP.LOGIN;
+  const { getPath, method } = ACTION_MAP.LOGIN;
+  const path = getPath();
   try {
     const res = await axios[method](path, data);
     dispatch({
@@ -13,12 +14,14 @@ export const login = (data) => async (dispatch) => {
     return res;
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
     return err;
   }
 };
 
 export const logout = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.LOGOUT;
+  const { getPath, method } = ACTION_MAP.LOGOUT;
+  const path = getPath();
   try {
     dispatch({
       type: ACTION.LOGOUT,
@@ -26,6 +29,7 @@ export const logout = () => async (dispatch) => {
     await axios[method](path);
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -40,7 +44,8 @@ export const logout = () => async (dispatch) => {
  * @returns {function}
  */
 export const register = (data) => async (dispatch) => {
-  const { path, method } = ACTION_MAP.REGISTER;
+  const { getPath, method } = ACTION_MAP.REGISTER;
+  const path = getPath();
 
   const registerData = { ...data };
   delete registerData.repeatPassword;
@@ -54,52 +59,56 @@ export const register = (data) => async (dispatch) => {
     return res;
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
     return err;
   }
 };
 
 export const confirmUser = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.CONFIRM;
+  const { getPath, method } = ACTION_MAP.CONFIRM;
+  const path = getPath();
   try {
-    const res = await axios[method](path);
+    await axios[method](path);
     dispatch({
       type: ACTION.CONFIRM,
-      payload: res,
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
-export const deleteUser = ({ password }) => async (dispatch) => {
+export const deleteUser = (password) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.DELETE;
   const path = getPath();
   try {
     const res = await axios[method](path, { password });
     dispatch({
       type: ACTION.DELETE,
-      payload: res,
     });
+    return res.data;
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
+    return err;
   }
 };
 
-export const closeAllSessions = () => async (dispatch) => {
+export const closeAllSessions = (password) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.CLOSE_ALL_SESSIONS;
   const path = getPath();
   try {
-    const res = await axios[method](path, null, {
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-    });
+    const res = await axios[method](path, { password });
+
     dispatch({
       type: ACTION.CLOSE_ALL_SESSIONS,
-      payload: res,
     });
+
+    return res.data;
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
+    return err;
   }
 };
 
@@ -115,24 +124,30 @@ export const resetPassword = ({ email }) => async (dispatch) => {
     const res = await axios[method](path, { email });
     dispatch({
       type: ACTION.RESET_PASSWORD,
-      payload: res,
+      payload: res.data,
     });
+    return res.data;
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
+    return err;
   }
 };
 
-export const changePassword = () => async (dispatch) => {
+export const changePassword = (old_password, new_password) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.CHANGE_PASSWORD;
   const path = getPath();
   try {
-    const res = await axios[method](path);
+    const res = await axios[method](path, { old_password, new_password });
     dispatch({
       type: ACTION.CHANGE_PASSWORD,
-      payload: res,
+      payload: res.data,
     });
+    return res.data;
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
+    return err;
   }
 };
 
@@ -148,6 +163,7 @@ export const banUser = (id) => async (dispatch) => {
     return res.data;
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
     return err;
   }
 };
@@ -164,24 +180,30 @@ export const changeRole = (id, role) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
 export const getUserLoginStatus = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_USER_LOGIN_STATUS;
+  const { getPath, method } = ACTION_MAP.GET_USER_LOGIN_STATUS;
+  const path = getPath();
   try {
-    const res = (await axios[method](path)).data;
+    const res = await axios[method](path);
     dispatch({
       type: ACTION.GET_USER_LOGIN_STATUS,
-      payload: res,
+      payload: res.data,
     });
+    return res.data;
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
+    return err;
   }
 };
 
 export const getUserInfo = (id) => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_USER_INFO;
+  const { getPath, method } = ACTION_MAP.GET_USER_INFO;
+  const path = getPath();
   try {
     const res = await axios[method](`${path}/${id}`);
     dispatch({
@@ -190,6 +212,7 @@ export const getUserInfo = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -205,12 +228,14 @@ export const getAllUsers = () => async (dispatch) => {
     return res.data;
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
     return err;
   }
 };
-
-export const changeUserInfo = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.CHANGE_USER_INFO;
+// TODO implement
+export const changeUserInfo = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.CHANGE_USER_INFO;
+  const path = getPath(id);
   try {
     const res = await axios[method](path);
     dispatch({
@@ -219,6 +244,7 @@ export const changeUserInfo = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -233,38 +259,43 @@ export const getUserQuestions = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
-export const getUserArticles = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_USER_ARTICLES;
+export const getUserArticles = (userId) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.GET_USER_ARTICLES;
+  const path = getPath(userId);
   try {
     const res = await axios[method](path);
     dispatch({
       type: ACTION.GET_USER_ARTICLES,
-      payload: res,
+      payload: res.data,
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
-// TODO: просмотр истори комменатриев?
-export const getUserComments = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_USER_COMMENTS;
+export const getUserComments = (userId) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.GET_USER_COMMENTS;
+  const path = getPath(userId);
   try {
     const res = await axios[method](path);
     dispatch({
       type: ACTION.GET_USER_COMMENTS,
-      payload: res,
+      payload: res.data,
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
 export const getAllQuestions = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_ALL_QUESTIONS;
+  const { getPath, method } = ACTION_MAP.GET_ALL_QUESTIONS;
+  const path = getPath();
   try {
     const res = (await axios[method](path)).data;
     dispatch({
@@ -273,6 +304,7 @@ export const getAllQuestions = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -299,6 +331,7 @@ export const addQuestion = (data) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -316,25 +349,57 @@ export const getQuestion = (id) => async (dispatch) => {
     return action;
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
     return err;
   }
 };
 
-export const updateQuestion = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.UPDATE_QUESTION;
+/**
+ * @param {object} question
+ * @param {string} question.title
+ * @param {string} question.body
+ * @param {boolean} question.closed
+ * @param {boolean} question.only_experts_answer
+ * @param {boolean} question.only_chosen_tags
+ * @param {Array<number>} question.tags
+ * @returns {function()}
+ */
+export const updateQuestion = (question) => async (dispatch) => {
+  const {
+    id, title,
+    body,
+    closed,
+    only_experts_answer,
+    only_chosen_tags, tags,
+  } = question;
+
+  const data = {
+    title,
+    body,
+    closed,
+    only_experts_answer,
+    only_chosen_tags,
+    tags,
+  };
+
+  const { getPath, method } = ACTION_MAP.UPDATE_QUESTION;
+  const path = getPath(id);
+  data.tags = Array.from(new Set(data.tags.map((tag) => tag.id)));
   try {
-    const res = await axios[method](path);
+    const res = await axios[method](path, data);
     dispatch({
       type: ACTION.UPDATE_QUESTION,
       payload: res,
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
-export const deleteQuestion = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.DELETE_QUESTION;
+export const deleteQuestion = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.DELETE_QUESTION;
+  const path = getPath(id);
   try {
     const res = await axios[method](path);
     dispatch({
@@ -343,6 +408,7 @@ export const deleteQuestion = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -357,6 +423,7 @@ export const getQuestionComments = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -379,6 +446,7 @@ export const addQuestionComment = (comment) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -393,6 +461,7 @@ export const increaseQuestionViews = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -407,6 +476,7 @@ export const toggleQuestionUpvote = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -421,19 +491,24 @@ export const toggleQuestionDownvote = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
 export const getAllTags = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_ALL_TAGS;
+  const { getPath, method } = ACTION_MAP.GET_ALL_TAGS;
+  const path = getPath();
   try {
     const res = await axios[method](path);
     dispatch({
       type: ACTION.GET_ALL_TAGS,
       payload: res.data,
     });
+    return res.data;
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
+    return err;
   }
 };
 
@@ -447,7 +522,7 @@ export const createTag = (name) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    console.error(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -463,6 +538,7 @@ export const getTagInfo = (id) => async (dispatch) => {
     return res.data;
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
     return err;
   }
 };
@@ -477,7 +553,7 @@ export const changeTagName = (id, newName) => async (dispatch) => {
       payload: res,
     });
   } catch (err) {
-    console.error(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -493,11 +569,13 @@ export const deleteTag = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
 export const getAllArticles = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.GET_ALL_ARTICLES;
+  const { getPath, method } = ACTION_MAP.GET_ALL_ARTICLES;
+  const path = getPath();
   try {
     const res = (await axios[method](path)).data;
     dispatch({
@@ -506,6 +584,7 @@ export const getAllArticles = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -527,6 +606,7 @@ export const addArticle = (data) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -544,25 +624,51 @@ export const getArticle = (id) => async (dispatch) => {
     return action;
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
     return err;
   }
 };
 
-export const updateArticle = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.UPDATE_ARTICLE;
+/**
+ * @param {object} article
+ * @param {object} article.id
+ * @param {string} article.title
+ * @param {string} article.body
+ * @param {Array<number>} article.tags
+ * @returns {function()}
+ */
+
+export const updateArticle = (article) => async (dispatch) => {
+  const {
+    id,
+    title,
+    body,
+    tags,
+  } = article;
+
+  const data = {
+    title,
+    body,
+    tags,
+  };
+
+  const { getPath, method } = ACTION_MAP.UPDATE_ARTICLE;
+  const path = getPath(id);
+  data.tags = Array.from(new Set(data.tags.map((tag) => tag.id)));
   try {
-    const res = await axios[method](path);
+    await axios[method](path, data);
     dispatch({
       type: ACTION.UPDATE_ARTICLE,
-      payload: res,
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
-export const deleteArticle = () => async (dispatch) => {
-  const { path, method } = ACTION_MAP.DELETE_ARTICLE;
+export const deleteArticle = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.DELETE_ARTICLE;
+  const path = getPath(id);
   try {
     const res = await axios[method](path);
     dispatch({
@@ -571,6 +677,7 @@ export const deleteArticle = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -585,6 +692,7 @@ export const getArticleComments = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -607,6 +715,7 @@ export const addArticleComment = (article) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -621,6 +730,7 @@ export const increaseArticleViews = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -635,6 +745,7 @@ export const toggleArticleUpvote = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -649,5 +760,55 @@ export const toggleArticleDownvote = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+    alert(err.response.data.description);
   }
+};
+
+export const toggleCommentUpvote = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.TOGGLE_COMMENT_UPVOTE;
+  const path = getPath(id);
+  try {
+    const res = await axios[method](path);
+    dispatch({
+      type: ACTION.TOGGLE_COMMENT_UPVOTE,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+    alert(err.response.data.description);
+  }
+};
+
+export const toggleCommentDownvote = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.TOGGLE_COMMENT_DOWNVOTE;
+  const path = getPath(id);
+  try {
+    const res = await axios[method](path);
+    dispatch({
+      type: ACTION.TOGGLE_ARTICLE_DOWNVOTE,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+    alert(err.response.data.description);
+  }
+};
+
+export const mapSubjToActions = {
+  questions: {
+    getSubj: getQuestion,
+    getComments: getQuestionComments,
+    increaseViews: increaseQuestionViews,
+    toggleUpvote: toggleQuestionUpvote,
+    toggleDownvote: toggleQuestionDownvote,
+    subjectsName: subjectsName.questions,
+  },
+  articles: {
+    getSubj: getArticle,
+    getComments: getArticleComments,
+    increaseViews: increaseArticleViews,
+    toggleUpvote: toggleArticleUpvote,
+    toggleDownvote: toggleArticleDownvote,
+    subjectsName: subjectsName.articles,
+  },
 };

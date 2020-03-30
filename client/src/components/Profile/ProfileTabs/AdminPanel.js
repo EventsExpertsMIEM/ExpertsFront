@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types, react/destructuring-assignment,
  jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Dialog from 'react-bootstrap-dialog';
 import {
   banUser, changeRole, getAllUsers, ROLES,
 } from '../../../actions';
 import Table from '../Table';
 import requireRights from '../../requireRights';
 import TagsPanel from './TagsPanel';
+import { formatModalData } from '../../helpers/helpers';
 
 /*  const example = {
   id: 30,
@@ -28,10 +30,13 @@ import TagsPanel from './TagsPanel';
 const AdminPanel = () => {
   const dispatch = useDispatch();
   const data = useSelector((store) => store.table.users);
+
   const onBanClick = async (id) => {
     await dispatch(banUser(id));
     await dispatch(getAllUsers());
   };
+  const ref = useRef(null);
+
   const onRoleChangeClick = async (id, role) => {
     await dispatch(changeRole(id, role));
     await dispatch(getAllUsers());
@@ -41,7 +46,7 @@ const AdminPanel = () => {
   const disabled = (status) => (isBanned(status) ? 'disabled' : undefined);
   const onBan = (status, id) => (isBanned(status) ? undefined : () => onBanClick(id));
   const onOpenProfile = (id) => {
-    alert(JSON.stringify(data[data.length - id], null, 4));
+    ref.current.showAlert(formatModalData(data[data.length - id]));
   };
 
   useEffect(() => {
@@ -73,6 +78,8 @@ const AdminPanel = () => {
                 <h4 className="text-center">{`Статус: ${status}`}</h4>
                 <select
                   className="form-control"
+                  multiple
+                  size="5"
                   onChange={(e) => onRoleChangeClick(id, e.target.value)}
                 >
                   <option value="" defaultValue readOnly>Изменить роль</option>
@@ -89,12 +96,17 @@ const AdminPanel = () => {
                   ))}
                 </select>
                 <h4
-                  className={`text-center page-link btn btn-danger ${disabled(status)}`}
+                  className={`text-center btn btn-danger btn-sm ${disabled(status)}`}
                   onClick={onBan(status, id)}
                 >
                   Забанить
                 </h4>
-                <h4 className="text-center page-link btn" onClick={() => onOpenProfile(id)}>Подробнее</h4>
+                <h4
+                  className="text-center btn btn-sm btn-outline-primary"
+                  onClick={() => onOpenProfile(id)}
+                >
+                  Подробнее
+                </h4>
               </div>
             );
           },
@@ -105,7 +117,8 @@ const AdminPanel = () => {
 
   return (
     <>
-      <TagsPanel />
+      <Dialog ref={ref} />
+      <TagsPanel ref={ref} />
       <Table data={data} columns={columns} />
     </>
   );

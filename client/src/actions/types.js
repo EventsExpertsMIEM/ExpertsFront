@@ -24,6 +24,8 @@ export const ACTION = {
   DELETE_QUESTION: 'DELETE_QUESTION',
   GET_QUESTION_COMMENTS: 'GET_QUESTION_COMMENTS',
   ADD_QUESTION_COMMENT: 'ADD_QUESTION_COMMENT',
+  TOGGLE_COMMENT_UPVOTE: 'TOGGLE_COMMENT_UPVOTE',
+  TOGGLE_COMMENT_DOWNVOTE: 'TOGGLE_COMMENT_DOWNVOTE',
   INCREASE_QUESTION_VIEWS: 'INCREASE_QUESTION_VIEWS',
   TOGGLE_QUESTION_UPVOTE: 'TOGGLE_QUESTION_UPVOTE',
   TOGGLE_QUESTION_DOWNVOTE: 'TOGGLE_QUESTION_DOWNVOTE',
@@ -63,19 +65,19 @@ export const ROLES = {
 
 export const ACTION_MAP = {
   [ACTION.LOGIN]: {
-    path: '/login',
+    getPath: () => '/login',
     method: METHODS.POST,
   },
   [ACTION.LOGOUT]: {
-    path: '/logout',
+    getPath: () => '/logout',
     method: METHODS.GET,
   },
   [ACTION.REGISTER]: {
-    path: '/register',
+    getPath: () => '/register',
     method: METHODS.POST,
   },
   [ACTION.CONFIRM]: {
-    path: '/confirm',
+    getPath: () => '/confirm',
     method: METHODS.POST,
   },
   [ACTION.DELETE]: {
@@ -103,11 +105,11 @@ export const ACTION_MAP = {
     method: METHODS.GET,
   },
   [ACTION.GET_USER_LOGIN_STATUS]: {
-    path: '/login_status',
+    getPath: () => '/login_status',
     method: METHODS.GET,
   },
   [ACTION.GET_USER_INFO]: {
-    path: '/user',
+    getPath: () => '/user',
     method: METHODS.GET,
   },
   [ACTION.GET_ALL_USERS]: {
@@ -115,7 +117,7 @@ export const ACTION_MAP = {
     method: METHODS.GET,
   },
   [ACTION.CHANGE_USER_INFO]: {
-    path: '/user/{id}',
+    getPath: (id) => `/user/${id}`,
     method: METHODS.PUT,
   },
   [ACTION.GET_USER_QUESTIONS]: {
@@ -123,15 +125,15 @@ export const ACTION_MAP = {
     method: METHODS.GET,
   },
   [ACTION.GET_USER_ARTICLES]: {
-    path: '/user/{id}/article',
+    getPath: (id) => `/user/${id}/articles`,
     method: METHODS.GET,
   },
   [ACTION.GET_USER_COMMENTS]: {
-    path: '/user/{id}/comments',
+    getPath: (id) => `/user/${id}/comments`,
     method: METHODS.GET,
   },
   [ACTION.GET_ALL_QUESTIONS]: {
-    path: '/question/all',
+    getPath: () => '/question/all',
     method: METHODS.GET,
   },
   [ACTION.ADD_QUESTION]: {
@@ -143,11 +145,11 @@ export const ACTION_MAP = {
     method: METHODS.GET,
   },
   [ACTION.UPDATE_QUESTION]: {
-    path: '/question/{id}',
+    getPath: (id) => `/question/${id}`,
     method: METHODS.PUT,
   },
   [ACTION.DELETE_QUESTION]: {
-    path: '/question/{id}',
+    getPath: (id) => `/question/${id}`,
     method: METHODS.DELETE,
   },
   [ACTION.GET_QUESTION_COMMENTS]: {
@@ -171,7 +173,7 @@ export const ACTION_MAP = {
     method: METHODS.GET,
   },
   [ACTION.GET_ALL_TAGS]: {
-    path: '/tag/all',
+    getPath: () => '/tag/all',
     method: METHODS.GET,
   },
   [ACTION.CREATE_TAG]: {
@@ -193,7 +195,7 @@ export const ACTION_MAP = {
 
 
   [ACTION.GET_ALL_ARTICLES]: {
-    path: '/article/all',
+    getPath: () => '/article/all',
     method: METHODS.GET,
   },
   [ACTION.ADD_ARTICLE]: {
@@ -205,11 +207,11 @@ export const ACTION_MAP = {
     method: METHODS.GET,
   },
   [ACTION.UPDATE_ARTICLE]: {
-    path: '/article/{id}',
+    getPath: (id) => `/article/${id}`,
     method: METHODS.PUT,
   },
   [ACTION.DELETE_ARTICLE]: {
-    path: '/article/{id}',
+    getPath: (id) => `/article/${id}`,
     method: METHODS.DELETE,
   },
   [ACTION.GET_ARTICLE_COMMENTS]: {
@@ -230,6 +232,14 @@ export const ACTION_MAP = {
   },
   [ACTION.TOGGLE_ARTICLE_DOWNVOTE]: {
     getPath: (id) => `/article/${id}/toggle_downvote`,
+    method: METHODS.GET,
+  },
+  [ACTION.TOGGLE_COMMENT_UPVOTE]: {
+    getPath: (id) => `/comment/${id}/toggle_upvote`,
+    method: METHODS.GET,
+  },
+  [ACTION.TOGGLE_COMMENT_DOWNVOTE]: {
+    getPath: (id) => `/comment/${id}/toggle_downvote`,
     method: METHODS.GET,
   },
 };

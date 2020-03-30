@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types, react/destructuring-assignment,
- jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */
+ jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions, no-shadow */
 
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,8 +8,9 @@ import {
   createTag, deleteTag, getAllTags, getTagInfo,
 } from '../../../actions';
 import Table from '../Table';
+import { formatModalData } from '../../helpers/helpers';
 
-const TagsPanel = () => {
+const TagsPanel = React.forwardRef((props, ref) => {
   const dispatch = useDispatch();
   const data = useSelector((store) => store.tags);
 
@@ -23,7 +24,7 @@ const TagsPanel = () => {
 
   const onTagClick = async (id) => {
     const res = await dispatch(getTagInfo(id));
-    alert(JSON.stringify(res, null, 4));
+    ref.current.showAlert(formatModalData(res));
   };
 
   const onTagRenameClick = async (id) => {
@@ -48,7 +49,7 @@ const TagsPanel = () => {
           accessor: 'id',
           Cell: (props) => {
             const { id } = props.row.original;
-            return (<div>{id}</div>);
+            return (<>{id}</>);
           },
         },
         {
@@ -57,24 +58,24 @@ const TagsPanel = () => {
           Cell: (props) => {
             const { id, name } = props.row.original;
             return (
-              <div>
+              <>
                 <h4>{name}</h4>
                 <h4
-                  className="text-center page-link btn"
+                  className="text-center btn btn-sm btn-outline-primary"
                   onClick={() => onTagClick(id)}
                 >
                   Подробнее
                 </h4>
                 <h4
-                  className="text-center page-link btn"
+                  className="text-center btn btn-sm btn-outline-primary"
                   onClick={() => onTagRenameClick(id)}
                 >
                   Переименовать
                 </h4>
-                <h4 className="text-center page-link btn btn-danger" onClick={() => onDeleteClick(id)}>
+                <h4 className="text-center btn btn-danger btn-sm" onClick={() => onDeleteClick(id)}>
                   Удалить
                 </h4>
-              </div>
+              </>
             );
           },
         },
@@ -92,11 +93,11 @@ const TagsPanel = () => {
   return (
     <>
       <Table data={data} columns={columns} />
-      <h4 className="text-center page-link btn" onClick={onAddTag}>
+      <h4 className="text-center btn btn-lg btn-outline-primary" onClick={onAddTag}>
         Создать новый тэг
       </h4>
     </>
   );
-};
+});
 
 export default TagsPanel;

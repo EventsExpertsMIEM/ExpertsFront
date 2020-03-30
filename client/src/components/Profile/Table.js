@@ -16,8 +16,8 @@ const Table = (props) => {
     data,
   });
 
-  if (!data) {
-    return <div>Вопросы не найдены</div>;
+  if (!data.length) {
+    return <h4 className="text-center">Вопросы не найдены</h4>;
   }
 
   return (

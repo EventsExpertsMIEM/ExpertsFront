@@ -3,43 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getQuestionComments,
-  toggleQuestionDownvote,
-  getUserLoginStatus,
-  toggleQuestionUpvote,
-  getQuestion,
-  increaseQuestionViews,
-  getArticleComments,
-  increaseArticleViews,
-  toggleArticleDownvote,
-  getArticle,
-  toggleArticleUpvote,
-} from '../../actions';
-import { formatDetailedDateTime, renderInputField, renderTextareaField } from '../helpers/helpers';
-import CommentGroup from './CommentGroup/index';
-import { subjectsName } from '../../actions/types';
+import { getUserLoginStatus, mapSubjToActions } from '../../actions';
+import { formatDetailedDateTime } from '../helpers/helpers';
+import CommentGroup from '../CommentGroup';
 
-const mapSubjToActions = {
-  questions: {
-    getSubj: getQuestion,
-    getComments: getQuestionComments,
-    increaseViews: increaseQuestionViews,
-    toggleUpvote: toggleQuestionUpvote,
-    toggleDownvote: toggleQuestionDownvote,
-    subjectsName: subjectsName.questions,
-  },
-  articles: {
-    getSubj: getArticle,
-    getComments: getArticleComments,
-    increaseViews: increaseArticleViews,
-    toggleUpvote: toggleArticleUpvote,
-    toggleDownvote: toggleArticleDownvote,
-    subjectsName: subjectsName.articles,
-  },
-};
-
-const Info = (props) => {
+const Question = (props) => {
   const dispatch = useDispatch();
   const [isQuestionFound, setIsQuestionFound] = useState(true);
   const type = window.location.pathname.split('/')[1];
@@ -49,6 +17,7 @@ const Info = (props) => {
   } = mapSubjToActions[type];
 
   const subjects = useSelector((store) => store[subjectsName]);
+  const comments = useSelector((store) => store.comments);
   const id = props.match.params.id || window.location.pathname.match(/\d+/g)[0];
   const subject = subjects[id];
 
@@ -62,7 +31,7 @@ const Info = (props) => {
     dispatch(getUserLoginStatus());
     dispatch(getComments(id));
     dispatch(increaseViews(id));
-  }, [dispatch, id]);
+  }, [dispatch, getSubj, getComments, increaseViews, id]);
 
   if (!isQuestionFound) {
     return (
@@ -158,10 +127,10 @@ const Info = (props) => {
           </div>
         </div>
       </div>
-      <CommentGroup.Comments />
+      <CommentGroup.Comments getComments={getComments} comments={comments} />
       <CommentGroup.CreateComment subjectId={id} subjectType={type} />
     </div>
   );
 };
 
-export default Info;
+export default Question;

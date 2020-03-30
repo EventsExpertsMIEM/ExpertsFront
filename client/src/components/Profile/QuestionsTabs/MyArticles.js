@@ -6,10 +6,12 @@ import { initialize, reset } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { FIELD_NAMES } from '../../helpers/consts';
-import { deleteQuestion, getUserQuestions, updateQuestion } from '../../../actions';
+import {
+  deleteArticle, getUserArticles, updateArticle,
+} from '../../../actions';
 import { normalizeTags, scrollToRef } from '../../helpers/helpers';
 import MyPublications from './MyPublications';
-import CreateQuestion from '../../Question/CreateQuestion';
+import CreateArticle from '../../Article/CreateArticle';
 
 const dict = {
   active: 'Открыт',
@@ -18,15 +20,15 @@ const dict = {
 
 const getColumns = (ref, toggleShow) => [
   {
-    Header: 'Мои вопросы',
+    Header: 'Мои статьи',
     columns: [
       {
-        Header: 'Тема вопросов',
+        Header: 'Тема статьи',
         accessor: 'id',
         Cell: (props) => {
           const { title, id } = props.row.original;
           return (
-            <Link to={`/questions/${id}`}>{title}</Link>
+            <Link to={`/articles/${id}`}>{title}</Link>
           );
         },
       },
@@ -37,23 +39,23 @@ const getColumns = (ref, toggleShow) => [
           const { status, id } = props.row.original;
 
           const dispatch = useDispatch();
-          const questions = useSelector((store) => store.questions);
+          const articles = useSelector((store) => store.articles);
           const tags = useSelector((store) => store.tags);
           const user = useSelector((store) => store.user);
 
           const onInitializeClick = (id) => {
-            const question = questions[id];
+            const article = articles[id];
             if (!tags) {
               return undefined;
             }
 
             const normalizedTags = normalizeTags(tags);
-            return dispatch(initialize(FIELD_NAMES.QUESTION,
-              { ...question, tags: question.tags.map((tag) => normalizedTags[tag]) }));
+            return dispatch(initialize(FIELD_NAMES.ARTICLE,
+              { ...article, tags: article.tags.map((tag) => normalizedTags[tag]) }));
           };
 
           const handleDeleteClick = async (id) => {
-            await dispatch(deleteQuestion(id));
+            await dispatch(deleteArticle(id));
           };
 
           const executeScroll = () => scrollToRef(ref);
@@ -76,7 +78,7 @@ const getColumns = (ref, toggleShow) => [
                 type="button"
                 onClick={async () => {
                   await handleDeleteClick(id);
-                  await dispatch(getUserQuestions(user.id));
+                  await dispatch(getUserArticles(user.id));
                 }}
               >
                 Удалить
@@ -89,11 +91,11 @@ const getColumns = (ref, toggleShow) => [
   },
 ];
 
-const MyQuestions = () => {
+const MyArticles = () => {
   const dispatch = useDispatch();
-  const questions = useSelector((store) => store.table.questions);
-  const question = useSelector((store) => store.form[FIELD_NAMES.QUESTION]
-        && store.form[FIELD_NAMES.QUESTION].values);
+  const articles = useSelector((store) => store.table.articles);
+  const article = useSelector((store) => store.form[FIELD_NAMES.ARTICLE]
+        && store.form[FIELD_NAMES.ARTICLE].values);
   const [showEdit, toggleShow] = useState(false);
 
   const history = useHistory();
@@ -102,13 +104,13 @@ const MyQuestions = () => {
   const columns = getColumns(ref, toggleShow);
 
   const onClick = () => {
-    dispatch(updateQuestion(question));
-    dispatch(reset(FIELD_NAMES.QUESTION));
-    history.push(`/questions/${question.id}`);
+    dispatch(updateArticle(article));
+    dispatch(reset(FIELD_NAMES.ARTICLE));
+    history.push(`/articles/${article.id}`);
   };
 
   const editComponent = () => (
-    <CreateQuestion
+    <CreateArticle
       onClick={onClick}
       scrollRef={ref}
       title="Редактировать вопрос"
@@ -117,7 +119,7 @@ const MyQuestions = () => {
 
   return (
     <MyPublications
-      data={questions}
+      data={articles}
       columns={columns}
       showEdit={showEdit}
       editComponent={editComponent}
@@ -125,4 +127,4 @@ const MyQuestions = () => {
   );
 };
 
-export default MyQuestions;
+export default MyArticles;

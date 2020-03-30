@@ -7,10 +7,12 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileTabs from './ProfileTabs';
 import QuestionsTabs from './QuestionsTabs';
-import { getUserInfo, ROLES } from '../../actions';
+import {
+  getUserArticles, getUserComments, getUserQuestions, ROLES,
+} from '../../actions';
 import requireAuth from '../requireAuth';
 
-const getTabs = () => [
+const getTabs = ({ questions, articles, comments }) => [
   {
     tabUrl: '',
     info: '',
@@ -29,14 +31,20 @@ const getTabs = () => [
   {
     tabUrl: 'personal-questions',
     info: 'Мои вопросы',
-    badge: 3,
+    badge: questions.length,
     component: QuestionsTabs.MyQuestions,
   },
   {
-    tabUrl: 'personal-subscriptions',
-    info: 'Мои подписки',
-    badge: 2,
-    component: QuestionsTabs.Subscriptions,
+    tabUrl: 'personal-articles',
+    info: 'Мои статьи',
+    badge: articles.length,
+    component: QuestionsTabs.MyArticles,
+  },
+  {
+    tabUrl: 'personal-comments',
+    info: 'Мои комментарии',
+    badge: comments.length,
+    component: QuestionsTabs.MyComments,
   },
   {
     tabUrl: 'admin-panel',
@@ -52,19 +60,29 @@ const getTabs = () => [
 const checkCondition = (condition, props) => ((!condition || (typeof condition === 'function' && condition(props))));
 
 const Profile = () => {
-  const { path, url } = useRouteMatch();
   const dispatch = useDispatch();
+  const { path, url } = useRouteMatch();
   const user = useSelector((state) => state.user);
+
+  const questions = useSelector((store) => store.table.questions);
+  const articles = useSelector((store) => store.table.articles);
+  const comments = useSelector((store) => store.table.comments);
 
   const props = {
     user,
+    // questions,
   };
 
-  useEffect(() => {
-    dispatch(getUserInfo(user.id));
-  }, [dispatch, user.id]);
+  const tabs = getTabs({ questions, articles, comments });
 
-  const tabs = getTabs();
+  useEffect(() => {
+    if (user.id) {
+      dispatch(getUserQuestions(user.id));
+      dispatch(getUserArticles(user.id));
+      dispatch(getUserArticles(user.id));
+      dispatch(getUserComments(user.id));
+    }
+  }, [dispatch, user.id]);
 
   const renderLinks = ({
     tabUrl, info, badge, renderCondition,
@@ -77,7 +95,7 @@ const Profile = () => {
       to={`${url}/${tabUrl}`}
     >
       {info}
-      {badge && <span className="badge badge-light">{badge}</span>}
+      {!!badge && <span className="badge badge-light">{badge}</span>}
     </Link>
     )
   );
@@ -118,4 +136,5 @@ const Profile = () => {
     </div>
   );
 };
+
 export default requireAuth(Profile);

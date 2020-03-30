@@ -1,7 +1,9 @@
 import MyQuestions from './MyQuestions';
-import Subscriptions from './Subscriptions';
+import MyArticles from './MyArticles';
+import MyComments from './MyComments';
 
 export default {
   MyQuestions,
-  Subscriptions,
+  MyArticles,
+  MyComments,
 };

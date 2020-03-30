@@ -1,15 +1,15 @@
 /* eslint-disable react/jsx-props-no-spreading, react/prop-types */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Field, reduxForm, reset } from 'redux-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import { Redirect, Route, useRouteMatch } from 'react-router-dom';
-import { login } from '../../actions';
 import {
   renderInputField, required, validateEmail,
 } from '../helpers/helpers';
 import { FIELD_NAMES } from '../helpers/consts';
+import { login } from '../../actions';
 
 const INPUTS_FIELDS = [
   {
@@ -21,9 +21,11 @@ const INPUTS_FIELDS = [
 ];
 
 const Login = (props) => {
-  const { pristine, submitting, invalid } = props;
-  const dispatch = useDispatch();
-  const loginData = useSelector((store) => store.form.login && store.form.login.values);
+  const {
+    pristine, submitting, invalid, dispatch,
+  } = props;
+  const loginData = useSelector((store) => store.form[FIELD_NAMES.LOGIN]);
+  const { values, active } = loginData;
   const { path } = useRouteMatch();
   const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
   const [error, setError] = useState('');
@@ -31,13 +33,19 @@ const Login = (props) => {
   const onClick = async (e) => {
     setError('');
     e.preventDefault();
-    const res = await dispatch(login(loginData));
+    const res = await dispatch(login(values));
     if (res instanceof Error) {
       setError(res.response.data.description);
     } else {
       await dispatch(reset(FIELD_NAMES.LOGIN));
     }
   };
+
+  useEffect(() => {
+    if (active) {
+      setError('');
+    }
+  }, [active]);
 
   return (
     <>
