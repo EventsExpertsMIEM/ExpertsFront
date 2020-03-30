@@ -42,7 +42,7 @@ const MainPage = () => {
   }
 
   const formattedQuestions = radixSort(Object.values(questions), 'id', false)
-    .filter((question) => question.title.toLowerCase().startsWith(query))
+    .filter((question) => question.title.toLowerCase().indexOf(query) > -1)
     .slice(0, length);
 
   return (
