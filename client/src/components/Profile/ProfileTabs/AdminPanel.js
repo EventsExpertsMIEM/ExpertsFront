@@ -30,6 +30,7 @@ import { formatModalData } from '../../helpers/helpers';
 const AdminPanel = () => {
   const dispatch = useDispatch();
   const data = useSelector((store) => store.table.users);
+
   const onBanClick = async (id) => {
     await dispatch(banUser(id));
     await dispatch(getAllUsers());
@@ -77,6 +78,8 @@ const AdminPanel = () => {
                 <h4 className="text-center">{`Статус: ${status}`}</h4>
                 <select
                   className="form-control"
+                  multiple
+                  size="5"
                   onChange={(e) => onRoleChangeClick(id, e.target.value)}
                 >
                   <option value="" defaultValue readOnly>Изменить роль</option>
@@ -93,12 +96,17 @@ const AdminPanel = () => {
                   ))}
                 </select>
                 <h4
-                  className={`text-center btn btn-danger btn-sm btn-outline-primary ${disabled(status)}`}
+                  className={`text-center btn btn-danger btn-sm ${disabled(status)}`}
                   onClick={onBan(status, id)}
                 >
                   Забанить
                 </h4>
-                <h4 className="text-center btn btn-sm btn-outline-primary" onClick={() => onOpenProfile(id)}>Подробнее</h4>
+                <h4
+                  className="text-center btn btn-sm btn-outline-primary"
+                  onClick={() => onOpenProfile(id)}
+                >
+                  Подробнее
+                </h4>
               </div>
             );
           },

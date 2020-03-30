@@ -13,7 +13,7 @@ export const login = (data) => async (dispatch) => {
     return res;
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
     return err;
   }
 };
@@ -27,7 +27,7 @@ export const logout = () => async (dispatch) => {
     await axios[method](path);
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -56,7 +56,7 @@ export const register = (data) => async (dispatch) => {
     return res;
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
     return err;
   }
 };
@@ -70,7 +70,7 @@ export const confirmUser = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -85,7 +85,7 @@ export const deleteUser = (password) => async (dispatch) => {
     return res.data;
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
     return err;
   }
 };
@@ -103,7 +103,7 @@ export const closeAllSessions = (password) => async (dispatch) => {
     return res.data;
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
     return err;
   }
 };
@@ -125,7 +125,7 @@ export const resetPassword = ({ email }) => async (dispatch) => {
     return res.data;
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
     return err;
   }
 };
@@ -142,7 +142,7 @@ export const changePassword = (old_password, new_password) => async (dispatch) =
     return res.data;
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
     return err;
   }
 };
@@ -159,7 +159,7 @@ export const banUser = (id) => async (dispatch) => {
     return res.data;
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
     return err;
   }
 };
@@ -176,7 +176,7 @@ export const changeRole = (id, role) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -191,7 +191,7 @@ export const getUserLoginStatus = () => async (dispatch) => {
     return res.data;
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
     return err;
   }
 };
@@ -206,7 +206,7 @@ export const getUserInfo = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -222,7 +222,7 @@ export const getAllUsers = () => async (dispatch) => {
     return res.data;
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
     return err;
   }
 };
@@ -237,7 +237,7 @@ export const changeUserInfo = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -252,7 +252,7 @@ export const getUserQuestions = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -267,7 +267,7 @@ export const getUserArticles = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 // TODO: implement просмотр истори комменатриев?
@@ -281,7 +281,7 @@ export const getUserComments = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -295,7 +295,7 @@ export const getAllQuestions = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -322,7 +322,7 @@ export const addQuestion = (data) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -340,7 +340,7 @@ export const getQuestion = (id) => async (dispatch) => {
     return action;
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
     return err;
   }
 };
@@ -385,7 +385,7 @@ export const updateQuestion = (question) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -400,7 +400,7 @@ export const deleteQuestion = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -415,7 +415,7 @@ export const getQuestionComments = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -438,7 +438,7 @@ export const addQuestionComment = (comment) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -453,7 +453,7 @@ export const increaseQuestionViews = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -468,7 +468,7 @@ export const toggleQuestionUpvote = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -483,7 +483,7 @@ export const toggleQuestionDownvote = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -498,7 +498,7 @@ export const getAllTags = () => async (dispatch) => {
     return res.data;
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
     return err;
   }
 };
@@ -513,8 +513,7 @@ export const createTag = (name) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -530,7 +529,7 @@ export const getTagInfo = (id) => async (dispatch) => {
     return res.data;
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
     return err;
   }
 };
@@ -545,8 +544,7 @@ export const changeTagName = (id, newName) => async (dispatch) => {
       payload: res,
     });
   } catch (err) {
-    console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -562,7 +560,7 @@ export const deleteTag = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -576,7 +574,7 @@ export const getAllArticles = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -598,7 +596,7 @@ export const addArticle = (data) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -616,7 +614,7 @@ export const getArticle = (id) => async (dispatch) => {
     return action;
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
     return err;
   }
 };
@@ -631,7 +629,7 @@ export const updateArticle = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -646,7 +644,7 @@ export const deleteArticle = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -661,7 +659,7 @@ export const getArticleComments = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -684,7 +682,7 @@ export const addArticleComment = (article) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -699,7 +697,7 @@ export const increaseArticleViews = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -714,7 +712,7 @@ export const toggleArticleUpvote = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };
 
@@ -729,6 +727,6 @@ export const toggleArticleDownvote = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
-    alert(err);
+    alert(err.response.data.description);
   }
 };

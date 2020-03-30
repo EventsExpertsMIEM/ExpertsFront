@@ -72,7 +72,7 @@ const TagsPanel = React.forwardRef((props, ref) => {
                 >
                   Переименовать
                 </h4>
-                <h4 className="text-center btn btn-danger btn-sm btn-outline-primary" onClick={() => onDeleteClick(id)}>
+                <h4 className="text-center btn btn-danger btn-sm" onClick={() => onDeleteClick(id)}>
                   Удалить
                 </h4>
               </>
