@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types, react/destructuring-assignment */
-
 import React, { useState } from 'react';
 import { change } from 'redux-form';
 import ReactTags from 'react-tag-autocomplete';
@@ -12,7 +10,7 @@ const Tags = (props) => {
         && store.form[fieldName].values
         && store.form[fieldName].values.tags);
   const [tags, setTags] = useState(initialTags);
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars,react/destructuring-assignment
   const [suggestions, setSuggestions] = useState(props.suggestions);
   const dispatch = useDispatch();
 

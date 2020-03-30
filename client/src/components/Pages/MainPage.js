@@ -7,7 +7,6 @@ import {
 } from '../../actions';
 import { formatDetailedDateTime } from '../helpers/helpers';
 import radixSort from '../helpers/radixSort';
-import Table from '../Profile/Table';
 
 const MainPage = () => {
   const questions = useSelector((store) => store.questions);
