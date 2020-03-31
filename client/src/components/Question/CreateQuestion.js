@@ -2,6 +2,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Field, reduxForm, reset } from 'redux-form';
+import { useHistory } from 'react-router';
 import { addQuestion } from '../../actions';
 import {
   required,
@@ -68,15 +69,18 @@ const CreateQuestion = (props) => {
     pristine, submitting, invalid, scrollRef, title = 'Новый вопрос экспертам',
   } = props;
   const dispatch = useDispatch();
+  const history = useHistory();
   const question = useSelector((store) => store.form[FIELD_NAMES.QUESTION]
         && store.form[FIELD_NAMES.QUESTION].values);
   const { tags = INITIAL_VALUES.tags } = question;
 
   const allTags = useSelector((store) => store.tags);
 
-  const defaultOnClick = () => {
+  const defaultOnClick = (e) => {
+    e.preventDefault();
     dispatch(addQuestion(question));
     dispatch(reset(FIELD_NAMES.QUESTION));
+    history.push('/');
   };
 
   const { onClick = defaultOnClick } = props;
