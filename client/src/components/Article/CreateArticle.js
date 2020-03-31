@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Field, reduxForm, reset } from 'redux-form';
+import { useHistory } from 'react-router';
 import { addArticle, getAllTags } from '../../actions';
 import {
   required,
@@ -10,11 +11,11 @@ import {
   maxValue128,
   maxValue1024,
   renderInputField,
-  renderTextareaField, trim,
+  renderTextareaField, trim, mapTagsToSelected,
 } from '../helpers/helpers';
 import { FIELD_NAMES } from '../helpers/consts';
-import Tags from '../Tags/Tags';
 import requireAuth from '../requireAuth';
+import TagsSelector from '../Tags/TagsSelector';
 
 const INPUT_FIELDS = [
   {
@@ -46,14 +47,17 @@ const CreateQuestion = (props) => {
     pristine, submitting, invalid, scrollRef, title = 'Новая статья',
   } = props;
   const dispatch = useDispatch();
+  const history = useHistory();
   const article = useSelector((store) => store.form[FIELD_NAMES.ARTICLE]
         && store.form[FIELD_NAMES.ARTICLE].values);
-  const tags = useSelector((store) => store.tags);
+  const { tags = INITIAL_VALUES.tags } = article;
+  const allTags = useSelector((store) => store.tags);
 
   const defaultOnClick = (e) => {
     e.preventDefault();
     dispatch(addArticle(article));
     dispatch(reset(FIELD_NAMES.ARTICLE));
+    history.push('/articles');
   };
 
   const { onClick = defaultOnClick } = props;
@@ -85,14 +89,17 @@ const CreateQuestion = (props) => {
               </div>
             );
           })}
-          {tags.length > 0
-                    && (
-                    <Field
-                      key="tags"
-                      name="tags"
-                      component={() => <Tags suggestions={tags} fieldName={FIELD_NAMES.ARTICLE} />}
-                    />
-                    )}
+          <Field
+            key="tags"
+            name="tags"
+            component={() => (
+              <TagsSelector
+                fieldName={FIELD_NAMES.ARTICLE}
+                tags={tags}
+                allTags={mapTagsToSelected(allTags)}
+              />
+            )}
+          />
           <div className="form-group text-center">
             <input
               ref={scrollRef}

@@ -75,11 +75,19 @@ export const formatModalData = (data) => Object.entries(data).reduce((acc, [key,
   return acc;
 }, '');
 
-export const normalizeTags = (tags) => tags.reduce((acc, tag) => {
-  acc[tag.name] = tag;
-  return acc;
-}, {});
-
 export const scrollToRef = (ref) => {
   setTimeout(() => ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' }), 10);
 };
+
+export const mapTagsToSelected = (tags, value = false) => tags.reduce((acc, name) => {
+  acc[name] = value;
+  return acc;
+}, {});
+
+export const getSelectedTagsArr = (tags) => Object.entries(tags)
+  .reduce((acc, [tagName, isSelected]) => {
+    if (isSelected) {
+      acc.push(tagName);
+    }
+    return acc;
+  }, []);

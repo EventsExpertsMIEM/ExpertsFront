@@ -13,13 +13,13 @@ export const DETAILED_DATE_FORMAT_OPTIONS = {
 };
 
 export const FIELD_NAMES = {
-  LOGIN: 'login',
-  REGISTER: 'register',
-  QUESTION: 'question',
-  COMMENT: 'comment',
-  ARTICLE: 'article',
-  SECURITY: 'securityTab',
-  PROFILE: 'editProfile',
+  LOGIN: 'LOGIN',
+  REGISTER: 'REGISTER',
+  QUESTION: 'QUESTION',
+  COMMENT: 'COMMENT',
+  ARTICLE: 'ARTICLE',
+  SECURITY: 'SECURITY',
+  PROFILE: 'PROFILE',
 };
 
 export const DEFAULT_LANGUAGE = 'ru';

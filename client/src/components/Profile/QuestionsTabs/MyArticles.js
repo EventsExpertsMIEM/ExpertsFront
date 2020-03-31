@@ -9,7 +9,7 @@ import { FIELD_NAMES } from '../../helpers/consts';
 import {
   deleteArticle, getUserArticles, updateArticle,
 } from '../../../actions';
-import { normalizeTags, scrollToRef } from '../../helpers/helpers';
+import { mapTagsToSelected, scrollToRef } from '../../helpers/helpers';
 import MyPublications from './MyPublications';
 import CreateArticle from '../../Article/CreateArticle';
 
@@ -49,9 +49,8 @@ const getColumns = (ref, toggleShow) => [
               return undefined;
             }
 
-            const normalizedTags = normalizeTags(tags);
             return dispatch(initialize(FIELD_NAMES.ARTICLE,
-              { ...article, tags: article.tags.map((tag) => normalizedTags[tag]) }));
+              { ...article, tags: mapTagsToSelected(article.tags, true) }));
           };
 
           const handleDeleteClick = async (id) => {

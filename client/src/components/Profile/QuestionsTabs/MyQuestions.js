@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { FIELD_NAMES } from '../../helpers/consts';
 import { deleteQuestion, getUserQuestions, updateQuestion } from '../../../actions';
-import { normalizeTags, scrollToRef } from '../../helpers/helpers';
+import { mapTagsToSelected, scrollToRef } from '../../helpers/helpers';
 import MyPublications from './MyPublications';
 import CreateQuestion from '../../Question/CreateQuestion';
 
@@ -46,10 +46,8 @@ const getColumns = (ref, toggleShow) => [
             if (!tags) {
               return undefined;
             }
-
-            const normalizedTags = normalizeTags(tags);
             return dispatch(initialize(FIELD_NAMES.QUESTION,
-              { ...question, tags: question.tags.map((tag) => normalizedTags[tag]) }));
+              { ...question, tags: mapTagsToSelected(question.tags, true) }));
           };
 
           const handleDeleteClick = async (id) => {

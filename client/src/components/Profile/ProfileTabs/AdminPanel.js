@@ -118,7 +118,7 @@ const AdminPanel = () => {
   return (
     <>
       <Dialog ref={ref} />
-      <TagsPanel ref={ref} />
+      <TagsPanel />
       <Table data={data} columns={columns} />
     </>
   );

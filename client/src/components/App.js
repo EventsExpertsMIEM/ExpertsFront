@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import MainPage from './Pages/MainPage';
 import Auth from './Auth/Auth';
 import NotFoundPage from './Pages/NotFondPage';
@@ -9,7 +8,6 @@ import Question from './Question/Question';
 import CreateQuestion from './Question/CreateQuestion';
 import Articles from './Article/Articles';
 import CreateArticle from './Article/CreateArticle';
-// eslint-disable-next-line import/no-named-as-default,import/no-named-as-default-member
 import Profile from './Profile/Profile';
 
 const routesMap = {
@@ -28,29 +26,22 @@ const routesMap = {
   notFoundPage: { path: '*', requireAuth: false, component: NotFoundPage },
 };
 
-const App = () => {
-  // eslint-disable-next-line no-unused-vars
-  const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
-  return (
-    <Router>
-      <Navigation />
-      <Switch>
-        {Object.values(routesMap).map(({
-          // eslint-disable-next-line no-unused-vars
-          path, component, exact, requireAuth,
-        }) => (
-          /* (requireAuth === null || requireAuth === isLoggedIn) && */ (
-            <Route
-              key={path}
-              path={path}
-              exact={exact}
-              component={component}
-            />
-          )
-        ))}
-      </Switch>
-    </Router>
-  );
-};
+const App = () => (
+  <Router>
+    <Navigation />
+    <Switch>
+      {Object.values(routesMap).map(({
+        path, component, exact,
+      }) => (
+        <Route
+          key={path}
+          path={path}
+          exact={exact}
+          component={component}
+        />
+      ))}
+    </Switch>
+  </Router>
+);
 
 export default App;

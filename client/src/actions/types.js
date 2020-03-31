@@ -177,7 +177,7 @@ export const ACTION_MAP = {
     method: METHODS.GET,
   },
   [ACTION.CREATE_TAG]: {
-    getPath: (name) => `/tag?name=${name}`,
+    getPath: (name) => `/tag/?name=${name}`,
     method: METHODS.GET,
   },
   [ACTION.GET_TAG_INFO]: {
@@ -192,8 +192,6 @@ export const ACTION_MAP = {
     getPath: (id) => `/tag/${id}`,
     method: METHODS.DELETE,
   },
-
-
   [ACTION.GET_ALL_ARTICLES]: {
     getPath: () => '/article/all',
     method: METHODS.GET,

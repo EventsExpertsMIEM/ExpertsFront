@@ -4,13 +4,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  changeTagName,
-  createTag, deleteTag, getAllTags, getTagInfo,
+  changeTagName, createTag, deleteTag, getAllTags,
 } from '../../../actions';
 import Table from '../Table';
-import { formatModalData } from '../../helpers/helpers';
 
-const TagsPanel = React.forwardRef((props, ref) => {
+const TagsPanel = () => {
   const dispatch = useDispatch();
   const data = useSelector((store) => store.tags);
 
@@ -22,15 +20,10 @@ const TagsPanel = React.forwardRef((props, ref) => {
     }
   };
 
-  const onTagClick = async (id) => {
-    const res = await dispatch(getTagInfo(id));
-    ref.current.showAlert(formatModalData(res));
-  };
-
-  const onTagRenameClick = async (id) => {
-    const text = prompt('Введите новое название тэга');
-    if (typeof text === 'string') {
-      await dispatch(changeTagName(id, text));
+  const onTagRenameClick = async (oldName) => {
+    const newName = prompt('Введите новое название тэга');
+    if (typeof newName === 'string') {
+      await dispatch(changeTagName(oldName, newName));
       await dispatch(getAllTags());
     }
   };
@@ -45,34 +38,20 @@ const TagsPanel = React.forwardRef((props, ref) => {
       Header: 'Научные области (тэги)',
       columns: [
         {
-          Header: 'Id',
-          accessor: 'id',
-          Cell: (props) => {
-            const { id } = props.row.original;
-            return (<>{id}</>);
-          },
-        },
-        {
           Header: 'Имя',
           accessor: 'name',
           Cell: (props) => {
-            const { id, name } = props.row.original;
+            const name = props.row.original;
             return (
               <>
                 <h4>{name}</h4>
                 <h4
                   className="text-center btn btn-sm btn-outline-primary"
-                  onClick={() => onTagClick(id)}
-                >
-                  Подробнее
-                </h4>
-                <h4
-                  className="text-center btn btn-sm btn-outline-primary"
-                  onClick={() => onTagRenameClick(id)}
+                  onClick={() => onTagRenameClick(name)}
                 >
                   Переименовать
                 </h4>
-                <h4 className="text-center btn btn-danger btn-sm" onClick={() => onDeleteClick(id)}>
+                <h4 className="text-center btn btn-danger btn-sm" onClick={() => onDeleteClick(name)}>
                   Удалить
                 </h4>
               </>
@@ -98,6 +77,6 @@ const TagsPanel = React.forwardRef((props, ref) => {
       </h4>
     </>
   );
-});
+};
 
 export default TagsPanel;
