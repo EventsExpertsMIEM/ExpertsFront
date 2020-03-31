@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading, react/prop-types */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Field, reduxForm, reset } from 'redux-form';
-import { addQuestion, getAllTags } from '../../actions';
+import { addQuestion } from '../../actions';
 import {
   required,
   uppercase,
@@ -10,11 +10,12 @@ import {
   maxValue128,
   maxValue1024,
   renderInputField,
-  renderTextareaField, trim,
+  renderTextareaField,
+  trim, mapTagsToSelected,
 } from '../helpers/helpers';
 import { FIELD_NAMES } from '../helpers/consts';
-import Tags from '../Tags/Tags';
 import requireAuth from '../requireAuth';
+import TagsSelector from '../Tags/TagsSelector';
 
 const INPUT_FIELDS = [
   {
@@ -69,7 +70,9 @@ const CreateQuestion = (props) => {
   const dispatch = useDispatch();
   const question = useSelector((store) => store.form[FIELD_NAMES.QUESTION]
         && store.form[FIELD_NAMES.QUESTION].values);
-  const tags = useSelector((store) => store.tags);
+  const { tags = INITIAL_VALUES.tags } = question;
+
+  const allTags = useSelector((store) => store.tags);
 
   const defaultOnClick = () => {
     dispatch(addQuestion(question));
@@ -77,10 +80,6 @@ const CreateQuestion = (props) => {
   };
 
   const { onClick = defaultOnClick } = props;
-
-  useEffect(() => {
-    dispatch(getAllTags());
-  }, [dispatch]);
 
   return (
     <div
@@ -109,14 +108,17 @@ const CreateQuestion = (props) => {
               </div>
             );
           })}
-          {tags.length > 0
-                    && (
-                    <Field
-                      key="tags"
-                      name="tags"
-                      component={() => <Tags suggestions={tags} fieldName={FIELD_NAMES.QUESTION} />}
-                    />
-                    )}
+          <Field
+            key="tags"
+            name="tags"
+            component={() => (
+              <TagsSelector
+                fieldName={FIELD_NAMES.QUESTION}
+                tags={tags}
+                allTags={mapTagsToSelected(allTags)}
+              />
+            )}
+          />
           <div className="form-group text-center">
             <input
               ref={scrollRef}

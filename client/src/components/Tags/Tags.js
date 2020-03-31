@@ -17,13 +17,13 @@ const Tags = (props) => {
   const handleDelete = (i) => {
     tags.splice(i, 1);
     setTags(tags);
-    dispatch(change(FIELD_NAMES[fieldName.toUpperCase()], 'tags', tags));
+    dispatch(change(FIELD_NAMES[fieldName], 'tags', tags));
   };
 
   const handleAddition = (tag) => {
     const newTags = [].concat(tags, tag);
     setTags(newTags);
-    dispatch(change(FIELD_NAMES[fieldName.toUpperCase()], 'tags', newTags));
+    dispatch(change(FIELD_NAMES[fieldName], 'tags', newTags));
   };
 
   return (

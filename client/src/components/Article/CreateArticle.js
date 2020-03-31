@@ -10,7 +10,7 @@ import {
   maxValue128,
   maxValue1024,
   renderInputField,
-  renderTextareaField, trim,
+  renderTextareaField, trim, getSelectedTagsArr,
 } from '../helpers/helpers';
 import { FIELD_NAMES } from '../helpers/consts';
 import Tags from '../Tags/Tags';
@@ -40,7 +40,7 @@ const INITIAL_VALUES = {
   body: '',
   tags: [],
 };
-
+// TODO: fix
 const CreateQuestion = (props) => {
   const {
     pristine, submitting, invalid, scrollRef, title = 'Новая статья',
@@ -52,6 +52,7 @@ const CreateQuestion = (props) => {
 
   const defaultOnClick = (e) => {
     e.preventDefault();
+    article.tags = getSelectedTagsArr(article.tags);
     dispatch(addArticle(article));
     dispatch(reset(FIELD_NAMES.ARTICLE));
   };

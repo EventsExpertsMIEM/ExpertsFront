@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import axios from 'axios';
 import { ACTION, ACTION_MAP, subjectsName } from './types';
+import { getSelectedTagsArr } from '../components/helpers/helpers';
 
 export const login = (data) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.LOGIN;
@@ -351,9 +352,9 @@ export const getAllQuestions = () => async (dispatch) => {
  */
 export const addQuestion = (data) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.ADD_QUESTION;
-  data.tags = Array.from(new Set(data.tags.map((tag) => tag.id)));
   const path = getPath();
 
+  data.tags = getSelectedTagsArr(data.tags);
   try {
     const res = await axios[method](path, data);
     dispatch({
@@ -415,7 +416,7 @@ export const updateQuestion = (question) => async (dispatch) => {
 
   const { getPath, method } = ACTION_MAP.UPDATE_QUESTION;
   const path = getPath(id);
-  data.tags = Array.from(new Set(data.tags.map((tag) => tag.id)));
+  data.tags = getSelectedTagsArr(data.tags);
   try {
     const res = await axios[method](path, data);
     dispatch({
@@ -557,6 +558,7 @@ export const createTag = (name) => async (dispatch) => {
   }
 };
 
+// TODO: fix unused
 export const getTagInfo = (id) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.GET_TAG_INFO;
   const path = getPath(id);
@@ -574,9 +576,9 @@ export const getTagInfo = (id) => async (dispatch) => {
   }
 };
 
-export const changeTagName = (id, newName) => async (dispatch) => {
+export const changeTagName = (oldName, newName) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.CHANGE_TAG_NAME;
-  const path = getPath(id, newName);
+  const path = getPath(oldName, newName);
   try {
     const res = await axios[method](path);
     dispatch({
@@ -628,7 +630,7 @@ export const getAllArticles = () => async (dispatch) => {
 export const addArticle = (data) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.ADD_ARTICLE;
   const path = getPath();
-  data.tags = Array.from(new Set(data.tags.map((tag) => tag.id)));
+  data.tags = getSelectedTagsArr(data.tags);
   try {
     const res = await axios[method](path, data);
     dispatch({
@@ -685,7 +687,7 @@ export const updateArticle = (article) => async (dispatch) => {
 
   const { getPath, method } = ACTION_MAP.UPDATE_ARTICLE;
   const path = getPath(id);
-  data.tags = Array.from(new Set(data.tags.map((tag) => tag.id)));
+  data.tags = getSelectedTagsArr(data.tags);
   try {
     await axios[method](path, data);
     dispatch({
