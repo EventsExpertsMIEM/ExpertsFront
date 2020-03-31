@@ -1,10 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading, react/prop-types */
-
 import React from 'react';
 import { Field, reduxForm, reset } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { renderTextareaField, trim } from '../helpers/helpers';
-import { FIELD_NAMES } from '../helpers/consts';
+import { renderTextareaField, trim } from '../../helpers/helpers';
+import { FIELD_NAMES } from '../../helpers/consts';
 import {
   addArticleComment, addQuestionComment, getArticleComments, getQuestionComments,
 } from '../../actions';

@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Comment from './Comment';
-import { resetComments } from '../../actions/uiActions';
+import { resetComments } from '../../actions';
 
 const Comments = ({ getComments, comments, showPublicationId }) => {
   const dispatch = useDispatch();
