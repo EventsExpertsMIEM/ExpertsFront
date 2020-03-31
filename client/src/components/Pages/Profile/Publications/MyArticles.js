@@ -50,7 +50,13 @@ const getColumns = (ref, toggleShow) => [
             }
 
             return dispatch(initialize(FIELD_NAMES.ARTICLE,
-              { ...article, tags: mapTagsToSelected(article.tags, true) }));
+              {
+                ...article,
+                tags: {
+                  ...mapTagsToSelected(tags, false),
+                  ...mapTagsToSelected(article.tags, true),
+                },
+              }));
           };
 
           const handleDeleteClick = async (id) => {
@@ -102,7 +108,8 @@ const MyArticles = () => {
 
   const columns = getColumns(ref, toggleShow);
 
-  const onClick = () => {
+  const onClick = (e) => {
+    e.preventDefault();
     dispatch(updateArticle(article));
     dispatch(reset(FIELD_NAMES.ARTICLE));
     history.push(`/articles/${article.id}`);

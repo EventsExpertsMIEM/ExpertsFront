@@ -47,7 +47,13 @@ const getColumns = (ref, toggleShow) => [
               return undefined;
             }
             return dispatch(initialize(FIELD_NAMES.QUESTION,
-              { ...question, tags: mapTagsToSelected(question.tags, true) }));
+              {
+                ...question,
+                tags: {
+                  ...mapTagsToSelected(tags, false),
+                  ...mapTagsToSelected(question.tags, true),
+                },
+              }));
           };
 
           const handleDeleteClick = async (id) => {
@@ -99,7 +105,8 @@ const MyQuestions = () => {
 
   const columns = getColumns(ref, toggleShow);
 
-  const onClick = () => {
+  const onClick = (e) => {
+    e.preventDefault();
     dispatch(updateQuestion(question));
     dispatch(reset(FIELD_NAMES.QUESTION));
     history.push(`/questions/${question.id}`);

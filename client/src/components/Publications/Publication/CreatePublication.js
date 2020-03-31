@@ -1,14 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading, react/prop-types */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  change, Field, reset,
-} from 'redux-form';
+import { Field, reset, change } from 'redux-form';
 import { useHistory } from 'react-router';
 import {
+  mapTagsToSelected,
   renderInputField,
   renderTextareaField,
-  mapTagsToSelected,
 } from '../../../helpers/helpers';
 import TagsSelector from '../../Tags/TagsSelector';
 
@@ -34,7 +32,7 @@ const CreatePublication = (props) => {
 
   useEffect(() => {
     dispatch(change(fieldName, 'tags', mapTagsToSelected(allTags, false)));
-  }, []);
+  }, [dispatch, fieldName, allTags]);
 
   return (
     <div className="container">
