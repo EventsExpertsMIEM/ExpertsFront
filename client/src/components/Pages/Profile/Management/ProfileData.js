@@ -1,12 +1,9 @@
 /* eslint-disable react/prop-types, react/destructuring-assignment */
-
 import React, { Fragment } from 'react';
-import { formatDetailedDateTime } from '../../../helpers/helpers';
+import { formatDetailedDateTime } from '../../../../helpers/helpers';
 
 const PersonalInfo = (props) => {
   const {
-    // eslint-disable-next-line no-unused-vars
-    id,
     name,
     surname,
     email,

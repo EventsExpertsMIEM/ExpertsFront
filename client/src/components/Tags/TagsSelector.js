@@ -13,7 +13,10 @@ const TagsSelector = ({ tags, fieldName }) => {
     [nameToRemove]: false,
   }));
 
-  const selectTag = (name) => dispatch(change(FIELD_NAMES[fieldName], 'tags', { ...tags, [name]: true }));
+  const selectTag = (name) => dispatch(change(FIELD_NAMES[fieldName], 'tags', {
+    ...tags,
+    [name]: true,
+  }));
 
   return (
     <div className="tags-input">

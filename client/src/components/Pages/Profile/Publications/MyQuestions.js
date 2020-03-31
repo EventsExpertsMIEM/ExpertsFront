@@ -5,13 +5,11 @@ import { Link } from 'react-router-dom';
 import { initialize, reset } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { FIELD_NAMES } from '../../../helpers/consts';
-import {
-  deleteArticle, getUserArticles, updateArticle,
-} from '../../../actions';
-import { mapTagsToSelected, scrollToRef } from '../../../helpers/helpers';
+import { FIELD_NAMES } from '../../../../helpers/consts';
+import { deleteQuestion, getUserQuestions, updateQuestion } from '../../../../actions';
+import { mapTagsToSelected, scrollToRef } from '../../../../helpers/helpers';
 import MyPublications from './MyPublications';
-import CreateArticle from '../../Article/CreateArticle';
+import CreateQuestion from '../../../Publications/Question/CreateQuestion';
 
 const dict = {
   active: 'Открыт',
@@ -20,15 +18,15 @@ const dict = {
 
 const getColumns = (ref, toggleShow) => [
   {
-    Header: 'Мои статьи',
+    Header: 'Мои вопросы',
     columns: [
       {
-        Header: 'Тема статьи',
+        Header: 'Тема вопросов',
         accessor: 'id',
         Cell: (props) => {
           const { title, id } = props.row.original;
           return (
-            <Link to={`/articles/${id}`}>{title}</Link>
+            <Link to={`/questions/${id}`}>{title}</Link>
           );
         },
       },
@@ -39,22 +37,21 @@ const getColumns = (ref, toggleShow) => [
           const { status, id } = props.row.original;
 
           const dispatch = useDispatch();
-          const articles = useSelector((store) => store.articles);
+          const questions = useSelector((store) => store.questions);
           const tags = useSelector((store) => store.tags);
           const user = useSelector((store) => store.user);
 
           const onInitializeClick = (id) => {
-            const article = articles[id];
+            const question = questions[id];
             if (!tags) {
               return undefined;
             }
-
-            return dispatch(initialize(FIELD_NAMES.ARTICLE,
-              { ...article, tags: mapTagsToSelected(article.tags, true) }));
+            return dispatch(initialize(FIELD_NAMES.QUESTION,
+              { ...question, tags: mapTagsToSelected(question.tags, true) }));
           };
 
           const handleDeleteClick = async (id) => {
-            await dispatch(deleteArticle(id));
+            await dispatch(deleteQuestion(id));
           };
 
           const executeScroll = () => scrollToRef(ref);
@@ -77,7 +74,7 @@ const getColumns = (ref, toggleShow) => [
                 type="button"
                 onClick={async () => {
                   await handleDeleteClick(id);
-                  await dispatch(getUserArticles(user.id));
+                  await dispatch(getUserQuestions(user.id));
                 }}
               >
                 Удалить
@@ -90,11 +87,11 @@ const getColumns = (ref, toggleShow) => [
   },
 ];
 
-const MyArticles = () => {
+const MyQuestions = () => {
   const dispatch = useDispatch();
-  const articles = useSelector((store) => store.table.articles);
-  const article = useSelector((store) => store.form[FIELD_NAMES.ARTICLE]
-        && store.form[FIELD_NAMES.ARTICLE].values);
+  const questions = useSelector((store) => store.table.questions);
+  const question = useSelector((store) => store.form[FIELD_NAMES.QUESTION]
+        && store.form[FIELD_NAMES.QUESTION].values);
   const [showEdit, toggleShow] = useState(false);
 
   const history = useHistory();
@@ -103,13 +100,13 @@ const MyArticles = () => {
   const columns = getColumns(ref, toggleShow);
 
   const onClick = () => {
-    dispatch(updateArticle(article));
-    dispatch(reset(FIELD_NAMES.ARTICLE));
-    history.push(`/articles/${article.id}`);
+    dispatch(updateQuestion(question));
+    dispatch(reset(FIELD_NAMES.QUESTION));
+    history.push(`/questions/${question.id}`);
   };
 
   const editComponent = () => (
-    <CreateArticle
+    <CreateQuestion
       onClick={onClick}
       scrollRef={ref}
       title="Редактировать вопрос"
@@ -118,7 +115,7 @@ const MyArticles = () => {
 
   return (
     <MyPublications
-      data={articles}
+      data={questions}
       columns={columns}
       showEdit={showEdit}
       editComponent={editComponent}
@@ -126,4 +123,4 @@ const MyArticles = () => {
   );
 };
 
-export default MyArticles;
+export default MyQuestions;

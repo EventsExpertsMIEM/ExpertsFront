@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading, react/prop-types */
-
 import React from 'react';
 import {
   Field, reduxForm, reset,
@@ -8,9 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import {
   renderInputField, required, uppercase,
-} from '../../../helpers/helpers';
-import { FIELD_NAMES } from '../../../helpers/consts';
-import { changeUserInfo, getUserInfo } from '../../../actions';
+} from '../../../../helpers/helpers';
+import { FIELD_NAMES } from '../../../../helpers/consts';
+import { changeUserInfo, getUserInfo } from '../../../../actions';
 
 const INPUTS_FIELDS = [
   {
@@ -23,7 +22,6 @@ const INPUTS_FIELDS = [
     name: 'position', placeholder: 'Должность', validate: required, normalize: uppercase,
   },
 ];
-
 
 const ChangePersonaData = (props) => {
   const dispatch = useDispatch();

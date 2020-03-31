@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { ROLES } from '../actions/types';
+import { ROLES } from '../../actions/types';
 
 export default (ChildComponent) => {
   const ComposedComponent = (props) => {

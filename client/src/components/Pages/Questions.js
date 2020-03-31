@@ -8,7 +8,7 @@ import {
 import { formatDetailedDateTime } from '../../helpers/helpers';
 import radixSort from '../../helpers/radixSort';
 
-const MainPage = () => {
+const Questions = () => {
   const questions = useSelector((store) => store.questions);
   const user = useSelector((store) => store.user);
   const [length, setLength] = useState(10);
@@ -56,18 +56,10 @@ const MainPage = () => {
       />
       {formattedQuestions.map((question) => {
         const {
-          closed,
-          only_experts_answer: onlyExpertsAnswer,
-          only_chosen_tags: onlyChosenTags,
           id,
-          u_id: userId,
-          email,
           title,
           body,
           creation_date: creationDate,
-          score,
-          view_count: viewCount,
-          comment_count: commentCount,
           tags,
         } = question;
 
@@ -125,4 +117,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default Questions;

@@ -1,13 +1,12 @@
 /* eslint-disable react/prop-types, react/destructuring-assignment, no-unused-vars, no-shadow */
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserLoginStatus, mapSubjToActions } from '../../actions';
-import { formatDetailedDateTime } from '../../helpers/helpers';
-import CommentGroup from '../CommentGroup';
+import { getUserLoginStatus, mapSubjToActions } from '../../../actions';
+import { formatDetailedDateTime } from '../../../helpers/helpers';
+import CommentGroup from '../../CommentGroup';
 
-const Question = (props) => {
+const Publication = (props) => {
   const dispatch = useDispatch();
   const [isQuestionFound, setIsQuestionFound] = useState(true);
   const type = window.location.pathname.split('/')[1];
@@ -41,7 +40,6 @@ const Question = (props) => {
     );
   }
 
-
   if (!subject) {
     return (
       <div className="text-center">
@@ -61,18 +59,12 @@ const Question = (props) => {
   };
 
   const {
-    closed,
-    only_experts_answer: onlyExpertsAnswer,
-    only_chosen_tags: onlyChosenTags,
-    // id,
-    u_id: userId,
     email,
     title,
     body,
     creation_date: creationDate,
     score,
     view_count: viewCount,
-    comment_count: commentCount,
     tags,
   } = subject;
 
@@ -112,7 +104,6 @@ const Question = (props) => {
                 />
               </div>
             </div>
-
           </div>
         </div>
         <h6 className="text-muted text-left pl-3">{`Просмотры: ${viewCount}`}</h6>
@@ -133,4 +124,4 @@ const Question = (props) => {
   );
 };
 
-export default Question;
+export default Publication;

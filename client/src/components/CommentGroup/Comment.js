@@ -10,10 +10,8 @@ const Comment = (props) => {
   const {
     id,
     p_id,
-    u_id,
     email,
     text,
-    status,
     creation_date,
     score,
     post_type,

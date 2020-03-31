@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control,
  react/prop-types, react/destructuring-assignment */
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import requireAuth from '../requireAuth';
-import Table from '../Profile/Table';
+import requireAuth from '../HOCs/requireAuth';
+import Table from '../Table/Table';
 import { formatDateTime } from '../../helpers/helpers';
 import { getAllArticles } from '../../actions';
+import radixSort from '../../helpers/radixSort';
 
 const Articles = () => {
   const dispatch = useDispatch();
@@ -62,6 +62,9 @@ const Articles = () => {
     },
   ];
 
+  const formattedArticles = radixSort(Object.values(articles), 'id', false)
+    .filter((question) => question.title.toLowerCase().indexOf(query) > -1);
+
   return (
     <div className="container">
       <input
@@ -72,8 +75,7 @@ const Articles = () => {
         onChange={handleChange}
       />
       <Table
-        data={Object.values(articles)
-          .filter((article) => article.title.toLowerCase().indexOf(query) > -1)}
+        data={formattedArticles}
         columns={columns}
       />
     </div>

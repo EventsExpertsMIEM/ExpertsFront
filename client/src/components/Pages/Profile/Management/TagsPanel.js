@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types, react/destructuring-assignment,
  jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions, no-shadow */
-
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   changeTagName, createTag, deleteTag, getAllTags,
-} from '../../../actions';
-import Table from '../Table';
+} from '../../../../actions';
+import Table from '../../../Table/Table';
 
 const TagsPanel = () => {
   const dispatch = useDispatch();

@@ -2,20 +2,6 @@
 import p from 'immer';
 import { ACTION } from '../actions/types';
 
-/* const exmaple = [
-  {
-    id: 22,
-    p_id: 13,
-    u_id: 1,
-    email: 'root_mail',
-    text: 'test2',
-    status: 'active',
-    creation_date: 1585210224.960805,
-    score: 0,
-  },
-]; */
-
-
 const INITIAL_STATE = [];
 
 export default p((state = INITIAL_STATE, action) => {

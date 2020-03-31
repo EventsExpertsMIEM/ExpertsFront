@@ -16,7 +16,9 @@ export const login = (data) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
     return err;
   }
 };
@@ -32,7 +34,9 @@ export const logout = () => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -63,7 +67,9 @@ export const register = (data) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
     return err;
   }
 };
@@ -79,7 +85,9 @@ export const confirmUser = () => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -95,7 +103,9 @@ export const deleteUser = (password) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
     return err;
   }
 };
@@ -114,7 +124,9 @@ export const closeAllSessions = (password) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
     return err;
   }
 };
@@ -137,7 +149,9 @@ export const resetPassword = ({ email }) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
     return err;
   }
 };
@@ -155,7 +169,9 @@ export const changePassword = (old_password, new_password) => async (dispatch) =
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
     return err;
   }
 };
@@ -173,7 +189,9 @@ export const banUser = (id) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
     return err;
   }
 };
@@ -191,7 +209,9 @@ export const changeRole = (id, role) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -208,7 +228,9 @@ export const getUserLoginStatus = () => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
     return err;
   }
 };
@@ -225,7 +247,9 @@ export const getUserInfo = (id) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -242,7 +266,9 @@ export const getAllUsers = () => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
     return err;
   }
 };
@@ -290,7 +316,9 @@ export const changeUserInfo = (userId, user) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -306,7 +334,9 @@ export const getUserQuestions = (id) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -322,7 +352,9 @@ export const getUserArticles = (userId) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -338,7 +370,9 @@ export const getUserComments = (userId) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -354,7 +388,9 @@ export const getAllQuestions = () => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -382,7 +418,9 @@ export const addQuestion = (data) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -401,7 +439,9 @@ export const getQuestion = (id) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
     return err;
   }
 };
@@ -417,26 +457,18 @@ export const getQuestion = (id) => async (dispatch) => {
  * @returns {function()}
  */
 export const updateQuestion = (question) => async (dispatch) => {
-  const {
-    id, title,
-    body,
-    closed,
-    only_experts_answer,
-    only_chosen_tags, tags,
-  } = question;
-
+  const { id } = question;
   const data = {
-    title,
-    body,
-    closed,
-    only_experts_answer,
-    only_chosen_tags,
-    tags,
+    title: question.title,
+    body: question.body,
+    closed: question.closed,
+    only_experts_answer: question.only_experts_answer,
+    only_chosen_tags: question.only_chosen_tags,
+    tags: getSelectedTagsArr(question.tags),
   };
 
   const { getPath, method } = ACTION_MAP.UPDATE_QUESTION;
   const path = getPath(id);
-  data.tags = getSelectedTagsArr(data.tags);
   try {
     const res = await axios[method](path, data);
     dispatch({
@@ -446,7 +478,9 @@ export const updateQuestion = (question) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -462,7 +496,9 @@ export const deleteQuestion = (id) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -478,7 +514,9 @@ export const getQuestionComments = (id) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -502,7 +540,9 @@ export const addQuestionComment = (comment) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -518,7 +558,9 @@ export const increaseQuestionViews = (id) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -534,7 +576,9 @@ export const toggleQuestionUpvote = (id) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -550,7 +594,9 @@ export const toggleQuestionDownvote = (id) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -567,7 +613,9 @@ export const getAllTags = () => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
     return err;
   }
 };
@@ -585,7 +633,9 @@ export const createTag = (name) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -603,7 +653,9 @@ export const getTagInfo = (id) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
     return err;
   }
 };
@@ -620,7 +672,9 @@ export const changeTagName = (oldName, newName) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -637,7 +691,9 @@ export const deleteTag = (id) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -653,7 +709,9 @@ export const getAllArticles = () => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -676,7 +734,9 @@ export const addArticle = (data) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -695,7 +755,9 @@ export const getArticle = (id) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
     return err;
   }
 };
@@ -708,24 +770,17 @@ export const getArticle = (id) => async (dispatch) => {
  * @param {Array<number>} article.tags
  * @returns {function()}
  */
-
 export const updateArticle = (article) => async (dispatch) => {
-  const {
-    id,
-    title,
-    body,
-    tags,
-  } = article;
+  const { id } = article;
 
   const data = {
-    title,
-    body,
-    tags,
+    title: article.title,
+    body: article.body,
+    tags: getSelectedTagsArr(article.tags),
   };
 
   const { getPath, method } = ACTION_MAP.UPDATE_ARTICLE;
   const path = getPath(id);
-  data.tags = getSelectedTagsArr(data.tags);
   try {
     await axios[method](path, data);
     dispatch({
@@ -734,7 +789,9 @@ export const updateArticle = (article) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -750,7 +807,9 @@ export const deleteArticle = (id) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -766,7 +825,9 @@ export const getArticleComments = (id) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -790,7 +851,9 @@ export const addArticleComment = (article) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -806,7 +869,9 @@ export const increaseArticleViews = (id) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -822,7 +887,9 @@ export const toggleArticleUpvote = (id) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -838,7 +905,9 @@ export const toggleArticleDownvote = (id) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -854,7 +923,9 @@ export const toggleCommentUpvote = (id) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
 };
 
@@ -870,8 +941,17 @@ export const toggleCommentDownvote = (id) => async (dispatch) => {
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
-        && err.response.data.description) { alert(err.response.data.description); }
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
   }
+};
+
+// ui action
+export const resetComments = () => async (dispatch) => {
+  dispatch({
+    type: ACTION.RESET_COMMENTS,
+  });
 };
 
 export const mapSubjToActions = {

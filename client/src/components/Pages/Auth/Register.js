@@ -4,11 +4,11 @@ import React, { useEffect, useState } from 'react';
 import { Field, reduxForm, reset } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { register } from '../../actions';
+import { register } from '../../../actions';
 import {
   renderInputField, required, uppercase, validateEmail,
-} from '../../helpers/helpers';
-import { FIELD_NAMES } from '../../helpers/consts';
+} from '../../../helpers/helpers';
+import { FIELD_NAMES } from '../../../helpers/consts';
 
 const INPUTS_FIELDS = [
   {
@@ -32,10 +32,7 @@ const INPUTS_FIELDS = [
 ];
 
 const Register = (props) => {
-  // eslint-disable-next-line react/prop-types
-  const {
-    pristine, submitting, invalid,
-  } = props;
+  const { pristine, submitting, invalid } = props;
   const history = useHistory();
   const dispatch = useDispatch();
   const registerData = useSelector((store) => store.form[FIELD_NAMES.REGISTER]);

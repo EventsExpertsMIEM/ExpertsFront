@@ -1,18 +1,17 @@
 /* eslint-disable react/prop-types */
-
 import React, { useEffect } from 'react';
 import {
   Link, Redirect, Route, useRouteMatch,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { initialize } from 'redux-form';
-import ProfileTabs from './ProfileTabs';
-import QuestionsTabs from './QuestionsTabs';
+import ProfileTabs from './Management';
+import QuestionsTabs from './Publications';
 import {
   getUserArticles, getUserComments, getUserQuestions, ROLES,
-} from '../../actions';
-import requireAuth from '../requireAuth';
-import { FIELD_NAMES } from '../../helpers/consts';
+} from '../../../actions';
+import requireAuth from '../../HOCs/requireAuth';
+import { FIELD_NAMES } from '../../../helpers/consts';
 
 const getTabs = ({
   dispatch, currentUserData, questions, articles, comments,
@@ -25,7 +24,7 @@ const getTabs = ({
   {
     tabUrl: 'personal-info',
     info: 'Персональная информация',
-    component: ProfileTabs.PersonalInfo,
+    component: ProfileTabs.ProfileData,
   },
   {
     tabUrl: 'security',
@@ -53,7 +52,7 @@ const getTabs = ({
   {
     tabUrl: 'edit-personal-data',
     info: 'Редактировать профиль',
-    component: QuestionsTabs.EditPersonaData,
+    component: ProfileTabs.EditProfileData,
     onClick: () => dispatch(initialize(FIELD_NAMES.PROFILE, currentUserData)),
   },
   {
@@ -95,7 +94,6 @@ const Profile = () => {
   useEffect(() => {
     if (user.id) {
       dispatch(getUserQuestions(user.id));
-      dispatch(getUserArticles(user.id));
       dispatch(getUserArticles(user.id));
       dispatch(getUserComments(user.id));
     }

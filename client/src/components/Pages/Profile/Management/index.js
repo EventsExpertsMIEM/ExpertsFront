@@ -1,9 +1,11 @@
-import PersonalInfo from './PerosnalInfo';
+import ProfileData from './ProfileData';
 import SecurityTab from './SecurityTab';
 import AdminPanel from './AdminPanel';
+import EditProfileData from './EditProfileData';
 
 export default {
-  PersonalInfo,
+  ProfileData,
   SecurityTab,
   AdminPanel,
+  EditProfileData,
 };

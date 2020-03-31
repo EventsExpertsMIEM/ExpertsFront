@@ -5,28 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import Dialog from 'react-bootstrap-dialog';
 import {
   banUser, changeRole, getAllUsers, ROLES,
-} from '../../../actions';
-import Table from '../Table';
-import requireRights from '../../requireRights';
+} from '../../../../actions';
+import Table from '../../../Table/Table';
+import requireRights from '../../../HOCs/requireRights';
 import TagsPanel from './TagsPanel';
-import { formatModalData } from '../../../helpers/helpers';
+import { formatModalData } from '../../../../helpers/helpers';
 
-/*  const example = {
-  id: 30,
-  name: 'F',
-  surname: 'F',
-  email: 'ff@ff.ff',
-  role: 'user',
-  tags: [],
-  interests: [],
-  position: 'F',
-  rating: 0,
-  registration_date: 1585309843.295268,
-  status: 'active',
-  question_count: 0,
-  article_count: 0,
-  comment_count: 0,
-}; */
 const AdminPanel = () => {
   const dispatch = useDispatch();
   const data = useSelector((store) => store.table.users);

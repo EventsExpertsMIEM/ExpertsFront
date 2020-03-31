@@ -3,24 +3,6 @@ import p from 'immer';
 import { ACTION } from '../actions/types';
 import { normalize } from '../helpers/helpers';
 
-/* const exampleState = {
-  1: {
-    closed: false,
-    only_experts_answer: false,
-    only_chosen_tags: false,
-    id: 1,
-    u_id: 1,
-    email: 'root_mail',
-    title: 'какой-то заголовок вопроса',
-    body: 'тело вопроса',
-    creation_date: 1584641046.339018,
-    score: 0,
-    view_count: 1,
-    comment_count: 20,
-    tags: [],
-  },
-}; */
-
 const INITIAL_STATE = {};
 
 export default p((state = INITIAL_STATE, action) => {

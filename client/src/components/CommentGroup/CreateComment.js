@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading, react/prop-types */
-
 import React from 'react';
 import { Field, reduxForm, reset } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';

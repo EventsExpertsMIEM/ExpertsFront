@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading, no-shadow,react/prop-types,
  react/destructuring-assignment */
 import React from 'react';
-import Table from '../Table';
+import Table from '../../../Table/Table';
 
 const MyPublications = (props) => {
   const {
