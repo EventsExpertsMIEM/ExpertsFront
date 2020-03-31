@@ -2,7 +2,6 @@
 import p from 'immer';
 import { ACTION } from '../actions/types';
 
-
 const INITIAL_STATE = [];
 
 export default p((state = INITIAL_STATE, action) => {

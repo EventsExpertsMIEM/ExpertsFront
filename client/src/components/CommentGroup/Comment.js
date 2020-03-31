@@ -2,7 +2,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { formatDetailedDateTime } from '../helpers/helpers';
+import { formatDetailedDateTime } from '../../helpers/helpers';
 import { toggleCommentDownvote, toggleCommentUpvote } from '../../actions';
 
 const Comment = (props) => {
@@ -10,10 +10,8 @@ const Comment = (props) => {
   const {
     id,
     p_id,
-    u_id,
     email,
     text,
-    status,
     creation_date,
     score,
     post_type,

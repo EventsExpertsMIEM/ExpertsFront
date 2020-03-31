@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign, no-case-declarations */
 import p from 'immer';
 import { ACTION } from '../actions/types';
-import radixSort from '../components/helpers/radixSort';
+import radixSort from '../helpers/radixSort';
 
 const INITIAL_STATE = {
   questions: [], users: [], tags: [], articles: [], comments: [],

@@ -1,26 +1,26 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import MainPage from './Pages/MainPage';
-import Auth from './Auth/Auth';
+import Questions from './Pages/Questions';
+import Auth from './Pages/Auth/Auth';
 import NotFoundPage from './Pages/NotFondPage';
 import Navigation from './Pages/Navigation';
-import Question from './Question/Question';
-import CreateQuestion from './Question/CreateQuestion';
-import Articles from './Article/Articles';
-import CreateArticle from './Article/CreateArticle';
-import Profile from './Profile/Profile';
+import Publication from './Publications/Publication/Publication';
+import CreateQuestion from './Publications/Question/CreateQuestion';
+import Articles from './Pages/Articles';
+import CreateArticle from './Publications/Article/CreateArticle';
+import Profile from './Pages/Profile/Profile';
 
 const routesMap = {
   main: {
-    path: '/', requireAuth: null, component: MainPage, exact: true,
+    path: '/', requireAuth: null, component: Questions, exact: true,
   },
-  info: { path: '/questions/:id', requireAuth: null, component: Question },
+  info: { path: '/questions/:id', requireAuth: null, component: Publication },
   profile: { path: '/profile', requireAuth: true, component: Profile },
   createQuestion: { path: '/create-question', requireAuth: true, component: CreateQuestion },
   articles: {
     path: '/articles', requireAuth: true, component: Articles, exact: true,
   },
-  article: { path: '/articles/:id', requireAuth: true, component: Question },
+  article: { path: '/articles/:id', requireAuth: true, component: Publication },
   createArticle: { path: '/create-article', requireAuth: true, component: CreateArticle },
   auth: { path: '/auth', requireAuth: false, component: Auth },
   notFoundPage: { path: '*', requireAuth: false, component: NotFoundPage },
