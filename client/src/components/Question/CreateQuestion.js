@@ -1,7 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading, react/prop-types */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Field, reduxForm, reset } from 'redux-form';
+import {
+  change, Field, reduxForm, reset,
+} from 'redux-form';
 import { useHistory } from 'react-router';
 import { addQuestion } from '../../actions';
 import {
@@ -13,8 +15,8 @@ import {
   renderInputField,
   renderTextareaField,
   trim, mapTagsToSelected,
-} from '../helpers/helpers';
-import { FIELD_NAMES } from '../helpers/consts';
+} from '../../helpers/helpers';
+import { FIELD_NAMES } from '../../helpers/consts';
 import requireAuth from '../requireAuth';
 import TagsSelector from '../Tags/TagsSelector';
 
@@ -61,7 +63,7 @@ const INITIAL_VALUES = {
   only_experts_answer: false,
   closed: false,
   only_chosen_tags: false,
-  tags: [],
+  tags: {},
 };
 
 const CreateQuestion = (props) => {
@@ -73,7 +75,6 @@ const CreateQuestion = (props) => {
   const question = useSelector((store) => store.form[FIELD_NAMES.QUESTION]
         && store.form[FIELD_NAMES.QUESTION].values);
   const { tags = INITIAL_VALUES.tags } = question;
-
   const allTags = useSelector((store) => store.tags);
 
   const defaultOnClick = (e) => {
@@ -84,6 +85,10 @@ const CreateQuestion = (props) => {
   };
 
   const { onClick = defaultOnClick } = props;
+
+  useEffect(() => {
+    dispatch(change(FIELD_NAMES[FIELD_NAMES.QUESTION], 'tags', mapTagsToSelected(allTags, false)));
+  }, []);
 
   return (
     <div
@@ -119,7 +124,6 @@ const CreateQuestion = (props) => {
               <TagsSelector
                 fieldName={FIELD_NAMES.QUESTION}
                 tags={tags}
-                allTags={mapTagsToSelected(allTags)}
               />
             )}
           />

@@ -1,7 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading, react/prop-types */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Field, reduxForm, reset } from 'redux-form';
+import {
+  change, Field, reduxForm, reset,
+} from 'redux-form';
 import { useHistory } from 'react-router';
 import { addArticle, getAllTags } from '../../actions';
 import {
@@ -12,8 +14,8 @@ import {
   maxValue1024,
   renderInputField,
   renderTextareaField, trim, mapTagsToSelected,
-} from '../helpers/helpers';
-import { FIELD_NAMES } from '../helpers/consts';
+} from '../../helpers/helpers';
+import { FIELD_NAMES } from '../../helpers/consts';
 import requireAuth from '../requireAuth';
 import TagsSelector from '../Tags/TagsSelector';
 
@@ -39,7 +41,7 @@ const INPUT_FIELDS = [
 const INITIAL_VALUES = {
   title: '',
   body: '',
-  tags: [],
+  tags: {},
 };
 
 const CreateQuestion = (props) => {
@@ -65,6 +67,10 @@ const CreateQuestion = (props) => {
   useEffect(() => {
     dispatch(getAllTags());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(change(FIELD_NAMES[FIELD_NAMES.ARTICLE], 'tags', mapTagsToSelected(allTags, false)));
+  }, []);
 
   return (
     <div className="container">
@@ -96,7 +102,6 @@ const CreateQuestion = (props) => {
               <TagsSelector
                 fieldName={FIELD_NAMES.ARTICLE}
                 tags={tags}
-                allTags={mapTagsToSelected(allTags)}
               />
             )}
           />

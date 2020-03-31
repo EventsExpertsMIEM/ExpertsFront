@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserLoginStatus, mapSubjToActions } from '../../actions';
-import { formatDetailedDateTime } from '../helpers/helpers';
+import { formatDetailedDateTime } from '../../helpers/helpers';
 import CommentGroup from '../CommentGroup';
 
 const Question = (props) => {

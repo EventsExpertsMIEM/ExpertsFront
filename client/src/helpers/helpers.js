@@ -91,3 +91,8 @@ export const getSelectedTagsArr = (tags) => Object.entries(tags)
     }
     return acc;
   }, []);
+
+export const normalize = (arr) => arr.reduce((acc, cur) => {
+  acc[cur.id] = cur;
+  return acc;
+}, {});

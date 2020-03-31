@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import { initialize, reset } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { FIELD_NAMES } from '../../helpers/consts';
+import { FIELD_NAMES } from '../../../helpers/consts';
 import {
   deleteArticle, getUserArticles, updateArticle,
 } from '../../../actions';
-import { mapTagsToSelected, scrollToRef } from '../../helpers/helpers';
+import { mapTagsToSelected, scrollToRef } from '../../../helpers/helpers';
 import MyPublications from './MyPublications';
 import CreateArticle from '../../Article/CreateArticle';
 

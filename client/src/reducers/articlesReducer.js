@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign, no-case-declarations */
 import p from 'immer';
 import { ACTION } from '../actions/types';
+import { normalize } from '../helpers/helpers';
 
 /* const exampleState = {
   1: {
@@ -21,11 +22,6 @@ import { ACTION } from '../actions/types';
 }; */
 
 const INITIAL_STATE = {};
-
-const normalize = (arr) => arr.reduce((acc, cur) => {
-  acc[cur.id] = cur;
-  return acc;
-}, {});
 
 export default p((state = INITIAL_STATE, action) => {
   switch (action.type) {

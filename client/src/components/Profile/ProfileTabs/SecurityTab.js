@@ -6,8 +6,8 @@ import { Field, reduxForm, reset } from 'redux-form';
 import {
   changePassword, closeAllSessions, deleteUser, getUserLoginStatus, resetPassword,
 } from '../../../actions';
-import { renderInputField, required } from '../../helpers/helpers';
-import { FIELD_NAMES } from '../../helpers/consts';
+import { renderInputField, required } from '../../../helpers/helpers';
+import { FIELD_NAMES } from '../../../helpers/consts';
 
 const SecurityTab = (props) => {
   const { pristine, submitting, invalid } = props;

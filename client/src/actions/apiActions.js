@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import axios from 'axios';
 import { ACTION, ACTION_MAP, subjectsName } from './types';
-import { getSelectedTagsArr } from '../components/helpers/helpers';
+import { getSelectedTagsArr } from '../helpers/helpers';
 
 export const login = (data) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.LOGIN;

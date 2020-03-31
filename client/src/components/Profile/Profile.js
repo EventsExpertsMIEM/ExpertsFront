@@ -12,7 +12,7 @@ import {
   getUserArticles, getUserComments, getUserQuestions, ROLES,
 } from '../../actions';
 import requireAuth from '../requireAuth';
-import { FIELD_NAMES } from '../helpers/consts';
+import { FIELD_NAMES } from '../../helpers/consts';
 
 const getTabs = ({
   dispatch, currentUserData, questions, articles, comments,

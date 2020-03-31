@@ -7,8 +7,8 @@ import { useSelector } from 'react-redux';
 import { Redirect, Route, useRouteMatch } from 'react-router-dom';
 import {
   renderInputField, required, validateEmail,
-} from '../helpers/helpers';
-import { FIELD_NAMES } from '../helpers/consts';
+} from '../../helpers/helpers';
+import { FIELD_NAMES } from '../../helpers/consts';
 import { login } from '../../actions';
 
 const INPUTS_FIELDS = [

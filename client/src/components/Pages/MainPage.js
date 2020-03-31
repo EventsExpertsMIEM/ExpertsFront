@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   getUserLoginStatus, getAllQuestions, getAllArticles, getUserInfo, getAllTags,
 } from '../../actions';
-import { formatDetailedDateTime } from '../helpers/helpers';
-import radixSort from '../helpers/radixSort';
+import { formatDetailedDateTime } from '../../helpers/helpers';
+import radixSort from '../../helpers/radixSort';
 
 const MainPage = () => {
   const questions = useSelector((store) => store.questions);

@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import {
   renderInputField, required, uppercase,
-} from '../../helpers/helpers';
-import { FIELD_NAMES } from '../../helpers/consts';
+} from '../../../helpers/helpers';
+import { FIELD_NAMES } from '../../../helpers/consts';
 import { changeUserInfo, getUserInfo } from '../../../actions';
 
 const INPUTS_FIELDS = [

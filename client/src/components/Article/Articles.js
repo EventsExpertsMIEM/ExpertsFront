@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import requireAuth from '../requireAuth';
 import Table from '../Profile/Table';
-import { formatDateTime } from '../helpers/helpers';
+import { formatDateTime } from '../../helpers/helpers';
 import { getAllArticles } from '../../actions';
 
 const Articles = () => {

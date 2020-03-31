@@ -7,8 +7,8 @@ import { useHistory } from 'react-router';
 import { register } from '../../actions';
 import {
   renderInputField, required, uppercase, validateEmail,
-} from '../helpers/helpers';
-import { FIELD_NAMES } from '../helpers/consts';
+} from '../../helpers/helpers';
+import { FIELD_NAMES } from '../../helpers/consts';
 
 const INPUTS_FIELDS = [
   {

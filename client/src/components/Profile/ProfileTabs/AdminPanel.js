@@ -9,7 +9,7 @@ import {
 import Table from '../Table';
 import requireRights from '../../requireRights';
 import TagsPanel from './TagsPanel';
-import { formatModalData } from '../../helpers/helpers';
+import { formatModalData } from '../../../helpers/helpers';
 
 /*  const example = {
   id: 30,
