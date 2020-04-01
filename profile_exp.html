@@ -50,6 +50,7 @@
           <nav class="nav flex-column"> 
             <a class="nav-link active" id="nav-personal-tab" data-toggle="tab" href="#personal-info-tab" role="tab" aria-controls="personal-info-tab">Персональная информация</a>
             <a class="nav-link" id="nav-education-tab" data-toggle="tab" href="#education-tab" role="tab" aria-controls="education-tab">Данные об образовании</a>
+            <a class="nav-link" id="nav-certificates-tab" data-toggle="tab" href="#certificates-tab" role="tab" aria-controls="certificates-tab">Сертификаты компетенций</a>
             <a class="nav-link" id="nav-security-tab" data-toggle="tab" href="#security-tab" role="tab" aria-controls="security-tab">Настройки безопасности</a>
             <a class="nav-link" id="nav-my-questions-tab" data-toggle="tab" href="#my-questions-tab" role="tab" aria-controls="my-questions-tab">Мои вопросы</a>
             <a class="nav-link" id="nav-my-subscriptions-tab" data-toggle="tab" href="#my-subscriptions-tab" role="tab" aria-controls="my-subscriptions-tab">Подписки <span class="badge badge-light">3</span></a>
@@ -63,7 +64,6 @@
               <h4>Иванов Иван Иванович</h4>
               <p>+7 999 123-45-67</p>
               <p>iivanov@mail.ru</p>
-<<<<<<< Updated upstream
               <p>МИЭМ НИУ ВШЭ    <a href="" data-toggle="modal" data-target="#OrgPosModal" class="ml-2"><i class="far fa-edit"></i></a></p>
               <p>Старший научный сотрудник</p>           
             </div>
@@ -73,20 +73,13 @@
               <p>2.09.03.01 — Информатика и вычислительная техника</p>
               <p>бакалавр, выпуск 2014 года</p>
               <a href="" data-toggle="modal" data-target="#NewEduModal"><h5>Добавить диплом об образовании</h5></a>
-=======
-              <div class="form-group">                  
-                <input type="text" class="form-control" id="userOrg" placeholder="МИЭМ НИУ ВШЭ" required>
-              </div>
-              <div class="form-group">                  
-                <input type="text" class="form-control" id="userPos" placeholder="Старший научный сотрудник" required>
-              </div>
-              <div class="form-group text-center">
-                  <button type="submit" class="btn btn-secondary">Сохранить</button>
-                  <div class="alert alert-success mt-2" role="alert" >
-                        Данные о месте работы и должности сохранены
-                  </div>  
-              </div>              
->>>>>>> Stashed changes
+            </div>
+            <div class="tab-pane fade mt-3 text-center" id="certificates-tab" role="tabpanel" aria-labelledby="nav-certificates-tab">
+              <h4>Сертификат    <a href="" data-toggle="modal" data-target="#EditСertModal" class="ml-2"><i class="far fa-edit"></i></a></h4>
+              <p>Название сертификата 1</p>
+              <p>2014 год</p>
+              <a href="">Файл сертификата</a>
+              <a href="" data-toggle="modal" data-target="#NewCertModal"><h5>Добавить сертификат</h5></a>
             </div>
             <div class="tab-pane fade mt-3" id="security-tab" role="tabpanel" aria-labelledby="nav-security-tab">
               <form>
@@ -286,7 +279,7 @@
                   <input type="text" class="form-control" id="userPos" placeholder="Старший научный сотрудник" required>
                 </div>
                 <div class="form-group text-center">
-                    <button type="submit" class="btn btn-seconadary">Сохранить</button>
+                    <button type="submit" class="btn btn-secondary">Сохранить</button>
                     <div class="alert alert-success" role="alert" >
                           Данные о месте работы и должности сохранены
                     </div>  
@@ -329,7 +322,7 @@
                   <input type="number" class="form-control" id="eduYear" placeholder="2014" required>
                 </div>
                 <div class="form-group text-center">
-                    <button type="submit" class="btn btn-seconadary">Сохранить</button>
+                    <button type="submit" class="btn btn-secondary">Сохранить</button>
                     <div class="alert alert-success" role="alert" >
                           Данные о дипломе сохранены
                     </div>  
@@ -372,7 +365,7 @@
                   <input type="number" class="form-control" id="eduYear" placeholder="" required>
                 </div>
                 <div class="form-group text-center">
-                    <button type="submit" class="btn btn-seconadary">Сохранить</button>
+                    <button type="submit" class="btn btn-secondary">Сохранить</button>
                     <div class="alert alert-success" role="alert" >
                           Данные о дипломе сохранены
                     </div>  
@@ -381,7 +374,71 @@
             </div>
           </div>
         </div>
+      </div>
+      <!-- Certificates modal 1-->
+      <div class="modal" tabindex="-1" role="dialog" id="EditСertModal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Редактировать информацию о сертификате:</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+             <form>
+               <div class="form-group">
+                  <label for="certName">Название сертификата:</label>                 
+                  <input type="text" class="form-control" id="cerrtName" placeholder="Название сертификата 1" required>
+                </div>
+                <div class="form-group">
+                  <label for="certYear">Год получения:</label>                  
+                  <input type="number" class="form-control" id="certYear" placeholder="2014" required>
+                </div>
+                <div class="form-group">
+                  <label for="certFile">Файл сертификата:</label>
+                  <input type="file" class="form-control-file" id="certFile">
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-secondary">Сохранить</button> 
+                </div>
+             </form>
+            </div>
+          </div>
+        </div>
       </div> 
+      <!-- Certificates modal 2-->
+      <div class="modal" tabindex="-1" role="dialog" id="NewCertModal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Добавить информацию о сертификате:</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+             <form>
+               <div class="form-group">
+                  <label for="certName">Название сертификата:</label>                 
+                  <input type="text" class="form-control" id="cerrtName" placeholder="" required>
+                </div>
+                <div class="form-group">
+                  <label for="certYear">Год получения:</label>                  
+                  <input type="number" class="form-control" id="certYear" placeholder="" required>
+                </div>
+                <div class="form-group">
+                  <label for="certFile">Файл сертификата:</label>
+                  <input type="file" class="form-control-file" id="certFile">
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-secondary">Сохранить</button>  
+                </div>
+             </form>
+            </div>
+          </div>
+        </div>
+      </div>  
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
