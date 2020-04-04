@@ -12,22 +12,19 @@ import { FIELD_NAMES } from '../../../helpers/consts';
 
 const INPUTS_FIELDS = [
   {
-    name: 'email', type: 'email', placeholder: 'Адрес электронной почты', validate: [required, validateEmail],
+    name: 'email', type: 'email', placeholder: 'Адрес электронной почты', validate: [required, validateEmail], autoComplete: 'username',
   },
   {
-    name: 'name', placeholder: 'Имя', validate: required, normalize: uppercase,
+    name: 'name', placeholder: 'Имя', validate: required, normalize: uppercase, autoComplete: 'username',
   },
   {
-    name: 'surname', placeholder: 'Фамилия', validate: required, normalize: uppercase,
+    name: 'surname', placeholder: 'Фамилия', validate: required, normalize: uppercase, autoComplete: 'username',
   },
   {
-    name: 'position', placeholder: 'Должность', validate: required, normalize: uppercase,
+    name: 'password', type: 'password', placeholder: 'Пароль', validate: required, autoComplete: 'new-password',
   },
   {
-    name: 'password', type: 'password', placeholder: 'Пароль', validate: required,
-  },
-  {
-    name: 'repeatPassword', type: 'password', placeholder: 'Подтверждение пароля', validate: required,
+    name: 'repeatPassword', type: 'password', placeholder: 'Подтверждение пароля', validate: required, autoComplete: 'new-password',
   },
 ];
 
