@@ -20,7 +20,7 @@ export default (ChildComponent) => {
       })();
     };
 
-    useEffect(shouldNavigateAway);
+    useEffect(shouldNavigateAway, []);
 
     if (pending) {
       return (
