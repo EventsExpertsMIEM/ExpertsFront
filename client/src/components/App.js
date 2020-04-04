@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Questions from './Pages/Questions';
 import Auth from './Pages/Auth/Auth';
 import NotFoundPage from './Pages/NotFondPage';
@@ -9,6 +10,9 @@ import CreateQuestion from './Publications/Question/CreateQuestion';
 import Articles from './Pages/Articles';
 import CreateArticle from './Publications/Article/CreateArticle';
 import Profile from './Pages/Profile/Profile';
+import {
+  getAllArticles, getAllQuestions, getAllTags, getUserInfo, getUserLoginStatus,
+} from '../actions';
 
 const routesMap = {
   main: {
@@ -26,22 +30,38 @@ const routesMap = {
   notFoundPage: { path: '*', requireAuth: false, component: NotFoundPage },
 };
 
-const App = () => (
-  <Router>
-    <Navigation />
-    <Switch>
-      {Object.values(routesMap).map(({
-        path, component, exact,
-      }) => (
-        <Route
-          key={path}
-          path={path}
-          exact={exact}
-          component={component}
-        />
-      ))}
-    </Switch>
-  </Router>
-);
+const App = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((store) => store.user);
+
+  useEffect(() => {
+    (async () => {
+      await dispatch(getAllQuestions());
+      await dispatch(getAllArticles());
+      await dispatch(getAllTags());
+      const res = await dispatch(getUserLoginStatus());
+      if (user.isLoggedIn && res.info && res.info.id) {
+        await dispatch(getUserInfo(res.info.id));
+      }
+    })();
+  }, [dispatch, user.isLoggedIn]);
+  return (
+    <Router>
+      <Navigation />
+      <Switch>
+        {Object.values(routesMap).map(({
+          path, component, exact,
+        }) => (
+          <Route
+            key={path}
+            path={path}
+            exact={exact}
+            component={component}
+          />
+        ))}
+      </Switch>
+    </Router>
+  );
+};
 
 export default App;
