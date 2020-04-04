@@ -45,7 +45,6 @@ export const logout = () => async (dispatch) => {
  * @param {string} data.email
  * @param {string} data.name
  * @param {string} data.surname
- * @param {string} data.position
  * @param {string} data.password,
  * @param {string} data.repeatPassword,
  * @returns {function}

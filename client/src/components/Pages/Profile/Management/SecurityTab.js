@@ -54,7 +54,7 @@ const SecurityTab = (props) => {
       name: 'newPassword', type: 'password', placeholder: 'Новый пароль', validate: required,
     },
     {
-      name: 'repeatNewPassword', type: 'password', placeholder: 'Подтверждение пароля', validate: required,
+      name: 'repeatNewPassword', type: 'password', placeholder: 'Подтверждение нового пароля', validate: required,
     },
   ];
 
