@@ -66,7 +66,7 @@ const AdminPanel = () => {
                   size="5"
                   onChange={(e) => onRoleChangeClick(id, e.target.value)}
                 >
-                  <option value="" defaultValue readOnly>Изменить роль</option>
+                  <option value="" defaultValue readOnly disabled>Изменить роль</option>
                   {Object.values(ROLES).map((el) => (
                     el !== ROLES.SUPERADMIN && (
                     <option
