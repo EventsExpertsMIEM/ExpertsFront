@@ -13,10 +13,10 @@ import { login } from '../../../actions';
 
 const INPUTS_FIELDS = [
   {
-    name: 'email', type: 'email', placeholder: 'Адрес электронной почты', validate: [required, validateEmail],
+    name: 'email', type: 'email', placeholder: 'Адрес электронной почты', validate: [required, validateEmail], autoComplete: 'username',
   },
   {
-    name: 'password', type: 'password', placeholder: 'Пароль', validate: required,
+    name: 'password', type: 'password', placeholder: 'Пароль', validate: required, autoComplete: 'current-password',
   },
 ];
 
