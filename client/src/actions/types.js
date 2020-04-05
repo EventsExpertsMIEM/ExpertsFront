@@ -46,6 +46,9 @@ export const ACTION = {
   TOGGLE_ARTICLE_DOWNVOTE: 'TOGGLE_ARTICLE_DOWNVOTE',
   // ui
   RESET_COMMENTS: 'RESET_COMMENTS',
+  LOAD_USER_AVATAR: 'LOAD_USER_AVATAR',
+  GET_USER_AVATAR: 'GET_USER_AVATAR',
+  DELETE_USER_AVATAR: 'DELETE_USER_AVATAR',
 };
 
 const METHODS = {
@@ -241,6 +244,18 @@ export const ACTION_MAP = {
   [ACTION.TOGGLE_COMMENT_DOWNVOTE]: {
     getPath: (id) => `${api}comment/${id}/toggle_downvote`,
     method: METHODS.GET,
+  },
+  [ACTION.LOAD_USER_AVATAR]: {
+    getPath: (id) => `${api}user/${id}/avatar`,
+    method: METHODS.PUT,
+  },
+  [ACTION.GET_USER_AVATAR]: {
+    getPath: (id) => `${api}user/${id}/avatar`,
+    method: METHODS.GET,
+  },
+  [ACTION.DELETE_USER_AVATAR]: {
+    getPath: (id) => `${api}user/${id}/avatar`,
+    method: METHODS.DELETE,
   },
 };
 

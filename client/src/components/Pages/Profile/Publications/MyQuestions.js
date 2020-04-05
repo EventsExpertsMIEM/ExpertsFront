@@ -1,12 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading, no-shadow,react/prop-types,
  react/destructuring-assignment */
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { initialize, reset } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { FIELD_NAMES } from '../../../../helpers/consts';
-import { deleteQuestion, getUserQuestions, updateQuestion } from '../../../../actions';
+import {
+  deleteQuestion, getAllTags, getUserQuestions, updateQuestion,
+} from '../../../../actions';
 import { mapTagsToSelected, scrollToRef } from '../../../../helpers/helpers';
 import MyPublications from './MyPublications';
 import CreateQuestion from '../../../Publications/Question/CreateQuestion';
@@ -119,6 +121,10 @@ const MyQuestions = () => {
       title="Редактировать вопрос"
     />
   );
+
+  useEffect(() => {
+    dispatch(getAllTags());
+  }, [dispatch]);
 
   return (
     <MyPublications

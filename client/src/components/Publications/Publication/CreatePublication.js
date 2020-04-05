@@ -57,16 +57,18 @@ const CreatePublication = (props) => {
               </div>
             );
           })}
-          <Field
-            key="tags"
-            name="tags"
-            component={() => (
-              <TagsSelector
-                fieldName={fieldName}
-                tags={tags}
-              />
-            )}
-          />
+          <div className="form-group text-center">
+            <Field
+              key="tags"
+              name="tags"
+              component={() => (
+                <TagsSelector
+                  fieldName={fieldName}
+                  tags={tags}
+                />
+              )}
+            />
+          </div>
           <div className="form-group text-center">
             <input
               ref={scrollRef}
