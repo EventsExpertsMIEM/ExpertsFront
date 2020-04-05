@@ -45,7 +45,7 @@ const getColumns = (ref, toggleShow) => [
 
           const onInitializeClick = (id) => {
             const question = questions[id];
-            if (!tags) {
+            if (!tags || !question) {
               return undefined;
             }
             return dispatch(initialize(FIELD_NAMES.QUESTION,
