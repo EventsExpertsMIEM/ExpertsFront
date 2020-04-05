@@ -953,6 +953,60 @@ export const resetComments = () => async (dispatch) => {
   });
 };
 
+export const getAvatar = (id = 1) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.GET_USER_AVATAR;
+  const path = getPath(id);
+  try {
+    const res = await axios[method](path);
+    dispatch({
+      type: ACTION.GET_USER_AVATAR,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.error(err);
+    if (err && err.response && err.response.data
+        && err.response.data.description) {
+      alert(err.response.data.description);
+    }
+  }
+};
+
+export const loadAvatar = (id = 1, image) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.LOAD_USER_AVATAR;
+  const path = getPath(id);
+  try {
+    const res = await axios[method](path, image);
+    dispatch({
+      type: ACTION.LOAD_USER_AVATAR,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.error(err);
+    if (err && err.response && err.response.data
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
+  }
+};
+
+export const deleteAvatar = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.DELETE_USER_AVATAR;
+  const path = getPath(id);
+  try {
+    const res = await axios[method](path);
+    dispatch({
+      type: ACTION.DELETE_USER_AVATAR,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.error(err);
+    if (err && err.response && err.response.data
+            && err.response.data.description) {
+      alert(err.response.data.description);
+    }
+  }
+};
+
 export const mapSubjToActions = {
   questions: {
     getSubj: getQuestion,

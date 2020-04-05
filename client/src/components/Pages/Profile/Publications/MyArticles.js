@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading, no-shadow,react/prop-types,
  react/destructuring-assignment */
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { initialize, reset } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { FIELD_NAMES } from '../../../../helpers/consts';
 import {
-  deleteArticle, getUserArticles, updateArticle,
+  deleteArticle, getAllTags, getUserArticles, updateArticle,
 } from '../../../../actions';
 import { mapTagsToSelected, scrollToRef } from '../../../../helpers/helpers';
 import MyPublications from './MyPublications';
@@ -114,6 +114,10 @@ const MyArticles = () => {
     dispatch(reset(FIELD_NAMES.ARTICLE));
     history.push(`/articles/${article.id}`);
   };
+
+  useEffect(() => {
+    dispatch(getAllTags());
+  }, [dispatch]);
 
   const editComponent = () => (
     <CreateArticle

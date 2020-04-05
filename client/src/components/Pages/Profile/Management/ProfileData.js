@@ -1,7 +1,20 @@
 /* eslint-disable react/prop-types, react/destructuring-assignment */
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { formatDetailedDateTime } from '../../../../helpers/helpers';
+import { deleteAvatar, getAvatar, loadAvatar } from '../../../../actions';
 
+const format = (value) => {
+  const isArray = Array.isArray(value);
+  if (value === undefined || (isArray && !value.length)) {
+    return '—';
+  }
+
+  if (isArray) {
+    return value.join(', ');
+  }
+  return value;
+};
 const PersonalInfo = (props) => {
   const {
     name,
@@ -33,16 +46,63 @@ const PersonalInfo = (props) => {
     'Количество комментариев': commentCount,
   };
 
-  const format = (value) => {
-    const isArray = Array.isArray(value);
-    if (value === undefined || (isArray && !value.length)) {
-      return '—';
+  const dispatch = useDispatch();
+  const ref = useRef(null);
+  const user = useSelector((store) => store.user);
+
+  const onChange = (e) => {
+    // eslint-disable-next-line no-shadow
+    const { files, name } = e.target;
+    const [file] = files;
+    console.log(file);
+    const formData = new FormData();
+    formData.append('file', file, name);
+    dispatch(loadAvatar(user.id, formData));
+  };
+
+  useEffect(() => {
+    dispatch(getAvatar(user.id));
+  }, [dispatch, user.id]);
+
+  const avatarEdit = () => {
+    if (user.avatar) {
+      return (
+        <div className="text-center">
+          <button
+            className="btn btn-sm btn-outline-danger m-3"
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              dispatch(deleteAvatar(user.id));
+            }}
+          >
+            Удалить фото
+          </button>
+        </div>
+      );
     }
 
-    if (isArray) {
-      return value.join(', ');
-    }
-    return value;
+    return (
+      <div className="text-center">
+        <input
+          className="d-none"
+          type="file"
+          accept=".jpg, .png, .jpeg"
+          onChange={onChange}
+          ref={ref}
+        />
+        <button
+          className="btn btn-sm btn-outline-dark m-3"
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            return ref.current.click();
+          }}
+        >
+          Загрузить фото
+        </button>
+      </div>
+    );
   };
 
   return (
@@ -55,11 +115,12 @@ const PersonalInfo = (props) => {
       >
         <img
           alt="User Pic"
-          src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"
+          src={user.avatar || 'https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg'}
           id="profile-image1"
           className="img-fluid rounded"
           style={{ width: '15rem' }}
         />
+        {avatarEdit()}
         <dl>
           {Object.entries(MAP).map(([key, value]) => (
             (

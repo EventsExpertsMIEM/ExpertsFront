@@ -64,6 +64,14 @@ export default p((state = INITIAL_STATE, action) => {
 
       return state;
     }
+    case ACTION.GET_USER_AVATAR: {
+      state.avatar = action.payload;
+      return state;
+    }
+    case ACTION.DELETE_USER_AVATAR: {
+      delete state.avatar;
+      return state;
+    }
     default:
       return state;
   }
