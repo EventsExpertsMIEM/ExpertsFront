@@ -45,7 +45,7 @@ const getColumns = (ref, toggleShow) => [
 
           const onInitializeClick = (id) => {
             const article = articles[id];
-            if (!tags) {
+            if (!tags || !article) {
               return undefined;
             }
 

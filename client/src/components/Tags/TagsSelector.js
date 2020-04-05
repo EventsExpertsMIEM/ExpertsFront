@@ -33,7 +33,7 @@ const TagsSelector = ({ tags, fieldName }) => {
         ))}
       </ul>
       {!Object.values(tags).every(Boolean) && (
-        <select className="custom-select custom-select-sm" multiple size={3} onChange={(e) => selectTag(e.target.value)}>
+        <select className="custom-select mr-sm-2" onChange={(e) => selectTag(e.target.value)}>
           <option value="" defaultValue readOnly disabled>Выберите тэги</option>
           {Object.entries(tags).map(([tagName, isSelected]) => !isSelected
                         && <option key={tagName} value={tagName}>{tagName}</option>)}
