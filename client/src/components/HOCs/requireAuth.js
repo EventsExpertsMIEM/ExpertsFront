@@ -1,21 +1,34 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import { getUserLoginStatus } from '../../actions';
 
 export default (ChildComponent) => {
   const ComposedComponent = (props) => {
-    const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
     const history = useHistory();
-
+    const dispatch = useDispatch();
+    const [pending, setPending] = useState(true);
 
     const shouldNavigateAway = () => {
-      if (!isLoggedIn) {
-        // eslint-disable-next-line react/prop-types
-        history.push('/');
-      }
+      (async () => {
+        const { is_logged_in } = await dispatch(getUserLoginStatus());
+        if (is_logged_in) {
+          setPending(false);
+        } else {
+          history.push('/');
+        }
+      })();
     };
 
-    useEffect(shouldNavigateAway);
+    useEffect(shouldNavigateAway, []);
+
+    if (pending) {
+      return (
+        <div className="text-center">
+          <h6>Проверка статуса авторизации...</h6>
+        </div>
+      );
+    }
 
     // eslint-disable-next-line react/jsx-props-no-spreading
     return <ChildComponent {...props} />;

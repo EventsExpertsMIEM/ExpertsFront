@@ -46,6 +46,9 @@ export const ACTION = {
   TOGGLE_ARTICLE_DOWNVOTE: 'TOGGLE_ARTICLE_DOWNVOTE',
   // ui
   RESET_COMMENTS: 'RESET_COMMENTS',
+  LOAD_USER_AVATAR: 'LOAD_USER_AVATAR',
+  GET_USER_AVATAR: 'GET_USER_AVATAR',
+  DELETE_USER_AVATAR: 'DELETE_USER_AVATAR',
 };
 
 const METHODS = {
@@ -63,182 +66,196 @@ export const ROLES = {
   SUPERADMIN: 'superadmin',
 };
 
+const api = 'http://192.168.255.100:8080/api/';
+
 export const ACTION_MAP = {
   [ACTION.LOGIN]: {
-    getPath: () => '/login',
+    getPath: () => `${api}login`,
     method: METHODS.POST,
   },
   [ACTION.LOGOUT]: {
-    getPath: () => '/logout',
+    getPath: () => `${api}logout`,
     method: METHODS.GET,
   },
   [ACTION.REGISTER]: {
-    getPath: () => '/register',
+    getPath: () => `${api}register`,
     method: METHODS.POST,
   },
   [ACTION.CONFIRM]: {
-    getPath: () => '/confirm',
+    getPath: () => `${api}confirm`,
     method: METHODS.POST,
   },
   [ACTION.DELETE]: {
-    getPath: () => '/delete',
+    getPath: () => `${api}delete`,
     method: METHODS.POST,
   },
   [ACTION.CLOSE_ALL_SESSIONS]: {
-    getPath: () => '/close_all_sessions',
+    getPath: () => `${api}close_all_sessions`,
     method: METHODS.POST,
   },
   [ACTION.RESET_PASSWORD]: {
-    getPath: () => '/reset_password',
+    getPath: () => `${api}reset_password`,
     method: METHODS.POST,
   },
   [ACTION.CHANGE_PASSWORD]: {
-    getPath: () => '/change_password',
+    getPath: () => `${api}change_password`,
     method: METHODS.POST,
   },
   [ACTION.BAN_USER]: {
-    getPath: (id) => `/user/${id}/ban`,
+    getPath: (id) => `${api}user/${id}/ban`,
     method: METHODS.GET,
   },
   [ACTION.CHANGE_ROLE]: {
-    getPath: (id, role) => `/user/${id}/role/${role}`,
+    getPath: (id, role) => `${api}user/${id}/role/${role}`,
     method: METHODS.GET,
   },
   [ACTION.GET_USER_LOGIN_STATUS]: {
-    getPath: () => '/login_status',
+    getPath: () => `${api}login_status`,
     method: METHODS.GET,
   },
   [ACTION.GET_USER_INFO]: {
-    getPath: () => '/user',
+    getPath: () => `${api}user`,
     method: METHODS.GET,
   },
   [ACTION.GET_ALL_USERS]: {
-    getPath: () => '/user/all',
+    getPath: () => `${api}user/all`,
     method: METHODS.GET,
   },
   [ACTION.CHANGE_USER_INFO]: {
-    getPath: (id) => `/user/${id}`,
+    getPath: (id) => `${api}user/${id}`,
     method: METHODS.PUT,
   },
   [ACTION.GET_USER_QUESTIONS]: {
-    getPath: (id) => `/user/${id}/questions`,
+    getPath: (id) => `${api}user/${id}/questions`,
     method: METHODS.GET,
   },
   [ACTION.GET_USER_ARTICLES]: {
-    getPath: (id) => `/user/${id}/articles`,
+    getPath: (id) => `${api}user/${id}/articles`,
     method: METHODS.GET,
   },
   [ACTION.GET_USER_COMMENTS]: {
-    getPath: (id) => `/user/${id}/comments`,
+    getPath: (id) => `${api}user/${id}/comments`,
     method: METHODS.GET,
   },
   [ACTION.GET_ALL_QUESTIONS]: {
-    getPath: () => '/question/all',
+    getPath: () => `${api}question/all`,
     method: METHODS.GET,
   },
   [ACTION.ADD_QUESTION]: {
-    getPath: () => '/question',
+    getPath: () => `${api}question`,
     method: METHODS.POST,
   },
   [ACTION.GET_QUESTION]: {
-    getPath: (id) => `/question/${id}`,
+    getPath: (id) => `${api}question/${id}`,
     method: METHODS.GET,
   },
   [ACTION.UPDATE_QUESTION]: {
-    getPath: (id) => `/question/${id}`,
+    getPath: (id) => `${api}question/${id}`,
     method: METHODS.PUT,
   },
   [ACTION.DELETE_QUESTION]: {
-    getPath: (id) => `/question/${id}`,
+    getPath: (id) => `${api}question/${id}`,
     method: METHODS.DELETE,
   },
   [ACTION.GET_QUESTION_COMMENTS]: {
-    getPath: (id) => `/question/${id}/comments`,
+    getPath: (id) => `${api}question/${id}/comments`,
     method: METHODS.GET,
   },
   [ACTION.ADD_QUESTION_COMMENT]: {
-    getPath: (id) => `/question/${id}/comment`,
+    getPath: (id) => `${api}question/${id}/comment`,
     method: METHODS.POST,
   },
   [ACTION.INCREASE_QUESTION_VIEWS]: {
-    getPath: (id) => `/question/${id}/increase_views`,
+    getPath: (id) => `${api}question/${id}/increase_views`,
     method: METHODS.GET,
   },
   [ACTION.TOGGLE_QUESTION_UPVOTE]: {
-    getPath: (id) => `/question/${id}/toggle_upvote`,
+    getPath: (id) => `${api}question/${id}/toggle_upvote`,
     method: METHODS.GET,
   },
   [ACTION.TOGGLE_QUESTION_DOWNVOTE]: {
-    getPath: (id) => `/question/${id}/toggle_downvote`,
+    getPath: (id) => `${api}question/${id}/toggle_downvote`,
     method: METHODS.GET,
   },
   [ACTION.GET_ALL_TAGS]: {
-    getPath: () => '/tag/all',
+    getPath: () => `${api}tag/all`,
     method: METHODS.GET,
   },
   [ACTION.CREATE_TAG]: {
-    getPath: (name) => `/tag/?name=${name}`,
+    getPath: (name) => `${api}tag/?name=${name}`,
     method: METHODS.GET,
   },
   [ACTION.GET_TAG_INFO]: {
-    getPath: (id) => `/tag/${id}`,
+    getPath: (id) => `${api}tag/${id}`,
     method: METHODS.GET,
   },
   [ACTION.CHANGE_TAG_NAME]: {
-    getPath: (id, newName) => `/tag/${id}?name=${newName}`,
+    getPath: (id, newName) => `${api}tag/${id}?name=${newName}`,
     method: METHODS.PUT,
   },
   [ACTION.DELETE_TAG]: {
-    getPath: (id) => `/tag/${id}`,
+    getPath: (id) => `${api}tag/${id}`,
     method: METHODS.DELETE,
   },
   [ACTION.GET_ALL_ARTICLES]: {
-    getPath: () => '/article/all',
+    getPath: () => `${api}article/all`,
     method: METHODS.GET,
   },
   [ACTION.ADD_ARTICLE]: {
-    getPath: () => '/article',
+    getPath: () => `${api}article`,
     method: METHODS.POST,
   },
   [ACTION.GET_ARTICLE]: {
-    getPath: (id) => `/article/${id}`,
+    getPath: (id) => `${api}article/${id}`,
     method: METHODS.GET,
   },
   [ACTION.UPDATE_ARTICLE]: {
-    getPath: (id) => `/article/${id}`,
+    getPath: (id) => `${api}article/${id}`,
     method: METHODS.PUT,
   },
   [ACTION.DELETE_ARTICLE]: {
-    getPath: (id) => `/article/${id}`,
+    getPath: (id) => `${api}article/${id}`,
     method: METHODS.DELETE,
   },
   [ACTION.GET_ARTICLE_COMMENTS]: {
-    getPath: (id) => `/article/${id}/comments`,
+    getPath: (id) => `${api}article/${id}/comments`,
     method: METHODS.GET,
   },
   [ACTION.ADD_ARTICLE_COMMENT]: {
-    getPath: (id) => `/article/${id}/comment`,
+    getPath: (id) => `${api}article/${id}/comment`,
     method: METHODS.POST,
   },
   [ACTION.INCREASE_ARTICLE_VIEWS]: {
-    getPath: (id) => `/article/${id}/increase_views`,
+    getPath: (id) => `${api}article/${id}/increase_views`,
     method: METHODS.GET,
   },
   [ACTION.TOGGLE_ARTICLE_UPVOTE]: {
-    getPath: (id) => `/article/${id}/toggle_upvote`,
+    getPath: (id) => `${api}article/${id}/toggle_upvote`,
     method: METHODS.GET,
   },
   [ACTION.TOGGLE_ARTICLE_DOWNVOTE]: {
-    getPath: (id) => `/article/${id}/toggle_downvote`,
+    getPath: (id) => `${api}article/${id}/toggle_downvote`,
     method: METHODS.GET,
   },
   [ACTION.TOGGLE_COMMENT_UPVOTE]: {
-    getPath: (id) => `/comment/${id}/toggle_upvote`,
+    getPath: (id) => `${api}comment/${id}/toggle_upvote`,
     method: METHODS.GET,
   },
   [ACTION.TOGGLE_COMMENT_DOWNVOTE]: {
-    getPath: (id) => `/comment/${id}/toggle_downvote`,
+    getPath: (id) => `${api}comment/${id}/toggle_downvote`,
     method: METHODS.GET,
+  },
+  [ACTION.LOAD_USER_AVATAR]: {
+    getPath: (id) => `${api}user/${id}/avatar`,
+    method: METHODS.PUT,
+  },
+  [ACTION.GET_USER_AVATAR]: {
+    getPath: (id) => `${api}user/${id}/avatar`,
+    method: METHODS.GET,
+  },
+  [ACTION.DELETE_USER_AVATAR]: {
+    getPath: (id) => `${api}user/${id}/avatar`,
+    method: METHODS.DELETE,
   },
 };
 

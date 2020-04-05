@@ -10,10 +10,11 @@ import radixSort from '../../helpers/radixSort';
 
 const Questions = () => {
   const questions = useSelector((store) => store.questions);
-  const user = useSelector((store) => store.user);
   const [length, setLength] = useState(10);
   const [query, setQuery] = useState('');
+  const [pending, setPending] = useState(true);
   const dispatch = useDispatch();
+
   const onClick = async () => {
     await dispatch(getAllQuestions());
     setLength(length + 10);
@@ -24,21 +25,16 @@ const Questions = () => {
   useEffect(() => {
     (async () => {
       await dispatch(getAllQuestions());
-      await dispatch(getAllArticles());
-      await dispatch(getAllTags());
-      const res = await dispatch(getUserLoginStatus());
-      if (user.isLoggedIn && res.info && res.info.id) {
-        await dispatch(getUserInfo(res.info.id));
-      }
+      setPending(false);
     })();
-  }, [dispatch, user.isLoggedIn]);
+  }, [dispatch]);
+
+  if (pending) {
+    return <h1 className="text-center">Загрузка...</h1>;
+  }
 
   if (Object.values(questions).length < 1) {
-    return (
-      <div className="text-center">
-        <h1>Загрузка...</h1>
-      </div>
-    );
+    return <h1 className="text-center">Ничего не найдено</h1>;
   }
 
   const formattedQuestions = radixSort(Object.values(questions), 'id', false)

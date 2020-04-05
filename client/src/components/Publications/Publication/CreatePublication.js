@@ -18,7 +18,7 @@ const CreatePublication = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const publication = useSelector((store) => store.form[fieldName] && store.form[fieldName].values);
-  const { tags = INITIAL_VALUES.tags } = publication;
+  const { tags = INITIAL_VALUES && INITIAL_VALUES.tags } = publication;
   const allTags = useSelector((store) => store.tags);
 
   const defaultOnClick = (e) => {
@@ -57,16 +57,20 @@ const CreatePublication = (props) => {
               </div>
             );
           })}
-          <Field
-            key="tags"
-            name="tags"
-            component={() => (
-              <TagsSelector
-                fieldName={fieldName}
-                tags={tags}
-              />
-            )}
-          />
+          {tags && (
+          <div className="form-group text-center">
+            <Field
+              key="tags"
+              name="tags"
+              component={() => (
+                <TagsSelector
+                  fieldName={fieldName}
+                  tags={tags}
+                />
+              )}
+            />
+          </div>
+          )}
           <div className="form-group text-center">
             <input
               ref={scrollRef}
