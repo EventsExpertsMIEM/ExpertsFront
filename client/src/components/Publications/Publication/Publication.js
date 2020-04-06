@@ -17,6 +17,7 @@ const Publication = (props) => {
 
   const subjects = useSelector((store) => store[subjectsName]);
   const comments = useSelector((store) => store.comments);
+  const user = useSelector((store) => store.user);
   const id = props.match.params.id || window.location.pathname.match(/\d+/g)[0];
   const subject = subjects[id];
 
@@ -80,10 +81,17 @@ const Publication = (props) => {
             Рейтинг вопроса:
             {' '}
             {score}
+            {user.isLoggedIn
+            && (
             <div className="form-group">
-              <button onClick={onUpvoteClick} type="button" className="btn btn-primary btn-sm">+</button>
-              <button onClick={onDownvoteClick} type="button" className="btn btn-danger btn-sm">—</button>
+              <button onClick={onUpvoteClick} type="button" className="btn btn-primary btn-sm">
+                +
+              </button>
+              <button onClick={onDownvoteClick} type="button" className="btn btn-danger btn-sm">
+                —
+              </button>
             </div>
+            )}
             <p className="card-text">
               {body}
             </p>
