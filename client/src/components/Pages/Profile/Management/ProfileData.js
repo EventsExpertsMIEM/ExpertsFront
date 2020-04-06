@@ -115,7 +115,7 @@ const PersonalInfo = (props) => {
       >
         <img
           alt="User Pic"
-          src={user.avatar || 'https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg'}
+          src='https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg'
           id="profile-image1"
           className="img-fluid rounded"
           style={{ width: '15rem' }}
