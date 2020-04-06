@@ -37,7 +37,7 @@ const Comment = (props) => {
         <>
           <h5 className="mt-0">{email}</h5>
           <img
-            src={`${process.env.PUBLIC_URL}/androsheep2.jpg`}
+            src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"
             className="mr-3 rounded img-thumbnail img-fluid"
             style={{ width: '10%' }}
             alt="..."

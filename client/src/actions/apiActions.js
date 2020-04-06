@@ -962,6 +962,7 @@ export const getAvatar = (id = 1) => async (dispatch) => {
       type: ACTION.GET_USER_AVATAR,
       payload: res.data,
     });
+    console.dir(res);
   } catch (err) {
     console.error(err);
     if (err && err.response && err.response.data
