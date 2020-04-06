@@ -87,23 +87,6 @@ const Publication = (props) => {
             <p className="card-text">
               {body}
             </p>
-            <p>Прикрепленные файлы:</p>
-            <div className="row">
-              <div className="col-lg-3 col-md-6 col-sm-12">
-                <img
-                  src={`${process.env.PUBLIC_URL}/androsheep1.jpg`}
-                  className="img-fluid"
-                  alt="androsheep"
-                />
-              </div>
-              <div className="col-lg-3 col-md-6 col-sm-12">
-                <img
-                  src={`${process.env.PUBLIC_URL}/androsheep2.jpg`}
-                  className="img-fluid"
-                  alt="androsheep"
-                />
-              </div>
-            </div>
           </div>
         </div>
         <h6 className="text-muted text-left pl-3">{`Просмотры: ${viewCount}`}</h6>
