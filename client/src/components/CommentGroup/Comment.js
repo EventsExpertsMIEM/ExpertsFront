@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars, react/prop-types */
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { formatDetailedDateTime } from '../../helpers/helpers';
 import { toggleCommentDownvote, toggleCommentUpvote } from '../../actions';
@@ -29,6 +29,8 @@ const Comment = (props) => {
     dispatch(getComments(p_id));
   };
 
+  const user = useSelector((store) => store.user);
+
   return (
     <div key={id} className="media-body mt-3 mb-3">
       {showPublicationId
@@ -51,13 +53,15 @@ const Comment = (props) => {
         {getComments
                 && (
                   <>
-                    <span>Апвоут:</span>
+                    <span>Рейтинг:</span>
                     {' '}
                     <span>{score}</span>
+                    {user.isLoggedIn && (
                     <div className="form-group">
                       <button onClick={onUpvoteClick} type="button" className="btn btn-primary btn-sm">+</button>
                       <button onClick={onDownvoteClick} type="button" className="btn btn-danger btn-sm">—</button>
                     </div>
+                    )}
                   </>
                 )}
       </div>
