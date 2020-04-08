@@ -110,7 +110,7 @@ const Publication = (props) => {
         </div>
       </div>
       <CommentGroup.Comments getComments={getComments} comments={comments} />
-      <CommentGroup.CreateComment subjectId={id} subjectType={type} />
+      {user.isLoggedIn && <CommentGroup.CreateComment subjectId={id} subjectType={type} />}
     </div>
   );
 };
