@@ -60,9 +60,9 @@ const PersonalInfo = (props) => {
     dispatch(loadAvatar(user.id, formData));
   };
 
-  useEffect(() => {
-    dispatch(getAvatar(user.id));
-  }, [dispatch, user.id]);
+  // useEffect(() => {
+  //   dispatch(getAvatar(user.id));
+  // }, [dispatch, user.id]);
 
   // eslint-disable-next-line no-unused-vars
   const avatarEdit = () => {
