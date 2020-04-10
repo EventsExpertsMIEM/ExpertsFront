@@ -64,6 +64,7 @@ const PersonalInfo = (props) => {
     dispatch(getAvatar(user.id));
   }, [dispatch, user.id]);
 
+  // eslint-disable-next-line no-unused-vars
   const avatarEdit = () => {
     if (user.avatar) {
       return (
@@ -120,7 +121,7 @@ const PersonalInfo = (props) => {
           className="img-fluid rounded"
           style={{ width: '15rem' }}
         />
-        {avatarEdit()}
+        {/* {avatarEdit()} */}
         <dl>
           {Object.entries(MAP).map(([key, value]) => (
             (
