@@ -66,7 +66,8 @@ export const ROLES = {
   SUPERADMIN: 'superadmin',
 };
 
-const api = 'http://192.168.255.100:8080/api/';
+// const api = 'http://192.168.255.100:8080/api/';
+const api = 'http://92.242.58.124:38080/api/';
 
 export const ACTION_MAP = {
   [ACTION.LOGIN]: {
