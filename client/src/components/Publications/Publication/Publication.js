@@ -100,10 +100,10 @@ const Publication = (props) => {
         <h6 className="text-muted text-left pl-3">{`Просмотры: ${viewCount}`}</h6>
         <div className="card-footer">
           <div className="row">
-            <div className="col-lg-10 col-md-10 col-sm-10 text-center">
+            <div className="col-lg-8 col-md-8 col-sm-8 text-center">
               {tags.map((tag) => <Link key={tag} to="/" className="badge badge-primary">{tag}</Link>)}
             </div>
-            <div className="col-lg-2 col-md-2 col-sm-2 text-muted text-center">
+            <div className="col-lg-4 col-md-4 col-sm-4 text-muted text-center">
               {formatDetailedDateTime(creationDate)}
             </div>
           </div>
