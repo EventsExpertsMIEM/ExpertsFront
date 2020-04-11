@@ -48,13 +48,25 @@ const SecurityTab = (props) => {
 
   const INPUTS_FIELDS = [
     {
-      name: 'currentPassword', type: 'password', placeholder: 'Текущий пароль', validate: required,
+      name: 'currentPassword',
+      type: 'password',
+      placeholder: 'Текущий пароль',
+      validate: required,
+      autoComplete: 'current-password',
     },
     {
-      name: 'newPassword', type: 'password', placeholder: 'Новый пароль', validate: required,
+      name: 'newPassword',
+      type: 'password',
+      placeholder: 'Новый пароль',
+      validate: required,
+      autoComplete: 'new-password',
     },
     {
-      name: 'repeatNewPassword', type: 'password', placeholder: 'Подтверждение нового пароля', validate: required,
+      name: 'repeatNewPassword',
+      type: 'password',
+      placeholder: 'Подтверждение нового пароля',
+      validate: required,
+      autoComplete: 'new-password',
     },
   ];
 

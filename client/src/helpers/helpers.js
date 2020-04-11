@@ -76,7 +76,7 @@ export const formatModalData = (data) => Object.entries(data).reduce((acc, [key,
 }, '');
 
 export const scrollToRef = (ref) => {
-  setTimeout(() => ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' }), 10);
+  setTimeout(() => ref && ref.current && ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' }), 10);
 };
 
 export const mapTagsToSelected = (tags, value = false) => tags.reduce((acc, name) => {

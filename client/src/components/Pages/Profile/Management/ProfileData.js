@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types, react/destructuring-assignment */
-import React, { Fragment, useEffect, useRef } from 'react';
+import React, { Fragment, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatDetailedDateTime } from '../../../../helpers/helpers';
-import { deleteAvatar, getAvatar, loadAvatar } from '../../../../actions';
+import { deleteAvatar, loadAvatar } from '../../../../actions';
 
 const format = (value) => {
   const isArray = Array.isArray(value);
