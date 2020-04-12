@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { FIELD_NAMES } from '../../../../helpers/consts';
 import {
-  deleteArticle, getAllTags, getUserArticles, updateArticle,
+  deleteArticle, getAllTags, getArticle, getUserArticles, updateArticle,
 } from '../../../../actions';
 import { mapTagsToSelected, scrollToRef } from '../../../../helpers/helpers';
 import MyPublications from './MyPublications';
@@ -116,10 +116,11 @@ const MyArticles = () => {
 
   const columns = getColumns(ref, toggleShow);
 
-  const onClick = (e) => {
+  const onClick = async (e) => {
     e.preventDefault();
-    dispatch(updateArticle(article));
-    dispatch(reset(FIELD_NAMES.ARTICLE));
+    await dispatch(updateArticle(article));
+    await dispatch(reset(FIELD_NAMES.ARTICLE));
+    await dispatch(getArticle(article.id));
     history.push(`/articles/${article.id}`);
   };
 

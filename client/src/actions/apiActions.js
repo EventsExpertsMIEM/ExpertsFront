@@ -742,6 +742,34 @@ export const toggleArticleDownvote = (id) => async (dispatch) => {
   }
 };
 
+export const deleteComment = (id) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.DELETE_COMMENT;
+  const path = getPath(id);
+  try {
+    const res = await axios[method](path);
+    dispatch({
+      type: ACTION.DELETE_COMMENT,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const updateComment = (id, text) => async (dispatch) => {
+  const { getPath, method } = ACTION_MAP.UPDATE_COMMENT;
+  const path = getPath(id);
+  try {
+    const res = await axios[method](path, { text });
+    dispatch({
+      type: ACTION.UPDATE_COMMENT,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const toggleCommentUpvote = (id) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.TOGGLE_COMMENT_UPVOTE;
   const path = getPath(id);

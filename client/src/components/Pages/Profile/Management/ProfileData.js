@@ -63,17 +63,19 @@ const PersonalInfo = (props) => {
     await dispatch(getAvatar(user.id));
   };
 
+  const userAvatar = avatar[user.id];
+
   useEffect(() => {
     (async () => {
-      if (!avatar[user.id]) {
+      if (!userAvatar) {
         await dispatch(getAvatar(user.id));
       }
     })();
-  }, [user.id, avatar, dispatch]);
+  }, [user.id, userAvatar, dispatch]);
 
   // eslint-disable-next-line no-unused-vars
   const avatarEdit = () => {
-    if (avatar[user.id]) {
+    if (userAvatar) {
       return (
         <div className="text-center">
           <button

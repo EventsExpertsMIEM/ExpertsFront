@@ -25,7 +25,7 @@ const CreatePublication = (props) => {
     e.preventDefault();
     await dispatch(addPublication(publication));
     await dispatch(reset(fieldName));
-    await dispatch(getAllPublications())
+    await dispatch(getAllPublications());
     history.push(redirectPath);
   };
 
