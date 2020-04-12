@@ -14,7 +14,7 @@ const mostDigits = (nums) => nums.reduce((acc, num) => Math.max(acc, digitCount(
  * @param {boolean} [isAscending]
  * @returns {arr} sortedArr
  * */
-const radixSort = (arr, sortByKey, isAscending) => {
+const radixSort = (arr, sortByKey, isAscending = true) => {
   const nums = arr.map((obj) => obj[sortByKey] || 0);
   const maxDigitCount = mostDigits(nums);
 

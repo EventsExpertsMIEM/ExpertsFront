@@ -777,22 +777,24 @@ export const resetComments = () => async (dispatch) => {
   });
 };
 
-export const getAvatar = (id = 1) => async (dispatch) => {
+export const getAvatar = (id) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.GET_USER_AVATAR;
   const path = getPath(id);
   try {
-    const res = await axios[method](path);
-    dispatch({
-      type: ACTION.GET_USER_AVATAR,
-      payload: res.data,
-    });
-    console.dir(res);
+    const res = await axios[method](path, { responseType: 'blob' });
+
+    if (res.status === 200) {
+      dispatch({
+        type: ACTION.GET_USER_AVATAR,
+        payload: Object.assign(res.data, { id }),
+      });
+    }
   } catch (err) {
     console.error(err);
   }
 };
 
-export const loadAvatar = (id = 1, image) => async (dispatch) => {
+export const loadAvatar = (id, image) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.LOAD_USER_AVATAR;
   const path = getPath(id);
   try {
@@ -810,10 +812,10 @@ export const deleteAvatar = (id) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.DELETE_USER_AVATAR;
   const path = getPath(id);
   try {
-    const res = await axios[method](path);
+    await axios[method](path);
     dispatch({
       type: ACTION.DELETE_USER_AVATAR,
-      payload: res.data,
+      payload: { id },
     });
   } catch (err) {
     console.error(err);

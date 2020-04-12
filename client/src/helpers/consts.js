@@ -23,3 +23,5 @@ export const FIELD_NAMES = {
 };
 
 export const DEFAULT_LANGUAGE = 'ru';
+
+export const DEFAULT_AVATAR = 'https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg';

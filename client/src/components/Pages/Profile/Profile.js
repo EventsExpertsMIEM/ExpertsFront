@@ -111,7 +111,7 @@ const Profile = () => {
       to={`${url}/${tabUrl}`}
     >
       {info}
-      {!!badge && <span className="badge badge-light">{badge}</span>}
+      {!!badge && <span className="ml-1 badge badge-light">{badge}</span>}
     </Link>
     )
   );
@@ -138,12 +138,12 @@ const Profile = () => {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-lg-4">
+        <div className="col-lg-3">
           <nav className="nav flex-column">
             {tabs.map(renderLinks)}
           </nav>
         </div>
-        <div className="col-lg-8">
+        <div className="col-lg-9">
           <div className="tab-content" id="nav-tabContent">
             {tabs.map(renderRoutes)}
           </div>

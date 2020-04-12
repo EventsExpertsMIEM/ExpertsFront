@@ -38,7 +38,7 @@ const CreatePublication = (props) => {
     <div className="container">
       <form id="questions-tab">
         <div className="tab-pane show active mt-3" id="security" aria-labelledby="nav-security">
-          {title && <h4>{title}</h4>}
+          {title && <h3 className="mb-4">{title}</h3>}
           {INPUT_FIELDS.map((input) => {
             const {
               name, placeholder, type, elementType,

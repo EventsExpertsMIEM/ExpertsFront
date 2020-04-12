@@ -36,7 +36,15 @@ const getColumns = (ref, toggleShow) => [
         Header: 'Статус',
         accessor: 'status',
         Cell: (props) => {
-          const { status, id } = props.row.original;
+          const { status } = props.row.original;
+          return <div>{dict[status] || status}</div>;
+        },
+      },
+      {
+        Header: 'Дейсвтия',
+        accessor: 'actions',
+        Cell: (props) => {
+          const { id } = props.row.original;
 
           const dispatch = useDispatch();
           const questions = useSelector((store) => store.questions);
@@ -65,9 +73,8 @@ const getColumns = (ref, toggleShow) => [
           const executeScroll = () => scrollToRef(ref);
           return (
             <>
-              <div>{dict[status] || status}</div>
               <button
-                className="btn btn-primary btn-sm"
+                className="btn btn-outline-warning btn-sm d-block"
                 type="button"
                 onClick={() => {
                   toggleShow(true);
@@ -78,7 +85,7 @@ const getColumns = (ref, toggleShow) => [
                 Редактировать
               </button>
               <button
-                className="btn btn-danger btn-sm"
+                className="btn btn-outline-danger btn-sm d-block mt-3"
                 type="button"
                 onClick={async () => {
                   await handleDeleteClick(id);

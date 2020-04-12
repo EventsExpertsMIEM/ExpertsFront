@@ -1,12 +1,15 @@
-/* eslint-disable react/prop-types, react/destructuring-assignment */
-import React, { Fragment, useEffect, useRef } from 'react';
+/* eslint-disable react/prop-types, react/destructuring-assignment, no-shadow */
+import React, {
+  Fragment, useEffect, useRef,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatDetailedDateTime } from '../../../../helpers/helpers';
 import { deleteAvatar, getAvatar, loadAvatar } from '../../../../actions';
+import { DEFAULT_AVATAR } from '../../../../helpers/consts';
 
 const format = (value) => {
   const isArray = Array.isArray(value);
-  if (value === undefined || (isArray && !value.length)) {
+  if (value === undefined || value === null || (isArray && !value.length)) {
     return '—';
   }
 
@@ -15,6 +18,7 @@ const format = (value) => {
   }
   return value;
 };
+
 const PersonalInfo = (props) => {
   const {
     name,
@@ -49,24 +53,27 @@ const PersonalInfo = (props) => {
   const dispatch = useDispatch();
   const ref = useRef(null);
   const user = useSelector((store) => store.user);
+  const avatar = useSelector((store) => store.avatar);
 
-  const onChange = (e) => {
-    // eslint-disable-next-line no-shadow
-    const { files, name } = e.target;
-    const [file] = files;
-    console.log(file);
+  const onChange = async (e) => {
+    const { files: [file] } = e.target;
     const formData = new FormData();
-    formData.append('file', file, name);
-    dispatch(loadAvatar(user.id, formData));
+    formData.append('file', file);
+    await dispatch(loadAvatar(user.id, formData));
+    await dispatch(getAvatar(user.id));
   };
 
-  // useEffect(() => {
-  //   dispatch(getAvatar(user.id));
-  // }, [dispatch, user.id]);
+  useEffect(() => {
+    (async () => {
+      if (!avatar[user.id]) {
+        await dispatch(getAvatar(user.id));
+      }
+    })();
+  }, [user.id, avatar, dispatch]);
 
   // eslint-disable-next-line no-unused-vars
   const avatarEdit = () => {
-    if (user.avatar) {
+    if (avatar[user.id]) {
       return (
         <div className="text-center">
           <button
@@ -109,29 +116,31 @@ const PersonalInfo = (props) => {
   return (
     <form id="personal-info">
       <div
-        className="tab-pane fade show active text-center mt-3"
-        id="personal-info-tab"
-        role="tabpanel"
+        className="text-center mt-3"
         aria-labelledby="nav-personal-tab"
       >
         <img
           alt="User Pic"
-          src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"
+          src={avatar[user.id] || DEFAULT_AVATAR}
           id="profile-image1"
           className="img-fluid rounded"
           style={{ width: '15rem' }}
         />
-        {/* {avatarEdit()} */}
-        <dl>
-          {Object.entries(MAP).map(([key, value]) => (
-            (
-              <Fragment key={key}>
-                <dt>{key}</dt>
-                <dd>{format(value)}</dd>
-              </Fragment>
-            )
-          ))}
-        </dl>
+        {avatarEdit()}
+        <div className="align-items-center">
+          <dl className="row rounded align-items-center">
+            {Object.entries(MAP).map(([key, value]) => (
+              (
+                <Fragment key={key}>
+                  <div className="col-4" />
+                  <dt className="col-3 text-left">{key}</dt>
+                  <dd className="col-3 text-left">{format(value)}</dd>
+                  <div className="col-1" />
+                </Fragment>
+              )
+            ))}
+          </dl>
+        </div>
       </div>
     </form>
   );

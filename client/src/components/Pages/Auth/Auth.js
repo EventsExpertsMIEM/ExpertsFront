@@ -13,10 +13,10 @@ const Auth = () => {
   return (
     <div className="container">
       <div className="col-6 offset-3">
-        <nav className="nav-pills nav-justified">
-          <div className="nav nav-tabs" id="nav-tab" role="tablist">
+        <nav className="nav-justified">
+          <div className="nav nav-tabs">
             <Link
-              className="nav-item nav-link"
+              className="nav-item nav-link mr-3"
               to={`${url}/register`}
               role="tab"
               aria-controls="register"

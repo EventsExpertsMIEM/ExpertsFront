@@ -65,7 +65,11 @@ export default p((state = INITIAL_STATE, action) => {
       return state;
     }
     case ACTION.GET_USER_AVATAR: {
-      state.avatar = action.payload;
+      if (state.avatar) {
+        return state;
+      }
+      const objectURL = URL.createObjectURL(action.payload);
+      state.avatar = objectURL;
       return state;
     }
     case ACTION.DELETE_USER_AVATAR: {
