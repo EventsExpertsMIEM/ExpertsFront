@@ -13,10 +13,10 @@ const Comments = ({ getComments, comments, showPublicationId }) => {
 
   return (
     <>
-      <h4>Комментарии</h4>
+      <h4 className="mt-4 mb-2">Комментарии</h4>
       <div className="media">
         <div className="media-body">
-          {comments.map((comment) => (
+          {comments.slice(0).reverse().map((comment) => (
             <Comment
               key={comment.id}
               {...comment}

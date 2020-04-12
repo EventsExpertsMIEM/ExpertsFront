@@ -1,4 +1,5 @@
-/* eslint-disable react/jsx-props-no-spreading, react/prop-types */
+/* eslint-disable react/jsx-props-no-spreading, react/prop-types,
+ jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { DEFAULT_DATE_FORMAT_OPTIONS, DEFAULT_LANGUAGE, DETAILED_DATE_FORMAT_OPTIONS } from './consts';
 
@@ -45,6 +46,7 @@ export const renderField = (props, elementType) => {
   });
   return (
     <div className="form-group">
+      {input && input.value && type !== 'checkbox' && <div className="mt-2 mb-2">{placeholder}</div>}
       {element}
       {!disabled && touched && (error && <span className="text-danger">{error}</span>)}
     </div>
@@ -96,3 +98,14 @@ export const normalize = (arr) => arr.reduce((acc, cur) => {
   acc[cur.id] = cur;
   return acc;
 }, {});
+
+const urls = new WeakMap();
+
+export const blobUrl = (blob) => {
+  if (urls.has(blob)) {
+    return urls.get(blob);
+  }
+  const url = URL.createObjectURL(blob);
+  urls.set(blob, url);
+  return url;
+};

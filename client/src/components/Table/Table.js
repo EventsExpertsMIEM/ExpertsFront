@@ -16,7 +16,7 @@ const Table = (props) => {
   });
 
   if (!data.length) {
-    return <h4 className="text-center">Вопросы не найдены</h4>;
+    return <h4 className="text-center">Данные отсутствуют</h4>;
   }
 
   return (

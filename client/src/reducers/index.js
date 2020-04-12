@@ -6,6 +6,7 @@ import comments from './commentsReducer';
 import tags from './tagsReducer';
 import table from './tableReducer';
 import articles from './articlesReducer';
+import avatar from './avatarReducer';
 
 export default combineReducers({
   questions,
@@ -15,4 +16,5 @@ export default combineReducers({
   tags,
   table,
   articles,
+  avatar,
 });

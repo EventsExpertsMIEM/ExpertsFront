@@ -111,7 +111,7 @@ const Profile = () => {
       to={`${url}/${tabUrl}`}
     >
       {info}
-      {!!badge && <span className="badge badge-light">{badge}</span>}
+      {!!badge && <span className="ml-1 badge badge-light">{badge}</span>}
     </Link>
     )
   );
