@@ -9,7 +9,7 @@ import { DEFAULT_AVATAR } from '../../../../helpers/consts';
 
 const format = (value) => {
   const isArray = Array.isArray(value);
-  if (value === undefined || (isArray && !value.length)) {
+  if (value === undefined || value === null || (isArray && !value.length)) {
     return '—';
   }
 
@@ -116,9 +116,7 @@ const PersonalInfo = (props) => {
   return (
     <form id="personal-info">
       <div
-        className="tab-pane fade show active text-center mt-3"
-        id="personal-info-tab"
-        role="tabpanel"
+        className="text-center mt-3"
         aria-labelledby="nav-personal-tab"
       >
         <img
@@ -129,16 +127,20 @@ const PersonalInfo = (props) => {
           style={{ width: '15rem' }}
         />
         {avatarEdit()}
-        <dl>
-          {Object.entries(MAP).map(([key, value]) => (
-            (
-              <Fragment key={key}>
-                <dt>{key}</dt>
-                <dd>{format(value)}</dd>
-              </Fragment>
-            )
-          ))}
-        </dl>
+        <div className="align-items-center">
+          <dl className="row rounded align-items-center">
+            {Object.entries(MAP).map(([key, value]) => (
+              (
+                <Fragment key={key}>
+                  <div className="col-4" />
+                  <dt className="col-3 text-left">{key}</dt>
+                  <dd className="col-3 text-left">{format(value)}</dd>
+                  <div className="col-1" />
+                </Fragment>
+              )
+            ))}
+          </dl>
+        </div>
       </div>
     </form>
   );

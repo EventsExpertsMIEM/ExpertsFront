@@ -21,17 +21,24 @@ const Publication = (props) => {
   const id = props.match.params.id || window.location.pathname.match(/\d+/g)[0];
   const subject = subjects[id];
 
+  const tagsString = subject && subject.tags.join();
+
   useEffect(() => {
     (async () => {
       const res = await dispatch(getSubj(id));
       if ((res instanceof Error)) {
         setIsQuestionFound(false);
       }
+      await dispatch(getUserLoginStatus());
+      await dispatch(getComments(id));
     })();
-    dispatch(getUserLoginStatus());
-    dispatch(getComments(id));
-    dispatch(increaseViews(id));
-  }, [dispatch, getSubj, getComments, increaseViews, id]);
+  }, [dispatch, getSubj, getComments, increaseViews, id, tagsString]);
+
+  useEffect(() => {
+    (async () => {
+      await dispatch(increaseViews(id));
+    })();
+  }, [dispatch, increaseViews, id]);
 
   if (!isQuestionFound) {
     return (

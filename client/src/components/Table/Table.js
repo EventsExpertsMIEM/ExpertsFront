@@ -15,6 +15,10 @@ const Table = (props) => {
     data,
   });
 
+  if (!data.length) {
+    return <h4 className="text-center">Данные отсутствуют</h4>;
+  }
+
   return (
     <BTable striped bordered hover size="lg" {...getTableProps()}>
       <thead className="text-center">

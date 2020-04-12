@@ -55,8 +55,11 @@ const Questions = () => {
           id,
           title,
           body,
-          creation_date: creationDate,
+          creation_date,
           tags,
+          closed,
+          only_chosen_tags,
+          only_experts_answer,
         } = question;
 
         return (
@@ -66,6 +69,15 @@ const Questions = () => {
               <p className="card-text">
                 {body}
               </p>
+              <h5 className="text-muted text-left">
+                {closed ? 'Вопрос закрыт' : ''}
+              </h5>
+              <h5 className="text-muted text-left">
+                {only_experts_answer ? 'Вопрос только для экспертов' : ''}
+              </h5>
+              <h5 className="text-muted text-left">
+                {only_chosen_tags ? 'Вопрос только для экспертов из указанных научных областей' : ''}
+              </h5>
               <Link
                 to={{
                   pathname: `/questions/${id}`,
@@ -78,8 +90,7 @@ const Questions = () => {
             </div>
             <div className="card-footer">
               <div className="row">
-
-                <div className="col-lg-8 col-md-8 col-sm-8 text-center">
+                <div className="col-8 text-center">
                   {tags.map((tag) => (
                     <Link
                       key={tag}
@@ -90,8 +101,8 @@ const Questions = () => {
                     </Link>
                   ))}
                 </div>
-                <div className="col-lg-4 col-md-4 col-sm-4 text-muted text-center">
-                  {formatDetailedDateTime(creationDate)}
+                <div className="col-4 col-4 text-muted text-center">
+                  {formatDetailedDateTime(creation_date)}
                 </div>
               </div>
             </div>
