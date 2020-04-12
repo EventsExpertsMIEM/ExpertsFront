@@ -809,7 +809,7 @@ export const getAvatar = (id) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.GET_USER_AVATAR;
   const path = getPath(id);
   try {
-    const res = await axios[method](path, { responseType: 'blob' });
+    const res = await axios[method](path, { responseType: 'blob', headers: { 'Cache-Control': 'no-cache' } });
 
     if (res.status === 200) {
       dispatch({
