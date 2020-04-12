@@ -37,22 +37,34 @@ const TagsPanel = () => {
       Header: 'Научные области (тэги)',
       columns: [
         {
-          Header: 'Имя',
+          Header: 'Название',
           accessor: 'name',
+          Cell: (props) => {
+            const name = props.row.original;
+            return <h5>{name}</h5>;
+          },
+        },
+        {
+          Header: 'Действия',
+          accessor: 'actions',
           Cell: (props) => {
             const name = props.row.original;
             return (
               <>
-                <h4>{name}</h4>
-                <h4
-                  className="text-center btn btn-sm btn-outline-primary"
+                <button
+                  type="button"
+                  className="text-center btn btn-sm d-block btn-outline-dark"
                   onClick={() => onTagRenameClick(name)}
                 >
                   Переименовать
-                </h4>
-                <h4 className="text-center btn btn-danger btn-sm" onClick={() => onDeleteClick(name)}>
+                </button>
+                <button
+                  type="button"
+                  className="text-center btn btn-outline-danger d-block btn-sm mt-3"
+                  onClick={() => onDeleteClick(name)}
+                >
                   Удалить
-                </h4>
+                </button>
               </>
             );
           },
@@ -71,9 +83,10 @@ const TagsPanel = () => {
   return (
     <>
       <Table data={data} columns={columns} />
-      <h4 className="text-center btn btn-lg btn-outline-primary" onClick={onAddTag}>
+      <h5 className="text-center btn btn-lg btn-outline-primary mb-2" onClick={onAddTag}>
         Создать новый тэг
-      </h4>
+      </h5>
+      <hr />
     </>
   );
 };

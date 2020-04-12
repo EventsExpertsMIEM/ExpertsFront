@@ -72,7 +72,7 @@ const SecurityTab = (props) => {
 
   return (
     <form id="security">
-      <div className="tab-pane show active mt-3" id="security" role="tabpanel" aria-labelledby="nav-security">
+      <div className="tab-pane show active mt-3 w-75" id="security" role="tabpanel" aria-labelledby="nav-security">
         <h4>Смена пароля</h4>
         {INPUTS_FIELDS.map((input) => (
           <Field
@@ -83,7 +83,7 @@ const SecurityTab = (props) => {
           />
         ))}
         <div className="form-row text-center">
-          <div className="form-group text-center col-12">
+          <div className="form-group text-left col-12">
             <input
               type="submit"
               className="btn btn-seconadary"
@@ -94,16 +94,31 @@ const SecurityTab = (props) => {
             {!passwordsMatch && <p className="text-danger">Пароли не совпадают</p>}
           </div>
         </div>
-        <h4 className="text-center page-link btn" onClick={onResetPassword}>
-          Сбросить текущий пароль
-        </h4>
-        <h4 className="text-center page-link btn" onClick={onCloseAllSessions}>
-          Закрыть все сессии, кроме
-          текущей
-        </h4>
-        <h4 className="text-center page-link btn btn-danger" onClick={onDeleteUser}>
-          Удалить аккаунт
-        </h4>
+        <div className="form-group text-center">
+
+          <button
+            type="button"
+            className="text-center btn btn-outline-dark d-block w-50 mt-2"
+            onClick={onResetPassword}
+          >
+            Сбросить текущий пароль
+          </button>
+          <button
+            type="button"
+            className="text-center btn btn-outline-primary d-block w-50 mt-2"
+            onClick={onCloseAllSessions}
+          >
+            Закрыть все сессии, кроме
+            текущей
+          </button>
+          <button
+            type="button"
+            className="text-center btn d-block w-50 btn-outline-danger mt-2"
+            onClick={onDeleteUser}
+          >
+            Удалить аккаунт
+          </button>
+        </div>
       </div>
     </form>
   );

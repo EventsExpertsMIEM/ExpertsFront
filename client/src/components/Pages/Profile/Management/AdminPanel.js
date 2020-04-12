@@ -27,7 +27,6 @@ const AdminPanel = () => {
   };
 
   const isBanned = (status) => status === 'banned';
-  const disabled = (status) => (isBanned(status) ? 'disabled' : undefined);
   const onBan = (status, id) => (isBanned(status) ? undefined : () => onBanClick(id));
   const onOpenProfile = (id) => {
     ref.current.showAlert(formatModalData(data[data.length - id]));
@@ -48,7 +47,7 @@ const AdminPanel = () => {
           accessor: 'email',
           Cell: (props) => {
             const { email } = props.row.original;
-            return (<div>{email}</div>);
+            return email;
           },
         },
         {
@@ -58,15 +57,13 @@ const AdminPanel = () => {
             const { role, status, id } = props.row.original;
             return (
               <div>
-                <h4 className="text-center">{`Роль: ${role}`}</h4>
-                <h4 className="text-center">{`Статус: ${status}`}</h4>
+                <h5 className="text-center">{`Статус: ${status}`}</h5>
+                <h5 className="text-center">{`Роль: ${role}`}</h5>
                 <select
                   className="form-control"
-                  multiple
-                  size="5"
                   onChange={(e) => onRoleChangeClick(id, e.target.value)}
                 >
-                  <option value="" defaultValue readOnly disabled>Изменить роль</option>
+                  <option value="" defaultValue readOnly>Изменить роль</option>
                   {Object.values(ROLES).map((el) => (
                     el !== ROLES.SUPERADMIN && (
                     <option
@@ -79,19 +76,33 @@ const AdminPanel = () => {
                     )
                   ))}
                 </select>
-                <h4
-                  className={`text-center btn btn-danger btn-sm ${disabled(status)}`}
-                  onClick={onBan(status, id)}
-                >
-                  Забанить
-                </h4>
-                <h4
-                  className="text-center btn btn-sm btn-outline-primary"
+              </div>
+            );
+          },
+        },
+        {
+          Header: 'Управление',
+          accessor: 'actions',
+          Cell: (props) => {
+            const { status, id } = props.row.original;
+            return (
+              <>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-outline-info b-block mb-3"
                   onClick={() => onOpenProfile(id)}
                 >
                   Подробнее
-                </h4>
-              </div>
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-outline-danger d-block"
+                  disabled={isBanned(status)}
+                  onClick={onBan(status, id)}
+                >
+                  Заблокировать
+                </button>
+              </>
             );
           },
         },
