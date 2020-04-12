@@ -5,7 +5,7 @@ import { FIELD_NAMES } from '../../../helpers/consts';
 import {
   maxValue1024, maxValue128, minValue28, required, trim, uppercase,
 } from '../../../helpers/helpers';
-import { addArticle } from '../../../actions';
+import { addArticle, getAllArticles } from '../../../actions';
 import CreatePublication from '../Publication/CreatePublication';
 
 const INPUT_FIELDS = [
@@ -39,6 +39,7 @@ const CreateArticle = ({ title, scrollRef, onClick }) => (
     INITIAL_VALUES={INITIAL_VALUES}
     fieldName={FIELD_NAMES.ARTICLE}
     addPublication={addArticle}
+    getAllPublications={getAllArticles}
     redirectPath="/articles"
     title={title || 'Новая статья'}
     scrollRef={scrollRef}
