@@ -16,10 +16,11 @@ const Comments = ({ getComments, comments, showPublicationId }) => {
     // eslint-disable-next-line consistent-return
   const onUpdateComment = async (id) => {
     const text = prompt('Введите новый комментарий');
-    if (!text) {
+    const formattedText = text && text.trim();
+    if (!formattedText) {
       return null;
     }
-    await dispatch(updateComment(id, text));
+    await dispatch(updateComment(id, formattedText));
     await dispatch(getUserComments(user.id));
   };
 
