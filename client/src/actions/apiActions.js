@@ -758,9 +758,9 @@ export const deleteComment = (id) => async (dispatch) => {
 
 export const updateComment = (id, text) => async (dispatch) => {
   const { getPath, method } = ACTION_MAP.UPDATE_COMMENT;
-  const path = getPath(id);
+  const path = getPath(id, text);
   try {
-    const res = await axios[method](path, { text });
+    const res = await axios[method](path);
     dispatch({
       type: ACTION.UPDATE_COMMENT,
       payload: res,

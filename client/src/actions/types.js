@@ -251,7 +251,7 @@ export const ACTION_MAP = {
     method: METHODS.DELETE,
   },
   [ACTION.UPDATE_COMMENT]: {
-    getPath: (id) => `${api}comment/${id}`,
+    getPath: (id, text) => `${api}comment/${id}?text=${text}`,
     method: METHODS.PUT,
   },
   [ACTION.TOGGLE_COMMENT_UPVOTE]: {
