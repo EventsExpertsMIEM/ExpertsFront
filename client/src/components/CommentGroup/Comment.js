@@ -33,12 +33,15 @@ const Comment = (props) => {
   };
 
   const user = useSelector((store) => store.user);
+  const userAvatar = avatar[u_id];
 
   useEffect(() => {
     (async () => {
-      await dispatch(getAvatar(u_id));
+      if (!showPublicationId && !userAvatar) {
+        await dispatch(getAvatar(u_id));
+      }
     })();
-  }, [dispatch, u_id]);
+  }, [dispatch, u_id, showPublicationId, userAvatar]);
 
   return (
     <div key={id} className="media-body mt-3 mb-3 row">
@@ -48,7 +51,7 @@ const Comment = (props) => {
             <>
               <h5 className="mt-0">{email}</h5>
               <img
-                src={avatar[u_id] || DEFAULT_AVATAR}
+                src={userAvatar || DEFAULT_AVATAR}
                 className="mr-3 rounded img-thumbnail img-fluid"
                 alt="avatar"
               />

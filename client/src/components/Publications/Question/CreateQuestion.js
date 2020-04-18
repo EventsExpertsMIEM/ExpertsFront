@@ -6,7 +6,7 @@ import { FIELD_NAMES } from '../../../helpers/consts';
 import {
   maxValue1024, maxValue128, minValue28, required, trim, uppercase,
 } from '../../../helpers/helpers';
-import { addQuestion } from '../../../actions';
+import { addQuestion, getAllQuestions } from '../../../actions';
 
 const INPUT_FIELDS = [
   {
@@ -60,6 +60,7 @@ const CreateQuestion = ({ title, scrollRef, onClick }) => (
     INITIAL_VALUES={INITIAL_VALUES}
     fieldName={FIELD_NAMES.QUESTION}
     addPublication={addQuestion}
+    getAllPublications={getAllQuestions}
     redirectPath="/"
     title={title || 'Новый вопрос экспертам'}
     scrollRef={scrollRef}

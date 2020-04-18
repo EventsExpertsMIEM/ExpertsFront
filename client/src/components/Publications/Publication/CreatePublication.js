@@ -13,7 +13,7 @@ import TagsSelector from '../../Tags/TagsSelector';
 const CreatePublication = (props) => {
   const {
     pristine, submitting, invalid, scrollRef, title = '',
-    fieldName, addPublication, redirectPath, INITIAL_VALUES, INPUT_FIELDS,
+    fieldName, addPublication, getAllPublications, redirectPath, INITIAL_VALUES, INPUT_FIELDS,
   } = props;
   const dispatch = useDispatch();
   const history = useHistory();
@@ -21,10 +21,11 @@ const CreatePublication = (props) => {
   const { tags = INITIAL_VALUES && INITIAL_VALUES.tags } = publication;
   const allTags = useSelector((store) => store.tags);
 
-  const defaultOnClick = (e) => {
+  const defaultOnClick = async (e) => {
     e.preventDefault();
-    dispatch(addPublication(publication));
-    dispatch(reset(fieldName));
+    await dispatch(addPublication(publication));
+    await dispatch(reset(fieldName));
+    await dispatch(getAllPublications());
     history.push(redirectPath);
   };
 

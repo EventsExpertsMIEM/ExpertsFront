@@ -24,6 +24,8 @@ export const ACTION = {
   DELETE_QUESTION: 'DELETE_QUESTION',
   GET_QUESTION_COMMENTS: 'GET_QUESTION_COMMENTS',
   ADD_QUESTION_COMMENT: 'ADD_QUESTION_COMMENT',
+  DELETE_COMMENT: 'DELETE_COMMENT',
+  UPDATE_COMMENT: 'UPDATE_COMMENT',
   TOGGLE_COMMENT_UPVOTE: 'TOGGLE_COMMENT_UPVOTE',
   TOGGLE_COMMENT_DOWNVOTE: 'TOGGLE_COMMENT_DOWNVOTE',
   INCREASE_QUESTION_VIEWS: 'INCREASE_QUESTION_VIEWS',
@@ -243,6 +245,14 @@ export const ACTION_MAP = {
   [ACTION.TOGGLE_ARTICLE_DOWNVOTE]: {
     getPath: (id) => `${api}article/${id}/toggle_downvote`,
     method: METHODS.GET,
+  },
+  [ACTION.DELETE_COMMENT]: {
+    getPath: (id) => `${api}comment/${id}`,
+    method: METHODS.DELETE,
+  },
+  [ACTION.UPDATE_COMMENT]: {
+    getPath: (id, text) => `${api}comment/${id}?text=${text}`,
+    method: METHODS.PUT,
   },
   [ACTION.TOGGLE_COMMENT_UPVOTE]: {
     getPath: (id) => `${api}comment/${id}/toggle_upvote`,

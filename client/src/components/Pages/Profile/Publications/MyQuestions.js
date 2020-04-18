@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { FIELD_NAMES } from '../../../../helpers/consts';
 import {
-  deleteQuestion, getAllTags, getUserQuestions, updateQuestion,
+  deleteQuestion, getAllTags, getQuestion, getUserQuestions, updateQuestion,
 } from '../../../../actions';
 import { mapTagsToSelected, scrollToRef } from '../../../../helpers/helpers';
 import MyPublications from './MyPublications';
@@ -114,10 +114,11 @@ const MyQuestions = () => {
 
   const columns = getColumns(ref, toggleShow);
 
-  const onClick = (e) => {
+  const onClick = async (e) => {
     e.preventDefault();
-    dispatch(updateQuestion(question));
-    dispatch(reset(FIELD_NAMES.QUESTION));
+    await dispatch(updateQuestion(question));
+    await dispatch(reset(FIELD_NAMES.QUESTION));
+    await dispatch(getQuestion(question.id));
     history.push(`/questions/${question.id}`);
   };
 
